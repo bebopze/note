@@ -5,7 +5,7 @@
 
     <parent>
         <groupId>com.junzijian</groupId>
-        <artifactId>spring-cloud-alibaba-study</artifactId>
+        <artifactId>spring-cloud-netflix-study</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -18,7 +18,6 @@
 
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -45,5 +44,14 @@
         <!-- lombok -->
 
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

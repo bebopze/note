@@ -11,14 +11,5 @@
 
     <artifactId>govern-gateway-spring-cloud-gateway</artifactId>
 
-    <build>
-        <finalName>govern-gateway-spring-cloud-gateway</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

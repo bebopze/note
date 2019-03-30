@@ -6,6 +6,7 @@
     <groupId>com.junzijian</groupId>
     <artifactId>spring-cloud-alibaba-study</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <name>spring-cloud-alibaba-study</name>
     <description>Demo project for Spring Boot</description>
@@ -18,6 +19,8 @@
 
         <module>govern-gateway</module>
         <module>govern-center</module>
+
+        <module>service-user-center-oauth</module>
 
     </modules>
 
@@ -42,8 +45,6 @@
         <activiti-spring-boot-starter-basic.version>6.0.0</activiti-spring-boot-starter-basic.version>
         <guava.version>27.0.1-jre</guava.version>
         <fastjson.version>1.2.54</fastjson.version>
-        <json-lib.version>2.4</json-lib.version>
-        <gson.version>2.8.2</gson.version>
         <aliyun-sdk-oss.version>3.1.0</aliyun-sdk-oss.version>
         <alipay-sdk-java.version>3.4.49.ALL</alipay-sdk-java.version>
         <springfox-swagger.version>2.9.2</springfox-swagger.version>
@@ -59,16 +60,15 @@
     <dependencyManagement>
         <dependencies>
 
-            <!-- spring-cloud -->
+            <!-- spring-cloud-alibaba -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <!--<version>Finchley.RELEASE</version>-->
                 <version>Greenwich.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- spring-cloud -->
+            <!-- spring-cloud-alibaba -->
 
             <!-- web -->
             <dependency>
