@@ -12,5 +12,6 @@ target/
 .idea/
 .mvn/
 *.iml
+logs/
 *mvnw
 *.cmd

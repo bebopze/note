@@ -10,10 +10,10 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>user-center-oauth</artifactId>
+    <artifactId>service-user-center-oauth</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>user-center-oauth</name>
+    <name>service-user-center-oauth</name>
     <description>Demo project for Spring Boot</description>
 
 

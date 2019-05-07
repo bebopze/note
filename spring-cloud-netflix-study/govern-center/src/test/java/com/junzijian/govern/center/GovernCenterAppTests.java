@@ -1,4 +1,4 @@
-package com.junzijian.user.center.oauth;
+package com.junzijian.govern.center;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserCenterOauthApplicationTests {
+public class GovernCenterAppTests {
 
 	@Test
 	public void contextLoads() {
