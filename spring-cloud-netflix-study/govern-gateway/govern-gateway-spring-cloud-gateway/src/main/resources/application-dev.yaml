@@ -7,8 +7,8 @@ spring:
 
   # redis
   redis:
-    host: 47.97.122.31
-    port: 6380
+    host: 47.97.112.202
+    port: 6379
     password: yunche@1234
     timeout: 3000
     lettuce:
