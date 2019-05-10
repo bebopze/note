@@ -1,0 +1,104 @@
+server:
+  port: 8070
+
+spring:
+  application:
+    name: yunche-govern-gateway-spring-cloud-gateway
+
+  # redis
+  redis:
+    host: 47.97.122.31
+    port: 6380
+    password: yunche@1234
+    timeout: 3000
+    lettuce:
+      pool:
+        max-active: 200
+        max-idle: 50
+        min-idle: 24
+        max-wait: 2000
+
+#  zipkin:
+#    enabled: true
+#    sender:
+#      type: rabbit
+#    sleuth:
+#      enabled: true
+#      http:
+#        legacy:
+#          enabled: true
+#    #jwt密码
+#    security:
+#      oauth2:
+#        jwt:
+#          signingKey: 123456
+  cloud:
+    # gateway
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      # default-filters
+      default-filters:
+      - StripPrefix=1          # 去除prefix：/api
+      - AddResponseHeader=X-Response-Default-Foo, Default-Bar
+      - name: RequestRateLimiter
+        args:
+          redis-rate-limiter.replenishRate: 1000  # 令牌桶的容积
+          redis-rate-limiter.burstCapacity: 1     # 流速 每秒
+          rate-limiter: "#{@defaultRedisRateLimiter}"  # SPEL表达式去的对应的bean
+          key-resolver: "#{@remoteAddressKeyResolver}" # SPEL表达式去的对应的bean
+      # router
+      routes:
+      # =====================================
+      - id: yunche-api-business-web
+        uri: lb://yunche-api-business-web
+        predicates:
+        - Path=${server.servlet.context-path}/biz/web/**
+        filters:
+#        - PrefixPath=/v1     # 添加prefix  /api/biz/web/v1
+#        - StripPrefix=1      # 去除prefix  /biz/web
+        - AddResponseHeader=foo, bar
+        - name: Retry
+          args:
+            retries: 3
+            statuses: BAD_GATEWAY
+      # =====================================
+      - id: yunche-api-business-app
+        uri: lb://yunche-api-business-app
+        predicates:
+        - Path=${server.servlet.context-path}/biz/app/**
+        filters:
+        - AddResponseHeader=foo, bar
+        - name: Retry
+          args:
+            retries: 3
+            statuses: BAD_GATEWAY
+      # =====================================
+      - id: yunche-api-business-alipay-life
+        uri: lb://yunche-api-business-alipay-life
+        predicates:
+        - Path=${server.servlet.context-path}/biz/alipay/life/**
+        filters:
+        - AddResponseHeader=foo, bar
+        - name: Retry
+          args:
+            retries: 3
+            statuses: BAD_GATEWAY
+
+# eureka
+eureka:
+  client:
+    registerWithEureka: true  # 服务注册开关
+    fetchRegistry: true       # 服务发现开关
+    serviceUrl:               # Eureka客户端与Eureka服务端进行交互的地址，多个中间用逗号分隔
+      defaultZone: ${EUREKA_SERVER:http://localhost:50101/eureka/}
+
+# 网关白名单，无需要签权url
+gate:
+ ignore:
+   authentication:
+     startWith: /oauth,/open
+
+#management.endpoints.web.exposure.include: '*'

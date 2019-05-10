@@ -11,7 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @EnableDiscoveryClient
 @SpringBootApplication
-//@EntityScan("com.junzijian.framework.model") //扫描实体类
+@EntityScan("com.junzijian.framework.model") //扫描实体类
 public class UCenterApp {
 
     public static void main(String[] args) {

@@ -19,7 +19,7 @@ public class UserCenterServiceImpl implements UserCenterService {
 
     @Override
     public UserDO getUserByUsername(String username) {
-        UserDO userDO = userRepository.findByUsername(username);
+        UserDO userDO = userRepository.findByEmail(username);
         return userDO;
     }
 }

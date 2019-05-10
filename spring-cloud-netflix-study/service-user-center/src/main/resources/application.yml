@@ -18,6 +18,15 @@ spring:
       max-active: 20
       test-on-borrow: true
 
+  jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: UTC
+
   redis:
     host: 47.97.112.202
     port: 6379
