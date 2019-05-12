@@ -14,12 +14,6 @@
 
     <dependencies>
 
-        <!--<dependency>-->
-        <!--<groupId>com.yunche</groupId>-->
-        <!--<artifactId>yunche-framework-util</artifactId>-->
-        <!--<version>0.0.1-SNAPSHOT</version>-->
-        <!--</dependency>-->
-
         <!-- common -->
         <dependency>
             <groupId>com.junzijian</groupId>
@@ -28,18 +22,17 @@
         </dependency>
         <!-- common -->
 
-        <!-- web -->
+        <!-- admin-client -->
         <!--<dependency>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-web</artifactId>-->
+        <!--<groupId>de.codecentric</groupId>-->
+        <!--<artifactId>spring-boot-admin-starter-client</artifactId>-->
         <!--</dependency>-->
-        <!-- web -->
-
+        <!-- admin-client -->
         <!-- actuator -->
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-actuator</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
         <!-- actuator -->
 
         <!-- log4j2 -->
@@ -60,10 +53,12 @@
         </dependency>
         <!-- redis -->
 
+        <!-- eureka-client -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+        <!-- eureka-client -->
 
         <!--<dependency>-->
         <!--<groupId>org.springframework.cloud</groupId>-->

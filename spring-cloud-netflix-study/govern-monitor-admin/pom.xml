@@ -10,40 +10,20 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>govern-center</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>govern-monitor-admin</artifactId>
 
-    <name>govern-center</name>
+    <name>govern-monitor-admin</name>
+    <description>Demo project for Spring Boot</description>
 
 
     <dependencies>
 
-        <!-- eureka-server -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- eureka-server -->
-
-        <!-- admin-client -->
-        <!--<dependency>-->
-            <!--<groupId>de.codecentric</groupId>-->
-            <!--<artifactId>spring-boot-admin-starter-client</artifactId>-->
-        <!--</dependency>-->
-        <!-- admin-client -->
-
-        <!-- actuator -->
+        <!-- web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- actuator -->
+        <!-- web -->
 
         <!-- log4j2 -->
         <dependency>
@@ -60,11 +40,25 @@
         </dependency>
         <!-- test -->
 
+        <!-- eureka-client -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <!-- eureka-client -->
+
+        <!-- admin-server -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+        </dependency>
+        <!-- admin-server -->
+
     </dependencies>
 
 
     <build>
-        <finalName>yunche-govern-center</finalName>
+        <finalName>govern-monitor-admin</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

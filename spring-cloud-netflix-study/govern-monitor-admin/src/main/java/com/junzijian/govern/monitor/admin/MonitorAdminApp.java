@@ -1,20 +1,17 @@
-package com.junzijian.govern.center;
+package com.junzijian.govern.monitor.admin;
 
+import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
-/**
- * @author liuzhe
- */
-@EnableEurekaServer // 标识此工程是一个EurekaServer
 @EnableDiscoveryClient
+@EnableAdminServer
 @SpringBootApplication
-public class GovernCenterApp {
+public class MonitorAdminApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(GovernCenterApp.class, args);
+        SpringApplication.run(MonitorAdminApp.class, args);
     }
 
 }

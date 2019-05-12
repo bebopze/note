@@ -50,6 +50,13 @@
         </dependency>
         <!-- eureka-client -->
 
+        <!-- actuator -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- actuator -->
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-security</artifactId>
@@ -68,13 +75,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <!-- web -->
-
-        <!-- actuator -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <!-- actuator -->
 
         <!-- log4j2 -->
         <dependency>

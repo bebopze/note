@@ -30,6 +30,13 @@
         </dependency>
         <!-- model -->
 
+        <!-- admin-client -->
+        <!--<dependency>-->
+            <!--<groupId>de.codecentric</groupId>-->
+            <!--<artifactId>spring-boot-admin-starter-client</artifactId>-->
+        <!--</dependency>-->
+        <!-- admin-client -->
+
         <!-- oauth2 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
