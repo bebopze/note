@@ -33,10 +33,10 @@
 
 
     <Loggers>
-        <logger level="DEBUG" name="com.junzijian">
+        <logger level="INFO" name="com.junzijian">
             <AppenderRef ref="App-File-Appender"/>
         </logger>
-        <Root level="DEBUG">
+        <Root level="INFO">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>

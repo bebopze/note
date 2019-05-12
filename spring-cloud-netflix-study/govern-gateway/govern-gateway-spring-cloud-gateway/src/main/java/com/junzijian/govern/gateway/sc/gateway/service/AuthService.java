@@ -12,7 +12,11 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
+import static com.junzijian.framework.common.constant.OAuthConst.COOKIE_KEY;
+
 /**
+ * 身份认证
+ *
  * @author liuzhe
  * @date 2018/11/13
  */
@@ -41,8 +45,9 @@ public class AuthService {
         if (!authorization.startsWith("Bearer ")) {
             return null;
         }
-        //取到jwt令牌
+        // 取到jwt令牌
         String jwt = authorization.substring(7);
+
         return jwt;
     }
 
@@ -53,8 +58,8 @@ public class AuthService {
      * @return
      */
     public String getTokenFromCookie(ServerHttpRequest request) {
-        Map<String, String> cookieMap = CookieUtil.readCookie(request, "uid");
-        String access_token = cookieMap.get("uid");
+        Map<String, String> cookieMap = CookieUtil.readCookie(request, COOKIE_KEY);
+        String access_token = cookieMap.get(COOKIE_KEY);
         if (StringUtils.isEmpty(access_token)) {
             return null;
         }
@@ -68,7 +73,7 @@ public class AuthService {
      * @return
      */
     public long getExpire(String access_token) {
-        //key
+        // key
         String key = "user_token:" + access_token;
         Long expire = stringRedisTemplate.getExpire(key, TimeUnit.SECONDS);
         return expire;
@@ -82,5 +87,16 @@ public class AuthService {
      */
     public boolean ignoreAuthentication(String url) {
         return Stream.of(this.ignoreUrls.split(",")).anyMatch(ignoreUrl -> url.startsWith(StringUtils.trim(ignoreUrl)));
+    }
+
+    /**
+     * swagger
+     *
+     * @param url
+     * @return
+     */
+    public boolean isSwaggerUrl(String url) {
+        // http://localhost:8090/api/user/center/v2/api-docs
+        return url.contains("/v2/api-docs");
     }
 }

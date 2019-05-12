@@ -45,10 +45,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (StringUtils.isEmpty(username)) {
             return null;
         }
-        // TODO 调用用户中心根据账号查询用户信息
-        UserDO userDO = uCenterClient.getUserByUsername(username);
+        // 调用用户中心根据账号查询用户信息
+        UserDO user = uCenterClient.getUserByUsername(username);
 //        EmployeeDO user = employeeDOMapper.selectByUsername();
-        UserDO user = new UserDO();
+//        UserDO user = new UserDO();
         if (user == null) {
             // 返回空给spring security表示用户不存在
             return null;

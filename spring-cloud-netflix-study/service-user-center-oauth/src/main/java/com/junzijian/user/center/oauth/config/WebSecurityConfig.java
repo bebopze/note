@@ -18,26 +18,20 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/user/login", "/user/logout", "/user/jwt");
-    }
+        web.ignoring().antMatchers("/userlogin","/userlogout","/userjwt");
 
+    }
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         AuthenticationManager manager = super.authenticationManagerBean();
         return manager;
     }
-
-    /**
-     * 采用bcrypt对密码进行编码
-     *
-     * @return
-     */
+    //采用bcrypt对密码进行编码
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()

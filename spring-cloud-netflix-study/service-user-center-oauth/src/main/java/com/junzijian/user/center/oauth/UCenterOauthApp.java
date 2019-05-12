@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,6 +14,8 @@ import org.springframework.web.client.RestTemplate;
 @EnableDiscoveryClient
 @SpringBootApplication
 @EntityScan("com.junzijian.framework.model") //扫描实体类
+@ComponentScan("com.junzijian.framework.common")
+@ComponentScan("com.junzijian.user.center.oauth")
 public class UCenterOauthApp {
 
     public static void main(String[] args) {

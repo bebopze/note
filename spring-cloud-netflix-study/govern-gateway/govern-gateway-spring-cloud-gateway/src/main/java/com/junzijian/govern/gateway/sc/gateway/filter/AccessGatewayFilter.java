@@ -27,15 +27,8 @@ import reactor.core.publisher.Mono;
  */
 @Slf4j
 @Component
-//@ComponentScan(basePackages = "com.yunche.auth.client")
 public class AccessGatewayFilter implements GlobalFilter, Ordered {
 
-//    private final static String X_CLIENT_TOKEN_USER = "x-client-token-user";
-//    private final static String X_CLIENT_TOKEN = "x-client-token";
-
-    /**
-     * 由authentication-client模块提供签权的feign客户端
-     */
     @Autowired
     private AuthService authService;
 
@@ -63,16 +56,23 @@ public class AccessGatewayFilter implements GlobalFilter, Ordered {
         String url = request.getPath().value();
         HttpHeaders headers = request.getHeaders();
 
+
+        // 可在此处做日志打印！！！ path/param/ip/time  e.g.
         log.info("url : {} , method : {} , authentication : {}, headers : {}",
                 url, method, authentication, headers);
+
+        // swagger放行
+        if (authService.isSwaggerUrl(url)) {
+            return chain.filter(exchange);
+        }
 
         // 不需要网关签权的url --> 放行
         if (authService.ignoreAuthentication(url)) {
             return chain.filter(exchange);
         }
 
-        // JWT filter
-        if (filterJWT(request)) {
+        // check JWT
+        if (checkJWT(request)) {
             // 放行
             return chain.filter(exchange);
         }
@@ -89,22 +89,22 @@ public class AccessGatewayFilter implements GlobalFilter, Ordered {
      * @param request
      * @return
      */
-    public boolean filterJWT(ServerHttpRequest request) {
+    public boolean checkJWT(ServerHttpRequest request) {
 
         // 取cookie中的身份令牌
-        String tokenFromCookie = authService.getTokenFromCookie(request);
-        if (StringUtils.isEmpty(tokenFromCookie)) {
+        String token = authService.getTokenFromCookie(request);
+        if (StringUtils.isEmpty(token)) {
             //拒绝访问
             return false;
         }
         // 从header中取jwt
-        String jwtFromHeader = authService.getJwtFromHeader(request);
-        if (StringUtils.isEmpty(jwtFromHeader)) {
+        String jwt = authService.getJwtFromHeader(request);
+        if (StringUtils.isEmpty(jwt)) {
             // 拒绝访问
             return false;
         }
         // 从redis取出jwt的过期时间
-        long expire = authService.getExpire(tokenFromCookie);
+        long expire = authService.getExpire(token);
         if (expire < 0) {
             // 拒绝访问
             return false;
@@ -126,21 +126,5 @@ public class AccessGatewayFilter implements GlobalFilter, Ordered {
                 .wrap(JSON.toJSONBytes(ResultBean.ofError("UNAUTHORIZED")));
         return serverWebExchange.getResponse().writeWith(Flux.just(buffer));
     }
-
-
-//    // 拒绝访问
-//    private void access_denied(ServerHttpRequest request, ServerHttpResponse response) {
-//        //拒绝访问
-//        requestContext.setSendZuulResponse(false);
-//        //设置响应代码
-//        requestContext.setResponseStatusCode(200);
-//        //构建响应的信息
-//        ResponseResult responseResult = new ResponseResult(CommonCode.UNAUTHENTICATED);
-//        //转成json
-//        String jsonString = JSON.toJSONString(responseResult);
-//        requestContext.setResponseBody(jsonString);
-//        //转成json，设置contentType
-//        response.setContentType("application/json;charset=utf-8");
-//    }
 
 }

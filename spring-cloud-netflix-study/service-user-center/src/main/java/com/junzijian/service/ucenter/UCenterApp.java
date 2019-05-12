@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author liuzhe
@@ -12,6 +13,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableDiscoveryClient
 @SpringBootApplication
 @EntityScan("com.junzijian.framework.model") //扫描实体类
+@ComponentScan("com.junzijian.framework.common")
+@ComponentScan("com.junzijian.service.ucenter")
 public class UCenterApp {
 
     public static void main(String[] args) {

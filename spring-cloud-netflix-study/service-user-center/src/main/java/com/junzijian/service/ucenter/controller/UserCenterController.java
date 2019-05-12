@@ -27,7 +27,7 @@ public class UserCenterController {
         return ResultBean.ofSuccess();
     }
 
-    @GetMapping("/user/center/getUserByUsername")
+    @GetMapping("/getUserByUsername")
     public UserDO getUserByUsername(@RequestParam String username) {
         return userCenterService.getUserByUsername(username);
     }

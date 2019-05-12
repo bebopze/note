@@ -1,9 +1,12 @@
 package com.junzijian.govern.gateway.sc.gateway.service;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.http.HttpCookie;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.MultiValueMap;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,19 +43,17 @@ public class CookieUtil {
      */
 
     public static Map<String, String> readCookie(ServerHttpRequest request, String... cookieNames) {
-        Map<String, String> cookieMap = new HashMap<String, String>();
+        Map<String, String> cookieMap = new HashMap<>();
         MultiValueMap<String, HttpCookie> cookies = request.getCookies();
-        if (cookies != null) {
+        if (!CollectionUtils.isEmpty(cookies)) {
 
-//            for (MultiValueMap<String, HttpCookie> cookie : cookies) {
-//                String cookieName = cookie.getName();
-//                String cookieValue = cookie.getValue();
-//                for (int i = 0; i < cookieNames.length; i++) {
-//                    if (cookieNames[i].equals(cookieName)) {
-//                        cookieMap.put(cookieName, cookieValue);
-//                    }
-//                }
-//            }
+            cookies.values().stream()
+                    .filter(list -> null != list && list.size() != 0)
+                    .forEach(httpCookieList -> {
+                        String name = httpCookieList.get(0).getName();
+                        String value = httpCookieList.get(0).getValue();
+                        cookieMap.put(name, value);
+                    });
         }
 
         return cookieMap;

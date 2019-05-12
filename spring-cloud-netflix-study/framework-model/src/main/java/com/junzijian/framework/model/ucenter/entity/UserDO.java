@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "sc_user")
+@Table(name = "user")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class UserDO {
 

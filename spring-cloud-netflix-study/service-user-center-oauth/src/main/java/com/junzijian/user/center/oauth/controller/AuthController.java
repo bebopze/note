@@ -5,6 +5,7 @@ import com.junzijian.framework.model.oauth.param.LoginParam;
 import com.junzijian.user.center.oauth.service.AuthService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2019/4/29
  */
 @RestController
-@RequestMapping("/user/center/oauth")
+@RequestMapping("/oauth")
 public class AuthController {
 
     @Autowired
@@ -20,15 +21,8 @@ public class AuthController {
 
 
     @ApiOperation("登录")
-//    @PostMapping(value = "login", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @GetMapping("login")
-//    public ResultBean<String> login(@RequestBody LoginParam loginParam) {
-    public ResultBean<String> login(@RequestParam String username,
-                                    @RequestParam String password) {
-
-        LoginParam loginParam = new LoginParam();
-        loginParam.setUsername(username);
-        loginParam.setPassword(password);
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResultBean<String> login(@RequestBody LoginParam loginParam) {
         return ResultBean.ofSuccess(authService.login(loginParam));
     }
 

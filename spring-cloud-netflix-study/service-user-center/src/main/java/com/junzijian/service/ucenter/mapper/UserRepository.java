@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface UserRepository extends JpaRepository<UserDO, Long> {
 
-//    UserDO findByUsername(String username);
+    UserDO findByName(String username);
 
     UserDO findByEmail(String Email);
 }

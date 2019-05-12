@@ -25,10 +25,6 @@ import javax.sql.DataSource;
 import java.security.KeyPair;
 
 
-/**
- * @author liuzhe
- * @date 2018/11/28
- */
 @Configuration
 @EnableAuthorizationServer
 class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
@@ -36,30 +32,23 @@ class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
-    /**
-     * jwt令牌转换器
-     */
+    //jwt令牌转换器
     @Autowired
     private JwtAccessTokenConverter jwtAccessTokenConverter;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    UserDetailsService userDetailsService;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    AuthenticationManager authenticationManager;
 
     @Autowired
-    private TokenStore tokenStore;
+    TokenStore tokenStore;
 
     @Autowired
     private CustomUserAuthenticationConverter customUserAuthenticationConverter;
 
-
-    /**
-     * 读取密钥的配置
-     *
-     * @return
-     */
+    //读取密钥的配置
     @Bean("keyProp")
     public KeyProperties keyProperties() {
         return new KeyProperties();
@@ -69,11 +58,7 @@ class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     private KeyProperties keyProperties;
 
 
-    /**
-     * 客户端配置
-     *
-     * @return
-     */
+    //客户端配置
     @Bean
     public ClientDetailsService clientDetails() {
         return new JdbcClientDetailsService(dataSource);
@@ -93,19 +78,14 @@ class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
                 .scopes("app");//客户端范围，名称自定义，必填*/
     }
 
-//    /**
-//     * token的存储方法
-//     *
-//     * @return
-//     */
+    //token的存储方法
 //    @Bean
 //    public InMemoryTokenStore tokenStore() {
 //        //将令牌存储到内存
 //        return new InMemoryTokenStore();
 //    }
-//
 //    @Bean
-//    public TokenStore tokenStore(RedisConnectionFactory redisConnectionFactory) {
+//    public TokenStore tokenStore(RedisConnectionFactory redisConnectionFactory){
 //        RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
 //        return redisTokenStore;
 //    }
@@ -165,4 +145,6 @@ class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
                 .checkTokenAccess("isAuthenticated()");
     }
 
+
 }
+
