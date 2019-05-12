@@ -1,7 +1,8 @@
 <Configuration status="WARN">
     <Properties>
-        <Property name="LOG_PATH">/usr/local/var/logs/yunche-cloud/</Property>
-        <Property name="LOG_PATTERN">[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</Property>
+        <Property name="LOG_PATH">logs/sc-netflix/</Property>
+        <!-- [%logger{50}:%L]  -->
+        <Property name="LOG_PATTERN">[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} [%logger{50}:%L] - %msg%n</Property>
     </Properties>
 
     <Appenders>

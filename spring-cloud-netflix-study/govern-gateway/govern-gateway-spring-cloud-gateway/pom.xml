@@ -60,10 +60,12 @@
         </dependency>
         <!-- eureka-client -->
 
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.cloud</groupId>-->
-        <!--<artifactId>spring-cloud-starter-ribbon</artifactId>-->
-        <!--</dependency>-->
+        <!-- zipkin -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
+        <!-- zipkin -->
 
         <!-- gateway -->
         <dependency>

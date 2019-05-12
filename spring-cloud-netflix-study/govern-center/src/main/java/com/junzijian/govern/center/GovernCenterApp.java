@@ -9,7 +9,7 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
  * @author liuzhe
  */
 @EnableEurekaServer // 标识此工程是一个EurekaServer
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 @SpringBootApplication
 public class GovernCenterApp {
 

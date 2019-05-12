@@ -6,6 +6,7 @@
         <artifactId>spring-cloud-netflix-study</artifactId>
         <groupId>com.junzijian</groupId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -30,12 +31,32 @@
         </dependency>
         <!-- model -->
 
+        <!-- eureka-client -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <!-- eureka-client -->
+
         <!-- admin-client -->
         <!--<dependency>-->
-            <!--<groupId>de.codecentric</groupId>-->
-            <!--<artifactId>spring-boot-admin-starter-client</artifactId>-->
+        <!--<groupId>de.codecentric</groupId>-->
+        <!--<artifactId>spring-boot-admin-starter-client</artifactId>-->
         <!--</dependency>-->
         <!-- admin-client -->
+        <!-- actuator -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- actuator -->
+
+        <!-- zipkin -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
+        <!-- zipkin -->
 
         <!-- oauth2 -->
         <dependency>
@@ -51,17 +72,14 @@
         </dependency>
         <!-- web -->
 
-        <!-- actuator -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <!-- actuator -->
-
         <!-- log4j2 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
         </dependency>
         <!-- log4j2 -->
 
@@ -123,13 +141,6 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
         </dependency>
         <!-- pagehelper -->
-
-        <!-- eureka-client -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-        <!-- eureka-client -->
 
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
