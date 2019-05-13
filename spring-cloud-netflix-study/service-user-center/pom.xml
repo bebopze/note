@@ -58,6 +58,13 @@
         </dependency>
         <!-- zipkin -->
 
+        <!-- sleuth -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+        <!-- sleuth -->
+
         <!-- oauth2 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

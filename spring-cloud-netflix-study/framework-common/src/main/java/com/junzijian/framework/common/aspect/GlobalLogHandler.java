@@ -1,7 +1,6 @@
 package com.junzijian.framework.common.aspect;
 
 import com.alibaba.fastjson.JSON;
-import com.junzijian.framework.common.model.response.template.ResultBean;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

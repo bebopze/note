@@ -35,6 +35,14 @@
         </dependency>
         <!-- actuator -->
 
+        <!-- sleuth会导致网关swagger聚合的 BaseURL失效 -->
+        <!-- zipkin + sleuth -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
+        <!-- zipkin + sleuth -->
+
         <!-- log4j2 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -59,13 +67,6 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
         <!-- eureka-client -->
-
-        <!-- zipkin -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-zipkin</artifactId>
-        </dependency>
-        <!-- zipkin -->
 
         <!-- gateway -->
         <dependency>
@@ -129,20 +130,6 @@
         <!--</dependency>-->
         <!-- oauth2 -->
 
-
-        <!-- 日志跟踪 -->
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.cloud</groupId>-->
-        <!--<artifactId>spring-cloud-starter-zipkin</artifactId>-->
-        <!--</dependency>-->
-        <!-- 日志跟踪 -->
-
-        <!-- sleuth -->
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.cloud</groupId>-->
-        <!--<artifactId>spring-cloud-starter-sleuth</artifactId>-->
-        <!--</dependency>-->
-        <!-- sleuth -->
 
         <!-- 集群监控消息队列 -->
         <!--<dependency>-->
