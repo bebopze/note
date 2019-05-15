@@ -1,5 +1,5 @@
 server:
-  port: 2201
+  port: 2202
 
 spring:
   profiles: dev

@@ -1,0 +1,36 @@
+server:
+  port: ${PORT:7021} #服务端口
+
+spring:
+  profiles: dev
+
+  application:
+    name: govern-config-server # 指定服务名
+
+  cloud:
+    config:
+      server:
+        git:
+          # 配置git仓库地址   ==>  可以单独另创建一个git仓库：来放配置文件!!!
+          uri: https://gitee.com/junzijian/spring-cloud-study.git
+          # 配置仓库路径下的相对搜索位置，可以配置多个
+          searchPaths: spring-cloud-netflix-study/config-repo/**
+          # 如果Git仓库为公开仓库，可以不填写用户名和密码，如果是私有仓库需要填写
+          username:
+          password:
+      # 配置仓库的分支
+      label: master
+
+# eureka
+eureka:
+  client:
+    registerWithEureka: true # 服务注册开关
+    fetchRegistry: true      # 服务发现开关
+    serviceUrl:              # Eureka客户端与Eureka服务端进行交互的地址，多个中间用逗号分隔
+      defaultZone: ${EUREKA_SERVER:http://localhost:50101/eureka/,http://localhost:50102/eureka/}
+  instance:
+    health-check-url-path: /actuator/health
+    prefer-ip-address:  true  # 将自己的ip地址注册到Eureka服务中
+    ip-address: ${IP_ADDRESS:127.0.0.1}
+    instance-id: ${spring.application.name}:${server.port} # 指定实例id
+

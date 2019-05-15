@@ -1,0 +1,21 @@
+server:
+  port: ${PORT:7031} #服务端口
+
+spring:
+  profiles: dev
+
+  application:
+    name: govern-zipkin # 指定服务名
+
+# eureka
+eureka:
+  client:
+    registerWithEureka: true # 服务注册开关
+    fetchRegistry: true      # 服务发现开关
+    serviceUrl:              # Eureka客户端与Eureka服务端进行交互的地址，多个中间用逗号分隔
+      defaultZone: ${EUREKA_SERVER:http://localhost:50101/eureka/,http://localhost:50102/eureka/}
+  instance:
+    health-check-url-path: /actuator/health
+    prefer-ip-address:  true  # 将自己的ip地址注册到Eureka服务中
+    ip-address: ${IP_ADDRESS:127.0.0.1}
+    instance-id: ${spring.application.name}:${server.port} # 指定实例id

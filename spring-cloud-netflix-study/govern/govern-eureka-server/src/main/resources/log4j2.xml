@@ -1,7 +1,6 @@
 <Configuration status="WARN">
     <Properties>
         <Property name="LOG_PATH">logs/sc-netflix/</Property>
-        <!--<Property name="LOG_PATH">/usr/local/var/logs/junzijain-cloud/</Property>-->
         <Property name="LOG_PATTERN">[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} [%X{traceId},%X{spanId}] - %msg%n</Property>
     </Properties>
 
@@ -36,8 +35,8 @@
         <logger level="INFO" name="com.junzijian">
             <AppenderRef ref="App-File-Appender"/>
         </logger>
-        <root level="INFO">
+        <Root level="INFO">
             <AppenderRef ref="Console"/>
-        </root>
+        </Root>
     </Loggers>
 </Configuration>
