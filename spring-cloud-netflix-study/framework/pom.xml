@@ -14,6 +14,8 @@
         <module>framework-common</module>
         <module>framework-model</module>
         <module>framework-util</module>
+
+        <module>framework-stream</module>
     </modules>
 
     <artifactId>framework</artifactId>
