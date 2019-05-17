@@ -170,11 +170,37 @@
 
 
     <build>
-        <finalName>service-user-center</finalName>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- docker-maven-plugin -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <!-- docker镜像相关的配置信息 -->
+                <configuration>
+                    <!--镜像名，这里用工程名-->
+                    <imageName>${project.artifactId}-${project.version}</imageName>
+                    <!-- Dockerfile文件所在目录 -->
+                    <dockerDirectory>${project.basedir}/src/main/resources</dockerDirectory>
+                    <!-- TAG,这里用工程版本号 -->
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                    </imageTags>
+                    <imageName>${project.artifactId}:${project.version}</imageName>
+                    <!-- 构建镜像的配置信息 -->
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.artifactId}-${project.version}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
         </plugins>
     </build>
