@@ -944,7 +944,7 @@ CountDownLatch 和 CyclicBarrier  是 Java 并发包提供的两个非常易用�
 ```
 
 
-####### 线程池
+###### 线程池
 ```
 
     重量级：
@@ -1011,6 +1011,8 @@ CountDownLatch 和 CyclicBarrier  是 Java 并发包提供的两个非常易用�
         高负载情境下，无界队列很容易导致 OOM，而 OOM 会导致所有请求都无法处理，这是致命问题。
         所以强烈建议使用有界队列。
         
+        LinkedBlockingQueue 默认是 无界的，在构造函数带上 初始容量 就变成 有界 了！！！
+        
     
     异常处理：
     
@@ -1030,8 +1032,90 @@ CountDownLatch 和 CyclicBarrier  是 Java 并发包提供的两个非常易用�
             } 
     
     
+    QA：
+        Q：老师，有个问题一直不是很明确：
+            ①一个项目中如果多个业务需要用到线程池，是定义一个公共的线程池比较好，还是按照业务定义各自不同的线程池？
+            ②如果定义一个公共的线程池那里面的线程数的理论值应该是按照老师前面章节讲的去计算吗？还是按照如果有多少个业务就分别去计算他们各自创建线程池线程数的加和?
+            ③如果不同的业务各自定义不同的线程池，那线程数的理论值也是按照前面的去计算吗？
+        
+        A：作者回复: 
+            建议不同类别的业务用不同的线程池， 至于线程池的数量，各自计算各自的，然后去做压测。
+            虽然你的系统有多个线程池，但是并不是所有的线程池里的线程都是忙碌的，你只需要针对有性能瓶颈的业务优化就可以了。
+        
+        
+        Q：在工程中，线程池的定义一般是在全局还是局部呢？
+            如果全局的话，是不用shutdown吗？
+            不关闭线程池有没有问题呢？
+        
+        A：作者回复: 
+            一般都全局。
+            如果需要优雅退出就需要shutdown。
+            不关闭，会有coresize个线程一直回收不了。
+    
+        
+    API：    
+        void execute(Runnable command);  // 可以提交任务，但是 拿不到执行结果
+        
+        // 提交 Runnable 任务
+        Future<?> submit(Runnable task);
+            
+            Runnable 接口的 run() 方法是没有返回值的，
+            所以 submit(Runnable task) 这个方法返回的 Future 仅可以用来断言任务已经结束了，
+            类似于 Thread.join()。
+        
+        // 提交 Callable 任务
+        <T> Future<T> submit(Callable<T> task);
+            
+            Callable 有返回值
+        
+        // 提交 Runnable 任务及结果引用  
+        <T> Future<T> submit(Runnable task, T result);
+        
+                假设这个方法返回的 Future 对象是 f， f.get() 的返回值就是传给 submit() 方法的参数result。
+                
+                需要你注意的是 Runnable 接口的实现类 Task 声明了一个有参构造函数 Task(Result r) ，
+                创建 Task 对象的时候传入了 result 对象，这样就能在类 Task 的 run() 方法中对 result 进行各种操作了。
+                result相当于主线程和子线程之间的桥梁，通过它主子线程可以共享数据。
+        
+        
+        它们的返回值都是 Future 接口，Future 接口有5 个方法：
+        
+            // 取消任务      -> 试图取消执行此任务   任务已完成：返回false; 任务已开始：尝试取消；
+            boolean cancel(boolean mayInterruptIfRunning);
+            
+            // 判断任务是否已取消  
+            boolean isCancelled();
+            
+            // 判断任务是否已结束
+            boolean isDone();
+            
+            // 获得任务执行结果                  --这两个 get() 方法都是阻塞式的
+            get();
+            
+            // 获得任务执行结果，支持超时
+            get(long timeout, TimeUnit unit);
     
     
+    
+    FutureTask：
+    
+        FutureTask 实现了 Runnable 和 Future 接口，
+        由于实现了   Runnable 接口，所以可以将 FutureTask 对象作为任务提交给 ThreadPoolExecutor 去执行，也可以直接被 Thread 执行；
+        又因为实现了 Future   接口，所以也能用来获得任务的执行结果。
+            
+            // 创建 FutureTask
+            FutureTask<Integer> futureTask = new FutureTask<>(()-> 1+2);
+            // 创建线程池
+            ExecutorService es = Executors.newCachedThreadPool();
+            // 提交 FutureTask 
+            es.submit(futureTask);
+            // 获取计算结果
+            Integer result = futureTask.get();
+            
+    
+    
+    
+
     
     
     
@@ -1040,7 +1124,7 @@ CountDownLatch 和 CyclicBarrier  是 Java 并发包提供的两个非常易用�
     
 ```
 
-####### Tips
+###### Tips
 ```
     1、所有的阻塞操作，都需要设置超时时间，这是个很好的习惯。
     
