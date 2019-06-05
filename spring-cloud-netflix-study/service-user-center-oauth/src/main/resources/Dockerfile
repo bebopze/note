@@ -5,3 +5,4 @@ ENV HOME_PATH /home
 WORKDIR $HOME_PATH
 ADD /$ARTIFACTID-$ARTIFACTVERSION.jar $HOME_PATH/$ARTIFACTID.jar
 ENTRYPOINT ["java", "-jar", "service-user-center-oauth.jar"]
+#ENTRYPOINT ["java", "-jar", "service-user-center-oauth.jar", "--server.port=7001", "--spring.profiles.active=prepub"]
