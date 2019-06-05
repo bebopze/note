@@ -1053,8 +1053,23 @@ CountDownLatch 和 CyclicBarrier  是 Java 并发包提供的两个非常易用�
             不关闭，会有coresize个线程一直回收不了。
     
         
+  
+    
+    
+    
+
+    
+```
+
+
+
+###### Future
+``` 
+
     API：    
+        
         void execute(Runnable command);  // 可以提交任务，但是 拿不到执行结果
+        
         
         // 提交 Runnable 任务
         Future<?> submit(Runnable task);
@@ -1063,10 +1078,12 @@ CountDownLatch 和 CyclicBarrier  是 Java 并发包提供的两个非常易用�
             所以 submit(Runnable task) 这个方法返回的 Future 仅可以用来断言任务已经结束了，
             类似于 Thread.join()。
         
+        
         // 提交 Callable 任务
         <T> Future<T> submit(Callable<T> task);
             
             Callable 有返回值
+        
         
         // 提交 Runnable 任务及结果引用  
         <T> Future<T> submit(Runnable task, T result);
@@ -1115,19 +1132,38 @@ CountDownLatch 和 CyclicBarrier  是 Java 并发包提供的两个非常易用�
     
     
     
+    
+    
+    总结：         --任务之间有依赖关系，可以用 Future 来解决。   （Thread.join()、CountDownLatch、阻塞队列...）
+        
+        利用 Java 并发包提供的 Future 可以很容易获得异步任务的执行结果，
+        无论异步任务是通过线程池ThreadPoolExecutor 执行的，还是通过手工创建子线程来执行的。
+        Future 可以类比为现实世界里的提货单，
+        比如去蛋糕店订生日蛋糕，蛋糕店都是先给你一张提货单，你拿到提货单之后，没有必要一直在店里等着，可以先去干点其他事，
+        比如看场电影；等看完电影后，基本上蛋糕也做好了，然后你就可以凭提货单领蛋糕了。
+        
+        利用多线程可以快速将一些串行的任务并行化，从而提高性能；
+        如果任务之间有依赖关系，比如 当前任务 依赖 前一个任务的执行结果，这种问题基本上都可以用 Future 来解决。
+        在分析这种问题的过程中，建议你用有向图描述一下任务之间的依赖关系，同时将线程的分工也做好，类似于烧水泡茶最优分工方案那幅图。
+        对照图来写代码，好处是更形象，且不易出错。
+    
 
     
-    
-    
-    
+```
 
-    
+
+
+###### CompletableFuture
+```
+
+
 ```
 
 ###### Tips
 ```
     1、所有的阻塞操作，都需要设置超时时间，这是个很好的习惯。
     
+    2、System.out.println, 因为其实现有使用隐式锁，一些情况还会有锁粗化产生。
     
     
 
