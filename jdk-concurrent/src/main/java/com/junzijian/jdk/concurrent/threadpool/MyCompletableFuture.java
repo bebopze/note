@@ -1,8 +1,6 @@
 package com.junzijian.jdk.concurrent.threadpool;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * @author liuzhe
@@ -23,7 +21,40 @@ public class MyCompletableFuture {
         test_Exception_try_catch_finally();
 
 //        test_think_question();
+
+//        test_think_question_2();
     }
+
+//    private static void test_think_question_2() {
+//
+//        // 创建线程池
+//        ExecutorService executor = Executors.newFixedThreadPool(3);
+//
+//        // 异步向电商 S1 询价
+//        Future<Integer> f1 =
+//                executor.submit(
+//                        () -> getPriceByS1());
+//        // 异步向电商 S2 询价
+//        Future<Integer> f2 =
+//                executor.submit(
+//                        () -> getPriceByS2());
+//        // 异步向电商 S3 询价
+//        Future<Integer> f3 =
+//                executor.submit(
+//                        () -> getPriceByS3());
+//
+//        // 获取电商 S1 报价并保存
+//        r = f1.get();
+//        executor.execute(() -> save(r));
+//
+//        // 获取电商 S2 报价并保存
+//        r = f2.get();
+//        executor.execute(() -> save(r));
+//
+//        // 获取电商 S3 报价并保存
+//        r = f3.get();
+//        executor.execute(() -> save(r));
+//    }
 
 //    private static void test_think_question() {
 //

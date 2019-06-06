@@ -1327,6 +1327,74 @@ CountDownLatch 和 CyclicBarrier  是 Java 并发包提供的两个非常易用�
             
 ```
 
+
+###### CompletionService
+``` 
+
+    场景：
+        
+        当需要批量提交异步任务的时候建议你使用 CompletionService
+     
+        
+    创建：
+    
+        ExecutorCompletionService(Executor executor);
+        
+        ExecutorCompletionService(Executor executor, BlockingQueue<Future<V>> completionQueue);
+        
+        
+            这两个构造方法都需要传入一个线程池，
+            如果不指定 completionQueue，那么默认会使用无界的LinkedBlockingQueue。
+            
+            任务执行结果的 Future 对象就是加入到 completionQueue 中。
+           
+           
+           submit -> 提交     
+           CompletionService --> 批量执行
+           take   -> Future 对象 -> get 返回值 
+        
+        
+    API：
+        
+        Future<V> submit(Callable<V> task);
+        Future<V> submit(Runnable task, V result);
+        Future<V> take() throws InterruptedException;
+        Future<V> poll();
+        Future<V> poll(long timeout, TimeUnit unit) throws InterruptedException;
+        
+        
+            take()、poll() 都是从阻塞队列中获取并移除一个元素；
+            
+            它们的区别在于：
+            
+                如果阻塞队列是空的，那么调用 take() 方法的线程会被阻塞，而 poll() 方法会返回 null 值。 
+            
+                poll(long timeout,TimeUnit unit) 方法支持以超时的方式获取并移除阻塞队列头部的一个元素，
+                如果等待了timeout unit 时间，阻塞队列还是空的，那么该方法会返回 null 值。
+
+
+    总结：
+        
+        CompletionService 将线程池Executor 和阻塞队列 BlockingQueue 的功能融合在了一起，能够让 批量异步任务 的 管理 更简单。
+        
+        除此之外，CompletionService 能够让 异步任务的执行 结果 有序化，先执行完的 先进入 阻塞队列，
+        
+        利用这个特性，你可以 轻松实现 后续处理的 有序性，避免 无谓的等待，
+        同时还可以快速实现诸如Forking Cluster 这样的需求。
+        
+        CompletionService 的实现类 ExecutorCompletionService，需要你自己创建线程池，
+        虽看上去有些啰嗦，
+        但好处是 你可以让多个 ExecutorCompletionService 的 线程池隔离，
+        这种 隔离性 能避免 几个特别耗时的任务 拖垮整个应用的 风险。
+
+``` 
+
+
+######  Fork/Join：单机版的MapReduce
+``` 
+
+```
+
 ###### Tips
 ```
     1、所有的阻塞操作，都需要设置超时时间，这是个很好的习惯。
