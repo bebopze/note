@@ -1,4 +1,4 @@
-##### 3、互斥
+##### 互斥
  
  ```
  所谓互斥，指的是同一时刻，只允许一个线程访问共享变量。
@@ -155,7 +155,7 @@ Happens-Before 并不是说前面一个操作发生在后续操作的前面，
 ```
 
 
-####### 锁
+###### 锁
 
 ``` 
 
@@ -184,7 +184,7 @@ synchronized：
 
 ```
 
-######## 细粒度锁
+###### 细粒度锁
 ```
 用一把锁有个问题，就是性能太差，会导致取款、查看余额、修改密码、查看密码这四个操作都是串行的。
 而我们用两把锁，取款和修改密码是可以并行的。
@@ -215,7 +215,7 @@ class Account {
 
 ```
 
-######## 等待 - 通知机制
+###### 等待 - 通知机制
 ```
 
 Java 语言是如何支持等待 - 通知机制的。
@@ -266,7 +266,7 @@ notify() 是会随机地通知等待队列中的一个线程，而 notifyAll() �
 ```
 
 
-#### 并发编程中我们需要注意的问题：安全性问题、活跃性问题、性能问题。
+###### 并发编程中我们需要注意的问题：安全性问题、活跃性问题、性能问题。
 
 ```
 
@@ -1156,7 +1156,175 @@ CountDownLatch 和 CyclicBarrier  是 Java 并发包提供的两个非常易用�
 ###### CompletableFuture
 ```
 
+    应用场景：
+        
+        可以替代 countdownLatch , 或者 threadPoolExecutor 和future 
+        
+        completableFuture 中各种关系（并行、串行、聚合），实际上就覆盖了各种需求场景。
+        例如 ： 线程A 等待 线程B 或者 线程C 等待 线程A和B 
+        
+        
+    特点：
+    
+        链式操作
+        一个结果 作为 下一个的参数
+        CompletableFuture的写法和RXJava的使用很类似
+        
+    
+    异步化：
+    
+        是并行方案得以实施的基础，更深入地讲其实就是：利用多线程优化性能这个核心方案得以实施的基础。
+        看到这里，相信你应该就能理解异步编程最近几年为什么会大火了，因为优化性能是互联网大厂的一个核心需求啊。
+        Java 在 1.8 版本提供了 CompletableFuture 来支持异步编程，
+        CompletableFuture 有可能是你见过的最复杂的工具类了，不过功能也着实让人感到震撼。
+    
+        
+    语义清晰：
+    
+        runAsync()      // 异步运行
+        supplyAsync()   // 提供异步
+        thenCombine()   // 然后合并
+    
+    
+    
+    创建 CompletableFuture 对象：
+    
+        // 使用默认线程池  --> ForkJoinPool
+        static CompletableFuture<Void>  runAsync(Runnable runnable);        // Runnable 无返回值
+        static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier);  // Supplier get()获取返回值
+        
+        // 可以指定线程池  
+        static CompletableFuture<Void> runAsync(Runnable runnable, Executor executor);          // Runnable 无返回值
+        static <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier, Executor executor);   // Supplier get()获取返回值
+    
+        
+        创建 CompletableFuture 对象主要靠代码中展示的这 4 个静态方法，我们先看前两个。
+        在烧水泡茶的例子中，
+        我们已经使用了runAsync(Runnable runnable)和supplyAsync(Supplier<U> supplier)，
+        它们之间的区别是：
+            Runnable 接口的 run() 方法没有返回值，
+            而 Supplier 接口的 get() 方法是有返回值的。
+        
+        前两个方法和后两个方法的区别在于：后两个方法可以指定线程池参数。
+        
+        默认情况下 CompletableFuture 会使用公共的 ForkJoinPool 线程池，
+        这个线程池默认创建的线程数是 CPU 的核数
+        （也可以通过 JVM option:-Djava.util.concurrent.ForkJoinPool.common.parallelism 来设置 ForkJoinPool 线程池的线程数）。
+        如果所有 CompletableFuture 共享一个线程池，那么一旦有任务执行一些很慢的 I/O 操作，
+        就会导致线程池中所有线程都阻塞在 I/O 操作上，从而造成线程饥饿，进而影响整个系统的性能。
+        
+        所以，强烈建议你 要根据不同的业务类型创建不同的线程池，以避免互相干扰。
+        
+    
+    
+        创建完 CompletableFuture 对象之后，
+        会自动地异步执行 runnable.run() 方法或者 supplier.get()方法，
+        对于一个异步操作，你需要关注两个问题：一个是异步操作什么时候结束，另一个是如何获取异步操作的执行结果。
+        因为 CompletableFuture 类实现了 Future 接口，所以这两个问题你都可以通过 Future 接口来解决。
+        
+        另外，CompletableFuture 类还实现了 CompletionStage 接口，这个接口内容实在是太丰富了，
+        在 1.8 版本里有 40 个方法，这些方法我们该如何理解呢？
 
+       
+    
+    如何理解 CompletionStage 接口：    // 直译：完成-阶段
+    
+        我觉得，你可以站在分工的角度类比一下 工作流。
+        任务是有时序关系的，比如有 串行关系、并行关系、汇聚关系 等。
+        
+        这样说可能有点抽象，这里还举前面烧水泡茶的例子，其中洗水壶和烧开水就是串行关系，
+        洗水壶、烧开水和洗茶壶、洗茶杯这两组任务之间就是并行关系，而烧开水、拿茶叶和泡茶就是汇聚关系。
+        
+        
+        描述串行关系：
+            
+             thenApply      // 相关的方法是 R apply(T t);        既能 接收参数, 也支持 返回值
+                  
+             thenAccept     // 相关的方法是 void accept(T t);    虽然支持参数，但却不支持回值
+              
+             thenRun        // 方法里的参数是 Runnable           既 不能接收参数，也 不支持 返回值
+              
+             thenCompose    // thenCompose 系列方法，这个系列的方法会新创建出一个子流程，最终结果和 thenApply 系列是相同的
+                  
+                  
+            
+        并行：
+            
+             xxxAsync        // 串行方法加上 Async后缀 表示异步执行
+            
+            
+            
+        
+            
+        描述 AND 汇聚关系：
+            
+            CompletionStage<R> thenCombine(other, fn);
+            CompletionStage<R> thenCombineAsync(other, fn);
+            CompletionStage<Void> thenAcceptBoth(other, consumer);
+            CompletionStage<Void> thenAcceptBothAsync(other, consumer);
+            CompletionStage<Void> runAfterBoth(other, action);
+            CompletionStage<Void> runAfterBothAsync(other, action);
+
+            // 这些接口的区别也是源自 fn、consumer、action 这三个核心参数不同    --->  能否传参、是否有返回值
+            
+        
+        
+        描述 OR 汇聚关系：
+        
+            CompletionStage applyToEither(other, fn);
+            CompletionStage applyToEitherAsync(other, fn);
+            CompletionStage acceptEither(other, consumer);
+            CompletionStage acceptEitherAsync(other, consumer);
+            CompletionStage runAfterEither(other, action);
+            CompletionStage runAfterEitherAsync(other, action);
+        
+            // 这些接口的区别也是源自 fn、consumer、action 这三个核心参数不同    --->  能否传参、是否有返回值
+
+        
+        
+        异常处理：  --->  异步场景下 提供接口 以代替 同步操作中的 try-catch-finally 功能
+        
+            虽然上面我们提到的 fn、consumer、action 它们的核心方法都不允许抛出可检查异常，
+            但是却无法限制它们抛出运行时异常，
+            例如下面的代码，执行 7/0 就会出现除零错误这个运行时异常。
+            
+            非异步编程里面，我们可以使用 try{}catch{}来捕获并处理异常，那在异步编程里面，异常该如何处理呢？
+            
+            
+            try-catch：                                          // 类似于 try{}catch{}中的 catch{}
+                CompletionStage exceptionally(fn);               
+            
+            try-finally：                                        // 类似于 try{}finally{}中的finally{}
+                CompletionStage<R> whenComplete(consumer);       
+                CompletionStage<R> whenCompleteAsync(consumer);
+                CompletionStage<R> handle(fn);
+                CompletionStage<R> handleAsync(fn);
+                
+                whenComplete() 和 handle() 系列方法就类似于 try{}finally{}中的finally{}，
+                无论是否发生异常都会执行 whenComplete() 中的回调函数 consumer 和 handle() 中的回调函数 fn
+                           
+                whenComplete() 和 handle() 的区别在于：
+                    whenComplete() 不支持返回结果，而handle() 是支持返回结果的。
+                    
+                
+    总结：
+        曾经一提到异步编程，大家脑海里都会随之浮现回调函数，
+        例如在 JavaScript 里面异步问题基本上都是靠回调函数来解决的，
+        回调函数在处理异常以及复杂的异步任务关系时往往力不从心，对此业界还发明了个名词：回调地狱（Callback Hell）。
+        
+        应该说在前些年，异步编程还是声名狼藉的。
+        不过最近几年，伴随着ReactiveX的发展（Java 语言的实现版本是 RxJava），回调地狱已经被完美解决了，
+        异步编程已经慢慢开始成熟，Java 语言也开始官方支持异步编程：在 1.8 版本提供了CompletableFuture，
+        
+        在 Java 9 版本则提供了更加完备的 Flow API，异步编程目前已经完全工业化。
+        因此，学好异步编程还是很有必要的。
+        CompletableFuture 已经能够满足简单的异步编程需求，如果你对异步编程感兴趣，可以重点关注RxJava 这个项目，
+        利用 RxJava，即便在 Java 1.6 版本也能享受异步编程的乐趣。
+            
+            
+           
+            
+            
 ```
 
 ###### Tips

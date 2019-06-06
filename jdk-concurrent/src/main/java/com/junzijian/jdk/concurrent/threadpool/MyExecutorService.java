@@ -1,20 +1,21 @@
-//package com.junzijian.jdk.concurrent.threadpool;
-//
-//import lombok.Data;
-//
-//import java.util.concurrent.ExecutionException;
-//import java.util.concurrent.Executors;
-//import java.util.concurrent.Future;
-//
-///**
-// * @author liuzhe
-// * @date 2019/6/5
-// */
-//public class ExecutorService {
-//
+package com.junzijian.jdk.concurrent.threadpool;
+
+import lombok.Data;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+/**
+ * @author liuzhe
+ * @date 2019/6/6
+ */
+public class MyExecutorService {
+
 //    public static void main(String[] args) throws ExecutionException, InterruptedException {
 //
-//        java.util.concurrent.ExecutorService executor = Executors.newFixedThreadPool(1);
+//        ExecutorService executor = Executors.newFixedThreadPool(1);
 //
 //        String a = "a";
 //
@@ -33,7 +34,7 @@
 //    }
 //
 //
-//    class Task implements Runnable {
+//    static class Task implements Runnable {
 //        Result r;
 //
 //        // 通过构造函数传入 result
@@ -49,12 +50,14 @@
 //        }
 //    }
 //
-//}
 //
-//@Data
-//class Result {
+//    @Data
+//    static class Result {
 //
-//    private String AAA;
+//        private String AAA;
 //
-//    private String XXX;
-//}
+//        private String XXX;
+//    }
+
+}
+

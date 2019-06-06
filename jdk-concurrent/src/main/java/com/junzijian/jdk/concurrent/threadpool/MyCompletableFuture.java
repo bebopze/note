@@ -1,6 +1,7 @@
 package com.junzijian.jdk.concurrent.threadpool;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -11,6 +12,78 @@ public class MyCompletableFuture {
 
 
     public static void main(String[] args) {
+
+//        test_a();
+
+//        test_b();
+
+//        test_c();
+
+//        test_Exception();
+        test_Exception_try_catch_finally();
+
+//        test_think_question();
+    }
+
+//    private static void test_think_question() {
+//
+//        // 采购订单
+//        PurchersOrder po;
+//        CompletableFuture<Boolean> cf =
+//                CompletableFuture
+//                        .supplyAsync(() -> {
+//                            // 在数据库中查询规则
+//                            return findRuleByJdbc();
+//                        })
+//                        .thenApply(r -> {
+//                            // 规则校验
+//                            return check(po, r);
+//                        });
+//
+//        Boolean isOk = cf.join();
+//    }
+
+    private static void test_Exception_try_catch_finally() {
+
+        CompletableFuture<Integer> f0 =
+
+                CompletableFuture
+                        .supplyAsync(() -> 7 / 1)                   // try
+                        .thenApply(r1 -> {
+                            System.out.println("try-1");            // try
+                            return r1 * 1;
+                        })
+                        .thenApply(r2 -> {
+
+                                    System.out.println("try-2");    // try
+                                    return r2 * 2;
+                                }
+                        )
+                        .exceptionally(e -> {                       // catch
+
+                            System.out.println("catch");
+                            return 0;
+                        })
+                        .handle((f, ex) -> {                        // finally
+
+                            System.out.println("finally");
+                            return -1;
+                        });
+
+        System.out.println(f0.join());
+    }
+
+    private static void test_Exception() {
+
+        CompletableFuture<Integer> f0 =
+                CompletableFuture.supplyAsync(() -> (7 / 0))
+                        .thenApply(r -> r * 10);
+
+        System.out.println(f0.join());
+    }
+
+
+    private static void test_a() {
 
         // 任务1：洗水壶 -> 烧开水
         CompletableFuture<Void> f1 = CompletableFuture.runAsync(() -> {
@@ -40,13 +113,13 @@ public class MyCompletableFuture {
         // 任务3：任务1 和 任务2完成后    执行：泡茶
         CompletableFuture<String> f3 =
 
-                f1.thenCombine(f2, (__, tf) -> {
+                f1.thenCombine(f2, (t1_result, t2_result) -> {
 
-                    System.out.println("T1: 拿到茶叶:" + tf);
+                    System.out.println("T1: 拿到茶叶:" + t2_result);
 
                     System.out.println("T1: 泡茶...");
 
-                    return " 上茶:" + tf;
+                    return " 上茶:" + t2_result;
                 });
 
         // 等待任务 3 执行结果
@@ -54,6 +127,70 @@ public class MyCompletableFuture {
     }
 
 
+    /**
+     * 通过下面的示例代码，你可以看一下 thenApply() 方法是如何使用的。
+     * 首先通过 supplyAsync() 启动一个异步流程，之后是两个串行操作，
+     * 整体看起来还是挺简单的。
+     * 不过，虽然这是一个异步流程，
+     * 但任务①②③却是串行执行的，②依赖①的执行结果，③依赖②的执行结果。
+     */
+    private static void test_b() {
+
+        CompletableFuture<String> f0 =
+                CompletableFuture.supplyAsync(() -> "Hello World")      // ①
+                        .thenApply(s -> s + " QQ")                      // ②
+                        .thenApply(String::toUpperCase);                // ③
+
+        System.out.println(f0.join());
+    }
+
+
+    /**
+     * 下面的示例代码展示了如何使用 applyToEither()方法来描述一个 OR 汇聚关系。
+     */
+    private static void test_c() {
+
+        CompletableFuture<String> f1 =
+                CompletableFuture.supplyAsync(() -> {
+                    int t = getRandom(5, 10);
+                    System.out.println("f1 : " + t);
+                    sleep(t, TimeUnit.SECONDS);
+                    return String.valueOf(t);
+                });
+
+        CompletableFuture<String> f2 =
+                CompletableFuture.supplyAsync(() -> {
+                    int t = getRandom(5, 10);
+                    System.out.println("f2 : " + t);
+                    sleep(t, TimeUnit.SECONDS);
+                    return String.valueOf(t);
+                });
+
+        // f1 OR f2 谁先执行完，就返回 谁的结果
+        CompletableFuture<String> f3 = f1.applyToEither(f2, s -> s);
+
+        System.out.println(f3.join());
+    }
+
+
+    /**
+     * getRandom
+     *
+     * @param origin
+     * @param bound
+     * @return
+     */
+    private static int getRandom(int origin, int bound) {
+        return ThreadLocalRandom.current().nextInt(origin, bound);
+    }
+
+
+    /**
+     * sleep
+     *
+     * @param t
+     * @param u
+     */
     static void sleep(int t, TimeUnit u) {
         try {
             u.sleep(t);
@@ -61,5 +198,6 @@ public class MyCompletableFuture {
 
         }
     }
+
 
 }
