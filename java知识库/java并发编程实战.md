@@ -956,8 +956,12 @@ CountDownLatch 和 CyclicBarrier  是 Java 并发包提供的两个非常易用�
     
     生产者-消费者 模式：
     
-        线程池的使用方是生产者，线程池本身是消费者。
+        线程池的 使用方 是 生产者，线程池 本身 是 消费者。
         
+        ThreadPoolExecutor 本质上是一个 生产者 - 消费者 模式的实现，
+        内部有一个任务队列，
+        这个任务队列 是 生产者 和 消费者 通信 的媒介，
+        ThreadPoolExecutor 可以有多个工作线程，但是这些工作线程都 共享 一个任务队列。
     
     
     Java 中的线程池：
@@ -1065,7 +1069,20 @@ CountDownLatch 和 CyclicBarrier  是 Java 并发包提供的两个非常易用�
 
 ###### Future
 ``` 
-
+    
+    场景：
+                
+        对于 简单的 并行任务，可以通过“线程池 + Future”的方案来解决
+        
+            Future 可以很容易获得 异步任务的 执行结果
+        
+            任务之间有依赖关系，可以用 Future 来解决。   
+            get 阻塞获取结果  -->  （类似：Thread.join()、CountDownLatch、阻塞队列...）
+            
+        
+    
+    
+    
     API：    
         
         void execute(Runnable command);  // 可以提交任务，但是 拿不到执行结果
@@ -1158,10 +1175,12 @@ CountDownLatch 和 CyclicBarrier  是 Java 并发包提供的两个非常易用�
 
     应用场景：
         
-        可以替代 countdownLatch , 或者 threadPoolExecutor 和future 
+        如果任务之间有 聚合关系，无论是 AND 聚合还是 OR 聚合，都可以通过 CompletableFuture 来解决
         
-        completableFuture 中各种关系（并行、串行、聚合），实际上就覆盖了各种需求场景。
-        例如 ： 线程A 等待 线程B 或者 线程C 等待 线程A和B 
+            可以替代 countdownLatch , 或者 threadPoolExecutor 和future 
+            
+            completableFuture 中各种关系（并行、串行、聚合），实际上就覆盖了各种需求场景。
+            例如 ： 线程A 等待 线程B 或者 线程C 等待 线程A和B 
         
         
     特点：
@@ -1333,7 +1352,7 @@ CountDownLatch 和 CyclicBarrier  是 Java 并发包提供的两个非常易用�
 
     场景：
         
-        当需要批量提交异步任务的时候建议你使用 CompletionService
+        批量的并行任务，则可以通过 CompletionService 来解决
      
         
     创建：
@@ -1393,8 +1412,166 @@ CountDownLatch 和 CyclicBarrier  是 Java 并发包提供的两个非常易用�
 ######  Fork/Join：单机版的MapReduce
 ``` 
 
+
+    场景：
+        
+        分治任务
+        
+        分治的核心思想是“分而治之”：
+            将一个大的任务拆分成小的子任务去解决，然后再把子任务的结果聚合起来从而得到最终结果。
+        
+    
+    
+    并发编程 可以分为 三个层面的问题，分别是：分工、协作 和 互斥
+    
+    
+        分工：
+            
+            线程池、Future、CompletableFuture 和 CompletionService
+        
+        协作：
+            
+        
+        互斥：
+            
+   
+        
+   分治任务模型：
+   
+        分治任务模型可分为两个阶段：
+            一个阶段是   任务分解， 也就是 将任务 迭代地 分解为子任务，直至子任务可以直接计算出结果；
+            另一个阶段是 结果合并， 即     逐层合并 子任务的 执行结果，直至获得最终结果。
+        
+        
+   Fork/Join 的使用：
+   
+       Fork/Join 是一个 并行计算 的框架，主要就是用来 支持分治任务模型的，
+       
+           Fork 对应的是：分治任务模型里的任务分解       
+           Join 对应的是：结果合并
+       
+       Fork/Join 计算框架主要包含两部分：
+       
+            一部分是：   分治任务的    线程池     ForkJoinPool
+            另一部分是： 分治         任务       ForkJoinTask
+            
+            这两部分的关系：类似于 ThreadPoolExecutor 和 Runnable 的关系，
+                都可以理解为 提交任务 到 线程池，只不过 分治任务 有自己 独特类型 ForkJoinTask。 
+                
+       
+       
+       ForkJoinTask 是一个抽象类，它的方法有很多，最核心的是 fork() 方法和 join() 方法
+       
+            fork() 方法 会 异步 地执行 一个子任务
+            join() 方法 会 阻塞 当前线程 来 等待子任务的 执行结果
+            
+            ForkJoinTask 有两个子类—— RecursiveAction 和 RecursiveTask        --> recursive：递归
+            
+                通过名字你就应该能知道，它们都是用递归的方式来处理分治任务的
+                
+                这两个子类都定义了抽象方法 compute()，不过区别是：
+                
+                    RecursiveAction 定义的 compute() 没有 返回值
+                    RecursiveTask   定义的 compute() 有   返回值
+                    
+                    这两个子类也是抽象类，在使用的时候，需要你定义子类去扩展。
+       
+       
+   ForkJoinPool 工作原理：
+   
+       Fork/Join 并行计算的核心组件是 ForkJoinPool
+       
+           ThreadPoolExecutor 本质上是一个生产者 - 消费者模式的实现，
+                内部有一个任务队列，这个任务队列是生产者和消费者通信的媒介；
+                ThreadPoolExecutor 可以有多个工作线程，但是这些工作线程都共享一个任务队列。
+           
+           ForkJoinPool 本质上也是一个生产者 - 消费者的实现，但是 更加智能
+           
+           ThreadPoolExecutor 内部 只有一个 任务队列
+           ForkJoinPool       内部 有多个   任务队列
+           
+           当我们通过 ForkJoinPool 的 invoke() 或者 submit() 方法 提交任务 时，
+           ForkJoinPool 根据一定的 路由规则 把 任务 提交到 一个任务队列 中，
+           如果任务在执行过程中会创建出 子任务，那么 子任务 会 提交到 工作线程 对应的 任务队列中。
+       
+       
+       任务窃取 机制：
+                  
+           如果工作线程对应的任务队列空了，是不是就没活儿干了呢？
+           不是的，ForkJoinPool 支持一种叫做“任务窃取”的机制，
+           如果工作线程空闲了，那它可以“窃取”其他工作任务队列里的任务，
+           
+           例如下图中，线程 T2 对应的任务队列已经空了，它可以“窃取”线程 T1 对应的任务队列的任务。
+           如此一来，所有的工作线程都不会闲下来了。
+           
+           
+       双端队列：
+        
+           ForkJoinPool 中的 任务队列 采用的是 双端队列
+           工作线程正常 获取任务 和 “窃取任务” 分别是从 任务队列 不同的端 消费，这样能 避免 很多不必要的 数据竞争
+           我们这里介绍的仅仅是简化后的原理
+                
+   
+   总结：
+       
+       Fork/Join 并行计算框架主要解决的是 分治任务。
+       
+       分治的核心思想是“分而治之”：将一个大的任务拆分成小的子任务去解决，然后再把子任务的结果聚合起来从而得到最终结果。
+       
+       这个过程非常类似于大数据处理中的 MapReduce，所以你可以把 Fork/Join 看作单机版的 MapReduce。
+       
+       Fork/Join 并行计算框架的核心组件是 ForkJoinPool。
+       ForkJoinPool 支持任务 窃取机制，
+       能够让所有线程的工作量基本均衡，不会出现有的线程很忙，而有的线程很闲的状况，所以性能很好。
+       
+       Java1.8 提供的 Stream API 里面并行流也是以 ForkJoinPool 为基础的。
+       
+       
+       不过需要你注意的是：
+       
+           默认情况下 所有的并行流计算 都共享一个 ForkJoinPool，这个共享的 ForkJoinPool 默认的线程数是 CPU的核数；
+       
+           如果所有的并行流计算都是 CPU 密集型计算的话，完全没有问题，
+           但是如果存在 I/O 密集型的并行流计算，那么很可能会因为一个很慢的 I/O 计算而拖慢整个系统的性能。
+       
+           所以建议用 不同的 ForkJoinPool 执行 不同类型 的 计算任务。
+         
 ```
 
+   ![](image/ForkJoin_01.jpg)
+
+
+
+###### 并发工具类模块热点问题答疑
+``` 
+    
+    最佳实践：
+    
+        1、while(true) 总不让人省心
+    
+        2、signalAll() 总让人省心
+        
+        3、Semaphore 需要锁中锁
+        
+        4. 锁的申请和释放要成对出现
+        
+        5. 回调总要关心执行线程是谁
+        
+        6. 共享线程池：有福同享就要有难同当
+        
+        7. 线上问题定位的利器：线程栈 dump
+
+```
+
+
+
+###### 3 并发设计模式
+
+##### 3.1
+
+```
+
+```
 ###### Tips
 ```
     1、所有的阻塞操作，都需要设置超时时间，这是个很好的习惯。
