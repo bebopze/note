@@ -35,7 +35,7 @@
 //    private LockUtils lockUtils;
 //
 //
-//    @Around(value = "@annotation(com.yunche.framework.common.annotation.DistributedLock)")
+//    @Around(value = "@annotation(com.junzijian.framework.common.annotation.DistributedLock)")
 //    public Object around(ProceedingJoinPoint point) throws Throwable {
 //
 //        MethodSignature methodSignature = (MethodSignature) point.getSignature();

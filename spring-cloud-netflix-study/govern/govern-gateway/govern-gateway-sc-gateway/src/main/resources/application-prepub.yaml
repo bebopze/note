@@ -88,17 +88,6 @@ spring:
           args:
             retries: 3
             statuses: BAD_GATEWAY
-      # =====================================
-      - id: api-business-alipay-life
-        uri: lb://api-business-alipay-life
-        predicates:
-        - Path=${server.servlet.context-path}/biz/alipay/life/**
-        filters:
-        - AddResponseHeader=foo, bar
-        - name: Retry
-          args:
-            retries: 3
-            statuses: BAD_GATEWAY
 
 # eureka
 eureka:

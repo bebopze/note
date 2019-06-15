@@ -11,7 +11,7 @@
     </parent>
 
     <modules>
-        <module>govern-gateway-spring-cloud-gateway</module>
+        <module>govern-gateway-sc-gateway</module>
         <module>govern-gateway-zuul</module>
     </modules>
 

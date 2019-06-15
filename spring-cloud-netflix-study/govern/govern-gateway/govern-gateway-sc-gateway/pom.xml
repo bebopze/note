@@ -6,10 +6,11 @@
         <artifactId>govern-gateway</artifactId>
         <groupId>com.junzijian</groupId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>govern-gateway-spring-cloud-gateway</artifactId>
+    <artifactId>govern-gateway-sc-gateway</artifactId>
 
 
     <dependencies>
@@ -196,7 +197,7 @@
     </dependencies>
 
     <build>
-        <finalName>govern-gateway-spring-cloud-gateway</finalName>
+        <finalName>govern-gateway-sc-gateway</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

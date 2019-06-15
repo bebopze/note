@@ -35,7 +35,7 @@
 //    /**
 //     * @param point
 //     */
-//    @Around("@annotation(com.yunche.framework.common.annotation.Limiter)")
+//    @Around("@annotation(com.junzijian.framework.common.annotation.Limiter)")
 //    public Object around(ProceedingJoinPoint point) throws Throwable {
 //
 //        // requestPath

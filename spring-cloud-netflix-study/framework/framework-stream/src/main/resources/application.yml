@@ -6,23 +6,11 @@ spring:
 
   application:
     name: service-mq-stream
-  datasource:
-#    type: com.alibaba.druid.pool.DruidDataSource
-    druid:
-      url: jdbc:mysql://47.97.112.202:3307/sc_user?useUnicode=true&characterEncoding=utf-8
-      username: yunche
-      password: yc_123
-      max-wait: 10000
-      initialSize: 8
-      min-idle: 0
-      max-active: 20
-      test-on-borrow: true
 
   redis:
-#    host: 47.97.112.202
     host: 127.0.0.1
     port: 6379
-#    password: yunche@1234
+    password: 123456
     timeout: 3000
     lettuce:
       pool:
@@ -31,16 +19,11 @@ spring:
         min-idle: 24
         max-wait: 2000
 
-
   cloud:
      stream:
         kafka:
           binder:
-#            brokers: 47.97.122.31:9092
-#            brokers: 127.0.0.1:9092,172.16.186.97:9092
-            brokers: 127.0.0.1:9092
-#            brokers: 172.16.186.97:9092
-#            brokers: 47.97.217.33:9092
+            brokers: 127.0.0.1:9092,127.0.0.1:9093
 #            auto-add-partitions: true
 #            auto-create-topics: true
 #            min-partition-count: 1
@@ -79,19 +62,6 @@ spring:
 
         # 默认的binder是kafka
         default-binder: kafka
-
-dubbo:
-  application:
-    name: service-mq-stream
-  registry:
-    address: zookeeper://127.0.0.1:2181
-  protocol:
-    name: dubbo
-    port: 28201
-  provider:
-    group: yunche
-    version: 1.0.0
-
 
 eureka:
   client:
