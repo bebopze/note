@@ -3,27 +3,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.junzijian</groupId>
+    <groupId>com.junzijian.cloud</groupId>
     <artifactId>spring-cloud-alibaba-study</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>spring-cloud-alibaba-study</name>
-    <description>Demo project for Spring Boot</description>
+    <description>spring cloud alibaba study</description>
+
 
     <modules>
-
-        <module>framework-util</module>
-        <module>framework-common</module>
-        <module>framework-model</module>
-
-        <module>govern-gateway</module>
-        <module>govern-center</module>
-
-        <module>service-user-center</module>
-        <module>service-user-center-oauth</module>
-
+        <module>framework</module>
+        <module>govern</module>
+        <module>service</module>
     </modules>
+
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -64,8 +58,8 @@
             <!-- spring-cloud-alibaba -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Greenwich.RELEASE</version>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>0.9.0.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -287,7 +281,7 @@
     <repositories>
         <repository>
             <id>aliyun-repos</id>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -295,9 +289,17 @@
         <repository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
-            <url>http://repo.spring.io/milestone</url>
+            <url>https://repo.spring.io/milestone</url>
             <snapshots>
                 <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-snapshot</id>
+            <name>Spring Snapshot Repository</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
             </snapshots>
         </repository>
     </repositories>
@@ -305,14 +307,21 @@
     <pluginRepositories>
         <pluginRepository>
             <id>aliyun-plugin</id>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
         <pluginRepository>
             <id>spring-milestones-plugin</id>
-            <url>http://repo.spring.io/milestone</url>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-snapshot-plugin</id>
+            <url>https://repo.spring.io/snapshot</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
