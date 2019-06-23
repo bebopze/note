@@ -1,0 +1,107 @@
+server:
+  port: 8091
+
+spring:
+  application:
+    name: govern-gateway-sc-gateway
+
+  # redis
+  redis:
+    host: 127.0.0.1
+    port: 6379
+#    password: 123456
+    timeout: 3000
+    lettuce:
+      pool:
+        max-active: 200
+        max-idle: 50
+        min-idle: 24
+        max-wait: 2000
+
+#  zipkin:
+#    enabled: true
+#    sender:
+#      type: rabbit
+#    sleuth:
+#      enabled: true
+#      http:
+#        legacy:
+#          enabled: true
+#    #jwt密码
+#    security:
+#      oauth2:
+#        jwt:
+#          signingKey: 123456
+  cloud:
+    # gateway
+    gateway:
+      discovery:
+        locator:
+          # 开启服务发现，通过serviceId路由转发      serviceId -> spring.application.name
+          enabled: true
+          # 忽略serviceId大小写
+          lower-case-service-id: true
+      # cors
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+      # default-filters
+      default-filters:
+      - StripPrefix=1          # 去除prefix：/api
+      - AddResponseHeader=X-Response-Default-Foo, Default-Bar
+      # 移除请求的头部Origin  当该请求不是一个CORS请求（即不包含头部Origin），处理的过程就结束，这样可以避免后续的检查
+      - RemoveRequestHeader=Origin
+      - name: Hystrix
+        args:
+          name: fallbackcmd
+          fallbackUri: forward:/fallbackcontroller?a=123
+      - name: RequestRateLimiter
+        args:
+          redis-rate-limiter.replenishRate: 1000  # 令牌桶的容积
+          redis-rate-limiter.burstCapacity: 1     # 流速 每秒
+          rate-limiter: "#{@defaultRedisRateLimiter}"  # SPEL表达式去的对应的bean
+          key-resolver: "#{@apiKeyResolver}" # SPEL表达式去的对应的bean
+      # router
+      routes:
+      # =====================================
+      - id: service-user-center-oauth
+        uri: lb://service-user-center-oauth
+        predicates:
+        - Path=${server.servlet.context-path}/oauth/**
+        filters:
+#        - PrefixPath=/v1     # 添加prefix  /api/oauth/v1
+#        - StripPrefix=1      # 去除prefix  /oauth
+        - AddResponseHeader=foo, bar
+        - name: Retry
+          args:
+            retries: 3
+            statuses: BAD_GATEWAY
+      # =====================================
+      - id: service-user-center
+        uri: lb://service-user-center
+        predicates:
+        - Path=${server.servlet.context-path}/user/center/**
+        filters:
+        - AddResponseHeader=foo, bar
+        - name: Retry
+          args:
+            retries: 3
+            statuses: BAD_GATEWAY
+
+# eureka
+#eureka:
+#  client:
+#    registerWithEureka: true  # 服务注册开关
+#    fetchRegistry: true       # 服务发现开关
+#    serviceUrl:               # Eureka客户端与Eureka服务端进行交互的地址，多个中间用逗号分隔
+#      defaultZone: ${EUREKA_SERVER:http://localhost:50101/eureka/}
+
+
+#management.endpoints.web.exposure.include: '*'
+
+
+# nacos
+spring.cloud.nacos.discovery.server-addr: 127.0.0.1:8848
+spring.cloud.nacos.config.server-addr: 127.0.0.1:8848

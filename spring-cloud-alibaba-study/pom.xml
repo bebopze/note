@@ -39,6 +39,7 @@
         <pagehelper-spring-boot-starter.version>1.2.10</pagehelper-spring-boot-starter.version>
         <activiti-spring-boot-starter-basic.version>6.0.0</activiti-spring-boot-starter-basic.version>
         <guava.version>27.0.1-jre</guava.version>
+        <disruptor.version>3.4.2</disruptor.version>
         <fastjson.version>1.2.54</fastjson.version>
         <aliyun-sdk-oss.version>3.1.0</aliyun-sdk-oss.version>
         <alipay-sdk-java.version>3.4.49.ALL</alipay-sdk-java.version>
@@ -65,6 +66,16 @@
             </dependency>
             <!-- spring-cloud-alibaba -->
 
+            <!-- spring-cloud-netflix -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Greenwich.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- spring-cloud-netflix -->
+
             <!-- web -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -78,6 +89,21 @@
                 </exclusions>
             </dependency>
             <!-- web -->
+
+
+            <!-- actuator -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>${spring-boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- actuator -->
 
             <!-- redis -->
             <dependency>
@@ -159,6 +185,14 @@
                 <version>${guava.version}</version>
             </dependency>
             <!-- guava -->
+
+            <!-- disruptor -->
+            <dependency>
+                <groupId>com.lmax</groupId>
+                <artifactId>disruptor</artifactId>
+                <version>${disruptor.version}</version>
+            </dependency>
+            <!-- disruptor -->
 
             <!-- commons-utils -->
             <dependency>
