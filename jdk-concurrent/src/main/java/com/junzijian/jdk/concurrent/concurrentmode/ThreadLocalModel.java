@@ -26,19 +26,19 @@ public class ThreadLocalModel {
      */
     private static void test__2() {
 
-        ExecutorService es;
-        ThreadLocal<Object> tl;
-        es.execute(() -> {
-            Object obj = new Object();
-            //ThreadLocal 增加变量
-            tl.set(obj);
-            try {
-                // 省略业务逻辑代码
-            } finally {
-                // 手动清理 ThreadLocal
-                tl.remove();
-            }
-        });
+//        ExecutorService es;
+//        ThreadLocal<Object> tl;
+//        es.execute(() -> {
+//            Object obj = new Object();
+//            //ThreadLocal 增加变量
+//            tl.set(obj);
+//            try {
+//                // 省略业务逻辑代码
+//            } finally {
+//                // 手动清理 ThreadLocal
+//                tl.remove();
+//            }
+//        });
 
     }
 
