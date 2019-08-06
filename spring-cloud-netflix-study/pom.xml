@@ -11,15 +11,15 @@
     <name>spring-cloud-netflix-study</name>
     <description>Demo project for Spring Boot</description>
 
-    <modules>
 
+    <modules>
         <module>framework</module>
         <module>govern</module>
 
         <module>service-user-center</module>
         <module>service-user-center-oauth</module>
-
     </modules>
+
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -27,6 +27,7 @@
         <version>2.1.2.RELEASE</version>
         <relativePath/>
     </parent>
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -70,47 +71,19 @@
             </dependency>
             <!-- spring-cloud -->
 
-            <!-- web -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>${spring-boot.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <!-- web -->
 
-            <!-- boot -->
+            <!-- logging全局排除 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter</artifactId>
-                <version>${spring-boot.version}</version>
+                <artifactId>spring-boot-starter-logging</artifactId>
                 <exclusions>
                     <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-logging</artifactId>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
-            <!-- boot -->
-
-            <!-- redis -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-redis</artifactId>
-                <version>${spring-boot.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <!-- redis -->
+            <!-- logging全局排除 -->
 
             <!-- dubbo -->
             <dependency>
@@ -135,20 +108,6 @@
                 <version>${dubbo.version}</version>
             </dependency>
             <!-- dubbo -->
-
-            <!-- test -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-test</artifactId>
-                <version>${spring-boot.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-starter-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <!-- test -->
 
             <!-- admin-server -->
             <dependency>
