@@ -688,13 +688,17 @@ docker push 192.168.184.141:5000/jdk1.8
 
 ##### 3、docker-compose
 ```
-
+    
+    // 构建前 重新打包
     mvn clean install -DskipTests
     
+    // 一键 创建[镜像]
     docker-compose build
     
+    // 一键 创建&启动[容器]
     docker-compose up
     
+    // 一键 关闭&remove[容器]
     docker-compose down
 
 ```
