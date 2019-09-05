@@ -656,26 +656,45 @@ docker push 192.168.184.141:5000/jdk1.8
 
 ##### 1、启动&登录容器
 ```
-1、启动后进入控制台：
-        docker run -it --name=容器名 -p 7001:7001 容器ID/容器名 /bin/bash
-2、后台启动：
-        docker run -di --name=容器名 -p 7001:7001 容器ID/容器名
-        
-        
-3、启动容器
-        docker start 容器ID/容器名
-        
-4、登录容器
-        docker exec -it 容器ID/容器名 /bin/bash        
+    
+    1、启动后进入控制台：
+            docker run -it --name=容器名 -p 7001:7001 容器ID/容器名 /bin/bash
+    2、后台启动：
+            docker run -di --name=容器名 -p 7001:7001 容器ID/容器名
+            
+            
+    3、启动容器
+            docker start 容器ID/容器名
+            
+    4、登录容器
+            docker exec -it 容器ID/容器名 /bin/bash        
 ```
 
 
 ##### 2、删除容器/镜像
 ```
-1、停止容器
-        docker stop 容器ID/容器名
-2、删除容器
-        docker rm  容器ID/容器名
-3、删除镜像
-        docker rmi 镜像ID/容器名:TAG
+    1、停止容器
+            docker stop 容器ID/容器名
+    2、删除容器
+            docker rm  容器ID/容器名
+    3、删除镜像
+            docker rmi 镜像ID/容器名:TAG
+```
+
+
+
+
+
+
+##### 3、docker-compose
+```
+
+    mvn clean install -DskipTests
+    
+    docker-compose build
+    
+    docker-compose up
+    
+    docker-compose down
+
 ```
