@@ -695,10 +695,91 @@ docker push 192.168.184.141:5000/jdk1.8
     // 一键 创建[镜像]
     docker-compose build
     
+    // 查看 [镜像]
+    docker-compose images  /   docker images
+    
     // 一键 创建&启动[容器]
     docker-compose up
     
+    // 查看 运行中的[容器]
+    docker-compose ps   /   docker ps
+    
     // 一键 关闭&remove[容器]
     docker-compose down
+
+```
+
+
+
+##### 4、k8s
+```
+    
+    // 构建前 重新打包
+    mvn clean package -DskipTests
+    
+    // 一键 创建[镜像]
+    docker-compose build
+    
+    // 查看 [镜像]
+    docker-compose images  /   docker images
+    
+    
+    // 部署
+    
+    // 应用-环境变量
+    kubectl apply -f config.yml
+    
+    // 应用-Deployment、Service
+    kubectl apply -f test
+    
+    
+    // 查询 pod名
+    Kubectl get pods
+    
+    // 端口转发
+    kubectl port-forward faraday-svc-deployment-8584d9c74d-v92wt 80:80
+    
+    
+    // 命令行校验
+    
+    kubectl get pods -o wide
+    
+    Kubectl get services
+    
+    Kubectl get deployments
+    
+    
+    
+    // K8s Dashboard校验
+    
+    
+    // 清理
+    
+    kubectl delete deployments —all
+    
+    kubectl delete services —all
+    
+    kubectl delete configmaps —all
+
+```
+
+
+
+
+##### 4、k8s安装
+
+```
+    
+    https://github.com/AliyunContainerService/k8s-for-docker-desktop
+    
+    
+    # 镜像映射到aliyun    yaml文件
+    git clone https://github.com/AliyunContainerService/k8s-for-docker-desktop.git
+    
+    # 拉取到本地
+    ./load_images.sh
+    
+         
+```
 
 ```
