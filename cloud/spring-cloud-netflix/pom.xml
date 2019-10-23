@@ -13,7 +13,7 @@
     <artifactId>spring-cloud-netflix</artifactId>
     <packaging>pom</packaging>
 
-    <name>spring-cloud-netflix</name>
+    <name>【SPRING-CLOUD::Netflix】</name>
     <description>spring cloud netflix</description>
 
 

@@ -13,7 +13,7 @@
     <artifactId>spring-cloud-alibaba</artifactId>
     <packaging>pom</packaging>
 
-    <name>spring-cloud-alibaba</name>
+    <name>【SPRING-CLOUD::Alibaba】</name>
     <description>spring cloud alibaba</description>
 
 

@@ -12,7 +12,6 @@
 
     <artifactId>cloud-netflix-govern-admin-server</artifactId>
 
-    <name>govern-admin-server</name>
     <description>Demo project for Spring Boot</description>
 
 

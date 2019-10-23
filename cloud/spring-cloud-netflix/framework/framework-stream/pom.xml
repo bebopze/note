@@ -11,9 +11,6 @@
     </parent>
 
     <artifactId>cloud-netflix-framework-stream</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-
-    <name>framework-stream</name>
 
 
     <dependencies>

@@ -5,15 +5,13 @@
 
     <parent>
         <groupId>com.junzijian.cloud</groupId>
-        <artifactId>service</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <artifactId>cloud-alibaba-service</artifactId>
+        <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>service-user-center-oauth</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>cloud-alibaba-service-user-center-oauth</artifactId>
 
-    <name>service-user-center-oauth</name>
     <description>Demo project for Spring Boot</description>
 
 

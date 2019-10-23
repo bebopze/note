@@ -11,8 +11,7 @@
     </parent>
 
     <artifactId>cloud-netflix-service-user-center-oauth</artifactId>
-
-    <name>service-user-center-oauth</name>
+    
     <description>Demo project for Spring Boot</description>
 
 

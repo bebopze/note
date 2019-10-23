@@ -13,6 +13,7 @@
     <artifactId>cloud-netflix-govern-gateway</artifactId>
     <packaging>pom</packaging>
 
+
     <modules>
         <module>govern-gateway-sc-gateway</module>
         <module>govern-gateway-zuul</module>

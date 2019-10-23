@@ -13,6 +13,8 @@
     <artifactId>cloud</artifactId>
     <packaging>pom</packaging>
 
+    <name>【SPRING-CLOUD】</name>
+
 
     <modules>
 

@@ -12,10 +12,8 @@
     </parent>
 
     <artifactId>framework-util</artifactId>
-    <packaging>jar</packaging>
-
+    
     <dependencies>
-
 
 
     </dependencies>
