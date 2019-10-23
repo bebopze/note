@@ -7,7 +7,7 @@
         <groupId>com.junzijian</groupId>
         <artifactId>junzijian-note</artifactId>
         <version>1.0.0</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>framework</artifactId>

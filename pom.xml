@@ -4,32 +4,24 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!--<groupId>com.junzijian</groupId>-->
-    <!--<artifactId>junzijian-note</artifactId>-->
-
-    <!--<version>1.0.0</version>-->
-    <!--<packaging>pom</packaging>-->
-
-    <!--<name>【parent】</name>-->
-    <!--<description>个人笔记</description>-->
-
     <groupId>com.junzijian</groupId>
     <artifactId>junzijian-note</artifactId>
-    <packaging>pom</packaging>
+
     <version>1.0.0</version>
+    <packaging>pom</packaging>
 
     <name>【parent】</name>
-    <url>https://www.staffjoy.xyz</url>
+    <url>https://gitee.com/junzijian/junzijian-note</url>
     <description>个人笔记</description>
 
 
     <modules>
 
         <!-- cloud -->
-        <module>cloud</module>
+        <module>project/cloud</module>
 
         <!-- framework -->
-        <module>framework</module>
+        <module>project/framework</module>
 
     </modules>
 
