@@ -5,24 +5,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.junzijian</groupId>
-    <artifactId>junzijian-note</artifactId>
+    <artifactId>note-parent</artifactId>
 
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <name>【parent】</name>
-    <url>https://gitee.com/junzijian/junzijian-note</url>
+    <url>https://gitee.com/junzijian/note</url>
     <description>个人笔记</description>
 
 
     <modules>
-
         <!-- cloud -->
         <module>project/cloud</module>
 
         <!-- framework -->
         <module>project/framework</module>
-
     </modules>
 
 
@@ -40,6 +38,7 @@
         <java.version>1.8</java.version>
 
         <dubbo.version>2.7.3</dubbo.version>
+        <seata.version>0.9.0</seata.version>
         <spring-boot-admin.version>2.1.2</spring-boot-admin.version>
         <zipkin-server.version>2.11.1</zipkin-server.version>
         <druid-spring-boot-starter.version>1.1.18</druid-spring-boot-starter.version>
@@ -121,6 +120,15 @@
                 <version>${dubbo.version}</version>
             </dependency>
             <!-- dubbo -->
+
+
+            <!-- seata -->
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-all</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+            <!-- seata -->
 
 
             <!-- admin-server -->
