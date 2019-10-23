@@ -13,6 +13,8 @@
     <artifactId>framework</artifactId>
     <packaging>pom</packaging>
 
+    <name>【framework】</name>
+
 
     <modules>
         <module>framework-util</module>

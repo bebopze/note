@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.junzijian.cloud</groupId>
+        <groupId>com.junzijian</groupId>
         <artifactId>cloud-alibaba-service</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -34,14 +34,14 @@
 
         <!-- nacos-discovery -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
+            <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
         <!-- nacos-discovery -->
 
         <!-- sentinel -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
+            <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
         <!-- sentinel -->

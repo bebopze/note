@@ -2,7 +2,7 @@ package com.junzijian.framework.common.model.response.template;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.pagehelper.PageInfo;
-import com.yunche.framework.common.model.response.ResponseResult;
+import com.junzijian.framework.common.model.response.ResponseResult;
 import lombok.Data;
 
 import java.util.Collection;

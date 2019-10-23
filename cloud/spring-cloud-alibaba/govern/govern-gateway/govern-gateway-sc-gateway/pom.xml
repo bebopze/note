@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.junzijian.cloud</groupId>
+        <groupId>com.junzijian</groupId>
         <artifactId>cloud-alibaba-govern-gateway</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -20,8 +20,8 @@
         <!-- common -->
         <dependency>
             <groupId>com.junzijian</groupId>
-            <artifactId>framework-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>cloud-alibaba-framework-common</artifactId>
+            <version>1.0.0</version>
         </dependency>
         <!-- common -->
 
@@ -68,14 +68,14 @@
 
         <!-- nacos-discovery -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
+            <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
         <!-- nacos-discovery -->
 
         <!-- nacos-config -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
+            <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
         <!-- nacos-config -->

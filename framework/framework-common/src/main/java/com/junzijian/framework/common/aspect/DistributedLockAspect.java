@@ -1,5 +1,7 @@
 package com.junzijian.framework.common.aspect;
 
+import com.junzijian.framework.common.annotation.DistributedLock;
+import com.junzijian.framework.util.LockUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -34,7 +36,7 @@ public class DistributedLockAspect {
     private LockUtils lockUtils;
 
 
-    @Around(value = "@annotation(com.yunche.framework.common.annotation.DistributedLock)")
+    @Around(value = "@annotation(com.junzijian.framework.common.annotation.DistributedLock)")
     public Object around(ProceedingJoinPoint point) throws Throwable {
 
         MethodSignature methodSignature = (MethodSignature) point.getSignature();
