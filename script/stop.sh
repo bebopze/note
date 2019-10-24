@@ -1,5 +1,5 @@
 #!/bin/bash
-proc_name="alipay-life-service.jar"
+proc_name="alipay-service.jar"
 name_suffixx="\>"
 proc_id=`ps -ef|grep -i ${proc_name}${name_suffixx}|grep -v "grep"|awk '{print $2}'`
 if [[ -z $proc_id ]];then
