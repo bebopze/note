@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.junzijian</groupId>
+        <groupId>com.junzijian.cloud</groupId>
         <artifactId>cloud-alibaba-govern-gateway</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -19,8 +19,8 @@
 
         <!-- common -->
         <dependency>
-            <groupId>com.junzijian</groupId>
-            <artifactId>cloud-alibaba-framework-common</artifactId>
+            <groupId>com.junzijian.cloud</groupId>
+            <artifactId>cloud-netflix-framework-common</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- common -->
@@ -189,10 +189,10 @@
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.netflix.feign</groupId>
-            <artifactId>feign-okhttp</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.netflix.feign</groupId>-->
+            <!--<artifactId>feign-okhttp</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>

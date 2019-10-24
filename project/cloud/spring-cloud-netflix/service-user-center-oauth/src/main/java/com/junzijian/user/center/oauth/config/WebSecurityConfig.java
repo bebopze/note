@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/oauth/login", "/oauth/logout", "/oauth/jwt");
     }
 

@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.junzijian</groupId>
+        <groupId>com.junzijian.cloud</groupId>
         <artifactId>cloud-alibaba-service</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
