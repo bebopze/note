@@ -8,13 +8,13 @@ import java.util.concurrent.*;
  * @author liuzhe
  * @date 2019/6/11
  */
-public class ThreadPool {
+public class CustomThreadPool {
 
     /**
      * 线程池
      */
     private static final ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()
-            .setNameFormat("alipay-pool-%d").build();
+            .setNameFormat("custom-pool-%d").build();
 
     public static final ExecutorService executorService = new ThreadPoolExecutor(
             4,

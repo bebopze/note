@@ -3,10 +3,13 @@ package com.junzijian.framework.common.aspect;
 import com.alibaba.fastjson.JSONPathException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.junzijian.framework.common.model.response.ResponseResult;
+import com.junzijian.framework.common.model.response.code.CommonCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -18,8 +21,11 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.util.Set;
 
 /**
  * 统一异常处理
@@ -36,31 +42,30 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseResult exceptionHandler(Throwable e) {
 
-        return doGlobalExceptionHandler(e);
-    }
-
-    /**
-     * 执行异常处理
-     *
-     * @param e
-     * @return
-     */
-    private ResponseResult doGlobalExceptionHandler(Throwable e) {
-
         log.error(e.getMessage(), e);
 
-        if (e instanceof MissingServletRequestParameterException) {
-            String parameterName = ((MissingServletRequestParameterException) e).getParameterName();
-            return ResponseResult.FAIL(parameterName + "不能为空");
+        if (e instanceof ConstraintViolationException) {
+
+            Set<ConstraintViolation<?>> violations = ((ConstraintViolationException) e).getConstraintViolations();
+            ConstraintViolation<?> violation = violations.iterator().next();
+
+            String message = violation.getMessage();
+            return ResponseResult.FAIL(CommonCode.INVALID_PARAM.code(), message);
+
         } else if (e instanceof MethodArgumentNotValidException) {
-            return ResponseResult.FAIL("表单必录数据填写不完整");
-        }
-//        else if (e instanceof ConstraintViolationException) {
-//            return ResponseResult.FAIL(e.getMessage());
-//        } else if (e instanceof AlipayApiException) {
-//            return ResponseResult.FAIL("网商接口调用出错");
-//        }
-        else if (e instanceof NumberFormatException) {
+
+            BindingResult bindingResult = ((MethodArgumentNotValidException) e).getBindingResult();
+            FieldError fieldError = bindingResult.getFieldErrors().get(0);
+
+            String msg = fieldError.getField() + ":" + fieldError.getDefaultMessage();
+            return ResponseResult.FAIL(CommonCode.INVALID_PARAM.code(), msg);
+
+        } else if (e instanceof MissingServletRequestParameterException) {
+
+            String parameterName = ((MissingServletRequestParameterException) e).getParameterName();
+            return ResponseResult.FAIL(CommonCode.INVALID_PARAM.code(), parameterName + "不能为空");
+
+        } else if (e instanceof NumberFormatException) {
             return ResponseResult.FAIL("参数类型转换异常");
         } else if (e instanceof IllegalArgumentException) {
             return ResponseResult.FAIL(e.getMessage());
@@ -84,6 +89,7 @@ public class GlobalExceptionHandler {
             log.error(request.getServletPath() + " " + e.getMessage());
 
             return ResponseResult.FAIL(e.getMessage());
+
         } else if (e instanceof Exception) {
             return ResponseResult.FAIL("出错啦,请稍后再试!");
         } else {
@@ -91,5 +97,4 @@ public class GlobalExceptionHandler {
             return ResponseResult.FAIL(!StringUtils.hasText(errorMsg) ? "未知错误" : errorMsg);
         }
     }
-
 }

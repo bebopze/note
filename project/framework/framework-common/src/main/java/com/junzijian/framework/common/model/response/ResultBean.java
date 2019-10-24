@@ -1,14 +1,16 @@
-package com.junzijian.framework.common.model.response.template;
+package com.junzijian.framework.common.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.pagehelper.PageInfo;
-import com.junzijian.framework.common.model.response.ResponseResult;
+import com.junzijian.framework.common.model.response.code.CommonCode;
 import lombok.Data;
 
 import java.util.Collection;
 import java.util.List;
 
 /**
+ * 通用Result
+ *
  * @author liuzhe
  * @date 2018/11/20
  */
@@ -18,6 +20,7 @@ public class ResultBean<T> extends ResponseResult {
     /**
      * 数据明细
      */
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
 
@@ -38,40 +41,36 @@ public class ResultBean<T> extends ResponseResult {
 
 
     public static <T> ResultBean<T> ofSuccess() {
-        return of(null, true, ExceptionEnum.EC00000200);
+        return of(null, true, CommonCode.SUCCESS);
     }
 
     public static <T> ResultBean<T> ofSuccess(T data) {
-        return of(data, true, ExceptionEnum.EC00000200);
+        return of(data, true, CommonCode.SUCCESS);
     }
 
     public static <T> ResultBean<T> ofSuccess(T data, String msg) {
-        return of(data, true, ExceptionEnum.EC00000200.getCode(), msg);
+        return of(data, true, CommonCode.SUCCESS.code(), msg);
     }
 
-    public static <T> ResultBean<T> ofSuccess(T data, ExceptionEnum exceptionEnum) {
-        return of(data, true, exceptionEnum);
+    public static <T> ResultBean<T> ofSuccess(T data, CommonCode commonCode) {
+        return of(data, true, commonCode);
     }
 
     public static <T> ResultBean<T> ofSuccess(T data, Integer totalNum, Integer pageIndex, Integer pageSize) {
-        return of(data, true, ExceptionEnum.EC00000200, totalNum, pageIndex, pageSize);
+        return of(data, true, CommonCode.SUCCESS, totalNum, pageIndex, pageSize);
     }
 
     public static <T> ResultBean<T> ofSuccess(T data, Integer totalNum, Integer pageIndex, Integer pageSize, String msg) {
-        return of(data, true, ExceptionEnum.EC00000200, totalNum, pageIndex, pageSize, msg);
+        return of(data, true, CommonCode.SUCCESS, totalNum, pageIndex, pageSize, msg);
     }
 
-    public static <T> ResultBean<T> of(T data, boolean success, ExceptionEnum exceptionEnum,
+    public static <T> ResultBean<T> of(T data, boolean success, CommonCode commonCode,
                                        Integer totalNum, Integer pageIndex, Integer pageSize) {
-        return of(data, success, exceptionEnum, totalNum, pageIndex, pageSize, null);
+        return of(data, success, commonCode, totalNum, pageIndex, pageSize, null);
     }
 
-    public static <T> ResultBean of(T data, boolean success, ExceptionEnum exceptionEnum) {
-        if (null != exceptionEnum) {
-            return of(data, success, exceptionEnum.getCode(), exceptionEnum.getMessage());
-        } else {
-            return of(data, success, null, null);
-        }
+    public static <T> ResultBean of(T data, boolean success, CommonCode commonCode) {
+        return of(data, success, commonCode.code(), commonCode.msg());
     }
 
     public static <T> ResultBean of(T data, boolean success, Integer code, String msg) {
@@ -86,16 +85,14 @@ public class ResultBean<T> extends ResponseResult {
         return resultBean;
     }
 
-    public static <T> ResultBean<T> of(T data, boolean success, ExceptionEnum exceptionEnum,
+    public static <T> ResultBean<T> of(T data, boolean success, CommonCode commonCode,
                                        Integer totalNum, Integer pageIndex, Integer pageSize, String msg) {
 
         ResultBean resultBean = new ResultBean();
         resultBean.setData(data);
         resultBean.setSuccess(success);
-        if (null != exceptionEnum) {
-            resultBean.setCode(exceptionEnum.getCode());
-            resultBean.setMsg(exceptionEnum.getMessage());
-        }
+        resultBean.setCode(commonCode.code());
+        resultBean.setMsg(commonCode.msg());
         if (data instanceof Collection && null == totalNum) {
             resultBean.setTotalNum(((Collection) data).size());
         }
@@ -108,12 +105,12 @@ public class ResultBean<T> extends ResponseResult {
     }
 
 
-    public static <T> ResultBean<T> ofError(ExceptionEnum exceptionEnum) {
-        return ofError(exceptionEnum.getCode(), exceptionEnum.getMessage());
+    public static <T> ResultBean<T> ofError(CommonCode commonCode) {
+        return ofError(commonCode.code(), commonCode.msg());
     }
 
     public static <T> ResultBean<T> ofError(String msg) {
-        return ofError(ExceptionEnum.EC00000500.getCode(), msg);
+        return ofError(CommonCode.FAIL.code(), msg);
     }
 
     public static <T> ResultBean<T> ofError(int code, String msg) {
@@ -121,7 +118,6 @@ public class ResultBean<T> extends ResponseResult {
         resultBean.setSuccess(false);
         resultBean.setCode(code);
         resultBean.setMsg(msg);
-        resultBean.setData(null);
         return resultBean;
     }
 

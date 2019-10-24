@@ -1,5 +1,6 @@
 package com.junzijian.framework.common.model.response;
 
+import com.junzijian.framework.common.model.response.code.ResultCode;
 import lombok.Data;
 
 /**

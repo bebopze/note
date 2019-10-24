@@ -10,6 +10,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
+    <groupId>com.junzijian.framework</groupId>
     <artifactId>framework</artifactId>
     <packaging>pom</packaging>
 

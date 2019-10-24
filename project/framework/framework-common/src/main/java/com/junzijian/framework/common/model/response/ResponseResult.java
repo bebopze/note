@@ -1,29 +1,36 @@
 package com.junzijian.framework.common.model.response;
 
+import com.junzijian.framework.common.model.response.code.CommonCode;
+import com.junzijian.framework.common.model.response.code.ResultCode;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 /**
+ * base Response Result
+ *
  * @author liuzhe
  * @date 2018/11/13
  */
 @Data
 @NoArgsConstructor
-public class ResponseResult implements Response, Serializable {
+@AllArgsConstructor
+public class ResponseResult implements Serializable {
 
     private static final long serialVersionUID = -2361820086956983473L;
+
 
     /**
      * 操作是否成功
      */
-    boolean success = SUCCESS;
+    boolean success;
 
     /**
      * 操作代码
      */
-    int code = SUCCESS_CODE;
+    int code;
 
     /**
      * 提示信息
@@ -34,7 +41,7 @@ public class ResponseResult implements Response, Serializable {
     public ResponseResult(ResultCode resultCode) {
         this.success = resultCode.success();
         this.code = resultCode.code();
-        this.msg = resultCode.message();
+        this.msg = resultCode.msg();
     }
 
     public static ResponseResult SUCCESS() {
@@ -46,11 +53,14 @@ public class ResponseResult implements Response, Serializable {
     }
 
     public static ResponseResult FAIL(String msg) {
+        return FAIL(CommonCode.FAIL.code(), msg);
+    }
+
+    public static ResponseResult FAIL(int code, String msg) {
         ResponseResult responseResult = new ResponseResult();
         responseResult.setSuccess(false);
-        responseResult.setCode(CommonCode.FAIL.code);
+        responseResult.setCode(code);
         responseResult.setMsg(msg);
         return responseResult;
     }
-
 }

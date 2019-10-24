@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.junzijian</groupId>
+        <groupId>com.junzijian.framework</groupId>
         <artifactId>framework</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -20,7 +20,7 @@
 
         <!-- util -->
         <dependency>
-            <groupId>com.junzijian</groupId>
+            <groupId>com.junzijian.framework</groupId>
             <artifactId>framework-util</artifactId>
             <version>1.0.0</version>
         </dependency>
@@ -69,6 +69,17 @@
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
         <!-- swagger2 -->
+
+        <!-- validation -->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <!-- validation -->
 
         <dependency>
             <groupId>org.apache.commons</groupId>

@@ -8,7 +8,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -24,7 +23,7 @@ import java.util.stream.Stream;
  * 统一日志处理
  *
  * @author liuzhe
- * @date 2018/1/10
+ * @date 2019/10/24
  */
 @Slf4j
 @Aspect
@@ -37,46 +36,57 @@ public class GlobalLogHandler {
 
         long startTime = System.currentTimeMillis();
 
+        // request
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+
         // 日志记录
-        log(pjp);
+        logRequest(request, pjp);
 
         // exec
         Object result = pjp.proceed();
 
         // 统计时间
-        long totalTime = System.currentTimeMillis() - startTime;
-        log.info("totalTime : {}s", (double) totalTime / 1000);
+        logTime(request, startTime);
 
         return result;
     }
 
+
     /**
-     * 记录日志
+     * log request
      *
+     * @param request
      * @param pjp
      */
-    private void log(ProceedingJoinPoint pjp) {
+    private void logRequest(HttpServletRequest request, ProceedingJoinPoint pjp) {
 
         Object[] args = pjp.getArgs();
-
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        if (null == requestAttributes) {
-            return;
-        }
-
-        // web
-        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
 
         List<Object> argList = Arrays.stream(args)
                 .filter(arg -> !(arg instanceof HttpServletRequest) && !(arg instanceof HttpServletResponse))
                 .collect(Collectors.toList());
 
         if (CollectionUtils.isEmpty(argList)) {
-            log.info(Stream.of(request.getServletPath(), getIpAddress(request)).collect(Collectors.joining(" ")));
+            log.info(Stream.of(request.getContextPath() + request.getServletPath(), getIpAddress(request)).collect(Collectors.joining(" ")));
         } else {
-            log.info(Stream.of(request.getServletPath(), getIpAddress(request), JSON.toJSONString(argList)).collect(Collectors.joining(" ")));
+            log.info(Stream.of(request.getContextPath() + request.getServletPath(), getIpAddress(request), JSON.toJSONString(argList)).collect(Collectors.joining(" ")));
         }
 
+    }
+
+    /**
+     * log time
+     *
+     * @param request
+     * @param startTime
+     */
+    private void logTime(HttpServletRequest request, long startTime) {
+
+        String path = request.getContextPath() + request.getServletPath();
+
+        long totalTime = System.currentTimeMillis() - startTime;
+
+        log.info("{} {}s", path, (double) totalTime / 1000);
     }
 
     /**

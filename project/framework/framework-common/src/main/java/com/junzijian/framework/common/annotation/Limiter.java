@@ -15,15 +15,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface Limiter {
 
-//    /**
-//     * 限流route      默认取当前servletPath
-//     *
-//     * @return
-//     */
-//    String value() default "";
-
     /**
-     * 限流次数，配合expire使用      默认：1次/s
+     * 限流次数，配合expire使用      默认：1次
      *
      * @return
      */

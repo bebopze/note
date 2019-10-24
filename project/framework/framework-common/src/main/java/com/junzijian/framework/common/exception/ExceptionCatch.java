@@ -1,12 +1,11 @@
 package com.junzijian.framework.common.exception;
 
 import com.google.common.collect.ImmutableMap;
-import com.junzijian.framework.common.model.response.CommonCode;
+import com.junzijian.framework.common.model.response.code.CommonCode;
 import com.junzijian.framework.common.model.response.ResponseResult;
-import com.junzijian.framework.common.model.response.ResultCode;
+import com.junzijian.framework.common.model.response.code.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date 2018/11/14
  */
 @Slf4j
-@ControllerAdvice
+//@ControllerAdvice
 public class ExceptionCatch {
 
     /**
@@ -44,8 +43,7 @@ public class ExceptionCatch {
         //记录日志
         log.error("catch exception : {}", customException.getMessage());
 
-        ResultCode resultCode = customException.getResultCode();
-        return new ResponseResult(resultCode);
+        return ResponseResult.FAIL(customException.getCode(), customException.getMsg());
     }
 
 
@@ -71,7 +69,7 @@ public class ExceptionCatch {
         if (resultCode != null) {
             return new ResponseResult(resultCode);
         } else {
-            // 返回99999异常
+            // 返回SERVER_ERROR异常¬¬¬
             return new ResponseResult(CommonCode.SERVER_ERROR);
         }
     }
