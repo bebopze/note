@@ -2,7 +2,6 @@ package com.junzijian.framework.common.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
-import com.junzijian.framework.common.exception.CustomException;
 import com.junzijian.framework.common.exception.ExceptionCast;
 import com.junzijian.framework.common.model.CustomContext;
 import com.junzijian.framework.common.model.CustomContextVO;

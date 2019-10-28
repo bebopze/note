@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotEmpty;
 
 /**
+ * test
+ *
  * @author liuzhe
  * @date 2019/10/28
  */
@@ -25,7 +27,9 @@ public class TestController {
 
 
     @GetMapping("/sayHello")
-    public ResultBean<String> sayHello(@RequestParam @NotEmpty(message = "name不能为空") String name) {
-        return ResultBean.ofSuccess(testService.sayHello(name));
+    public ResultBean<String> sayHello(@RequestParam @NotEmpty(message = "name不能为空") String name,
+                                       @RequestParam @NotEmpty(message = "name2不能为空") String name2) {
+
+        return ResultBean.ofSuccess(testService.sayHello(name, name2));
     }
 }

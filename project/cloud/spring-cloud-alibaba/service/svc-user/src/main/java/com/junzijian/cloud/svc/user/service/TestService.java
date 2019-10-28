@@ -8,5 +8,5 @@ import javax.validation.constraints.NotEmpty;
  */
 public interface TestService {
 
-    String sayHello(@NotEmpty String name);
+    String sayHello(@NotEmpty String... name);
 }

@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>cloud-alibaba-svc-user</artifactId>
+    <artifactId>cloud-ali-svc-user</artifactId>
 
 
     <dependencies>
@@ -23,6 +23,14 @@
         </dependency>
         <!-- framework-common -->
 
+        <!-- cloud-ali-framework-model -->
+        <dependency>
+            <groupId>com.junzijian.cloud</groupId>
+            <artifactId>cloud-ali-framework-model</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- cloud-ali-framework-model -->
+        
 
         <!-- web -->
         <dependency>

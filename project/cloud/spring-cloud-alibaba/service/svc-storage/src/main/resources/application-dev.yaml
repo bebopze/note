@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: cloud-alibaba-svc-storage
+server:
+  port: 7004
+
+# swagger-ui
+swagger-ui.open: true

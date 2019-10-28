@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: cloud-alibaba-svc-order
+server:
+  port: 7002
+
+# swagger-ui
+swagger-ui.open: true

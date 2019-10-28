@@ -10,9 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>cloud-alibaba-framework-common</artifactId>
-
-    <description>Demo project for Spring Boot</description>
+    <artifactId>cloud-ali-framework-common</artifactId>
 
 
     <dependencies>
@@ -34,14 +32,5 @@
         </dependency>
 
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

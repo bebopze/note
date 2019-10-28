@@ -10,16 +10,14 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>cloud-alibaba-framework-model</artifactId>
-
-    <description>Demo project for Spring Boot</description>
+    <artifactId>cloud-ali-framework-model</artifactId>
 
 
     <dependencies>
 
         <!-- common -->
         <dependency>
-            <groupId>com.junzijian</groupId>
+            <groupId>com.junzijian.cloud</groupId>
             <artifactId>framework-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

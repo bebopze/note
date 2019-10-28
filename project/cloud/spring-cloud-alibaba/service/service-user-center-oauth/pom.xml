@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>cloud-alibaba-service-user-center-oauth</artifactId>
+    <artifactId>cloud-ali-svc-user-center-oauth</artifactId>
 
     <description>Demo project for Spring Boot</description>
 

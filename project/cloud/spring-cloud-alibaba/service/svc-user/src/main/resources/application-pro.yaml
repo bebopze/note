@@ -2,7 +2,7 @@ spring:
   application:
     name: cloud-alibaba-svc-user
 server:
-  port: 7001
+  port: 7002
 
 # swagger-ui
 swagger-ui.open: true

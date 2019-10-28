@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.Arrays;
 
 /**
  * @author junzijian
@@ -15,7 +16,7 @@ import javax.validation.constraints.NotEmpty;
 public class TestServiceImpl implements TestService {
 
     @Override
-    public String sayHello(@NotEmpty String name) {
-        return "hello " + name;
+    public String sayHello(@NotEmpty String... name) {
+        return "hello : " + Arrays.toString(name);
     }
 }

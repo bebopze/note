@@ -12,7 +12,7 @@ import lombok.ToString;
 public enum CommonCode implements ResultCode {
 
 
-    // ----------------- 10xxx -- 通用-错误代码
+    // ----------------- 10xxx -- 通用错误代码
     SUCCESS(true, 10000, "操作成功！"),
     FAIL(false, 10001, "操作失败！"),
 

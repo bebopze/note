@@ -1,6 +1,6 @@
 <Configuration status="WARN">
     <Properties>
-        <Property name="LOG_PATH">/var/log/business/</Property>
+        <Property name="LOG_PATH">/var/log/note/cloud/</Property>
         <Property name="LOG_PATTERN">[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</Property>
     </Properties>
 
@@ -10,8 +10,8 @@
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
 
-        <RollingFile name="App-File-Appender" fileName="${LOG_PATH}/yunche-openapi-inparts.log"
-                     filePattern="${LOG_PATH}/$${date:yyyy-MM}/$${date:dd}/yunche-openapi-inparts-%d{yyyy-MM-dd}-%i.log">
+        <RollingFile name="App-File-Appender" fileName="${LOG_PATH}/cloud-ali-user.log"
+                     filePattern="${LOG_PATH}/$${date:yyyy-MM}/$${date:dd}/cloud-ali-user-%d{yyyy-MM-dd}-%i.log">
 
             <PatternLayout>
                 <Pattern>${LOG_PATTERN}</Pattern>
@@ -32,7 +32,7 @@
 
 
     <Loggers>
-        <logger level="INFO" name="com.yunche">
+        <logger level="INFO" name="com.junzijian">
             <AppenderRef ref="App-File-Appender"/>
         </logger>
         <Root level="INFO">
