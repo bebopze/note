@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>cloud-alibaba-govern</artifactId>
+    <artifactId>cloud-ali-govern</artifactId>
     <packaging>pom</packaging>
 
 
