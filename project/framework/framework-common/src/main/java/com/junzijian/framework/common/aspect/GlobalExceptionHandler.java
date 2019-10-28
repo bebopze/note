@@ -1,5 +1,6 @@
 package com.junzijian.framework.common.aspect;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONPathException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.junzijian.framework.common.model.response.ResponseResult;
@@ -23,8 +24,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import javax.validation.Path;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -40,17 +46,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public ResponseResult exceptionHandler(Throwable e) {
+    public ResponseResult exceptionHandler(Throwable e) throws NoSuchMethodException {
 
         log.error(e.getMessage(), e);
 
         if (e instanceof ConstraintViolationException) {
 
-            Set<ConstraintViolation<?>> violations = ((ConstraintViolationException) e).getConstraintViolations();
-            ConstraintViolation<?> violation = violations.iterator().next();
+            String message = e.getMessage();
 
-            String message = violation.getMessage();
-            return ResponseResult.FAIL(CommonCode.INVALID_PARAM.code(), message);
+            String msg = getConstraintViolationExceptionMsg(e);
+            return ResponseResult.FAIL(CommonCode.INVALID_PARAM.code(), msg);
 
         } else if (e instanceof MethodArgumentNotValidException) {
 
@@ -96,5 +101,29 @@ public class GlobalExceptionHandler {
             String errorMsg = e.toString() == null ? e.getMessage() : e.toString();
             return ResponseResult.FAIL(!StringUtils.hasText(errorMsg) ? "未知错误" : errorMsg);
         }
+    }
+
+    private String getConstraintViolationExceptionMsg(Throwable e) {
+
+        Set<ConstraintViolation<?>> violations = ((ConstraintViolationException) e).getConstraintViolations();
+        ConstraintViolation<?> violation = violations.iterator().next();
+
+        String message = violation.getMessage();
+
+//        Class<?> rootBeanClass = violation.getRootBeanClass();
+//        String methodName = violation.getPropertyPath().iterator().next().getName();
+//
+//        Method[] methods = rootBeanClass.getMethods();
+//
+//        Arrays.stream(methods)
+//                .filter(method -> methodName.equals(method.getName()))
+//                .forEach(method -> {
+//
+//                    Parameter[] parameters = method.getParameters();
+//
+//                    System.out.println(JSON.toJSONString(parameters));
+//                });
+
+        return message;
     }
 }

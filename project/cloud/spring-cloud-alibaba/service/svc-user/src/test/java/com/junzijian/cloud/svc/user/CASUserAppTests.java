@@ -1,10 +1,10 @@
-package com.junzijin.cloud.svc.user;
+package com.junzijian.cloud.svc.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CloudAlibabaSvcUserApplicationTests {
+class CASUserAppTests {
 
 	@Test
 	void contextLoads() {

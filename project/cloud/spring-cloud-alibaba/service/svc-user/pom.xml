@@ -15,6 +15,15 @@
 
     <dependencies>
 
+        <!-- framework-common -->
+        <dependency>
+            <groupId>com.junzijian.framework</groupId>
+            <artifactId>framework-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- framework-common -->
+
+
         <!-- web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -44,6 +53,7 @@
         <!-- test -->
 
     </dependencies>
+
 
     <build>
         <plugins>
