@@ -12,6 +12,8 @@ import javax.validation.constraints.*;
 import java.util.List;
 
 /**
+ * validator
+ *
  * @author liuzhe
  * @date 2019/9/16
  */
@@ -20,8 +22,6 @@ import java.util.List;
 @RequestMapping("/v1/validator")
 public class ValidatorController {
 
-
-    // ------------------------------validator
 
     @GetMapping("/get")
     public ResultBean<String> validatorGet(@NotEmpty(message = "name不能为空")
@@ -36,10 +36,10 @@ public class ValidatorController {
 
 
     /**
-     * - @Validated 和 @Valid 没啥大的区别
+     * - @Valid 和 @Validated 没啥大的区别
      * -
-     * - @Validated :    Spring's JSR-303规范，是标准JSR-303的一个变种
      * - @Valid     :    标准JSR-303规范
+     * - @Validated :    Spring's JSR-303规范，是标准JSR-303的一个变种
      * -
      * -
      * - 主要区别：  @Valid 可以作用在：成员变量(字段)上，支持：嵌套校验！
