@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * 业务
  *
@@ -28,7 +30,7 @@ public class BizController {
 
     @ApiOperation("下单")
     @PostMapping(value = "/placeOrder", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResultBean<Long> placeOrder(@RequestBody @Validated PlaceOrderParam param) {
+    public ResultBean<Long> placeOrder(@RequestBody @Valid PlaceOrderParam param) {
         return ResultBean.ofSuccess(bizService.placeOrder(param));
     }
 }

@@ -2,7 +2,9 @@ package com.junzijian.cloud.framework.model.biz.param;
 
 import com.junzijian.cloud.framework.model.account.param.AccountParam;
 import com.junzijian.cloud.framework.model.order.param.OrderParam;
+import com.junzijian.cloud.framework.model.product.param.ProductParam;
 import com.junzijian.cloud.framework.model.storage.param.StorageParam;
+import com.junzijian.cloud.framework.model.user.param.UserParam;
 import lombok.Data;
 
 /**
@@ -12,10 +14,13 @@ import lombok.Data;
 @Data
 public class PlaceOrderParam {
 
-    private OrderParam order;
+    private UserParam user;
 
-    private AccountParam account;
+    private ProductParam product;
 
     private StorageParam storage;
 
+    private AccountParam account;
+
+    private OrderParam order;
 }

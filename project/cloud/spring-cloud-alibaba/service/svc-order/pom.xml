@@ -16,23 +16,6 @@
 
     <dependencies>
 
-        <!-- framework-common -->
-        <dependency>
-            <groupId>com.junzijian.framework</groupId>
-            <artifactId>framework-common</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <!-- framework-common -->
-
-        <!-- cloud-ali-framework-model -->
-        <dependency>
-            <groupId>com.junzijian.cloud</groupId>
-            <artifactId>cloud-ali-framework-model</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <!-- cloud-ali-framework-model -->
-
-
         <!-- web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -59,17 +42,95 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
+        <!-- test -->
+
+        <!-- redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+        <!-- redis -->
+
+        <!-- mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!-- mysql -->
+
+        <!-- druid -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- druid -->
+
+        <!-- mybatis -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- mybatis -->
+
+        <!-- pagehelper -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- pagehelper -->
+
+
+        <!-- ========================== note-cloud-ali ========================== -->
+
+        <!-- framework-common -->
+        <dependency>
+            <groupId>com.junzijian.framework</groupId>
+            <artifactId>framework-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- framework-common -->
+
+        <!-- model -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
             <artifactId>cloud-ali-framework-model</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <!-- test -->
+        <!-- model -->
+
+        <!-- user -->
+        <dependency>
+            <groupId>com.junzijian.cloud</groupId>
+            <artifactId>cloud-ali-client-user</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- user -->
+
+        <!-- account -->
+        <dependency>
+            <groupId>com.junzijian.cloud</groupId>
+            <artifactId>cloud-ali-client-account</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- account -->
+
+        <!-- storage -->
+        <dependency>
+            <groupId>com.junzijian.cloud</groupId>
+            <artifactId>cloud-ali-client-storage</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- storage -->
 
     </dependencies>
 
 
     <build>
+        <finalName>${artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

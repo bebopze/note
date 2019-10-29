@@ -22,7 +22,7 @@ public class GeneratorSqlmap {
         // 指定逆向工程配置文件
         String basePath = System.getProperty("user.dir");
 
-        String path = basePath + "/spring-cloud-alibaba-study/framework-model/src/main/resources/generatorConfig.xml";
+        String path = basePath + "/project/cloud/spring-cloud-alibaba/framework/framework-model/src/main/resources/generatorConfig.xml";
         File configFile = new File(path);
 
         ConfigurationParser cp = new ConfigurationParser(warnings);

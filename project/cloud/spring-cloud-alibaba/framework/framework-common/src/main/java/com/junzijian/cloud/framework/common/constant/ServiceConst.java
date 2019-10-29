@@ -6,13 +6,15 @@ package com.junzijian.cloud.framework.common.constant;
  */
 public class ServiceConst {
 
-    public static final String BIZ_SERVICE = "biz-service";
+    public static final String USER_SERVICE = "user-service";
 
-    public static final String ORDER_SERVICE = "order-service";
+    public static final String PRODUCT_SERVICE = "product-service";
 
     public static final String STORAGE_SERVICE = "storage-service";
 
     public static final String ACCOUNT_SERVICE = "account-service";
 
-    public static final String USER_SERVICE = "user-service";
+    public static final String ORDER_SERVICE = "order-service";
+
+    public static final String BIZ_SERVICE = "biz-service";
 }

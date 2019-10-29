@@ -19,9 +19,10 @@
         <module>service-user-center-oauth</module>
 
         <module>svc-user</module>
-        <module>svc-order</module>
-        <module>svc-account</module>
+        <module>svc-product</module>
         <module>svc-storage</module>
+        <module>svc-account</module>
+        <module>svc-order</module>
         <module>svc-biz</module>
     </modules>
 

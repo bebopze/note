@@ -16,9 +16,10 @@
 
     <modules>
         <module>client-user</module>
-        <module>client-order</module>
-        <module>client-account</module>
+        <module>client-product</module>
         <module>client-storage</module>
+        <module>client-account</module>
+        <module>client-order</module>
         <module>client-biz</module>
     </modules>
 
