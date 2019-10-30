@@ -71,10 +71,10 @@
         <!-- swagger2 -->
 
         <!-- validation -->
-        <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>jakarta.validation</groupId>-->
+        <!--<artifactId>jakarta.validation-api</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>

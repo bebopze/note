@@ -32,14 +32,14 @@
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!-- targetProject:mapper映射文件生成的位置 -->
-        <sqlMapGenerator targetPackage="com.junzijian.cloud.framework.model.order.xml"
+        <sqlMapGenerator targetPackage="com.junzijian.cloud.svc.order.xml"
                          targetProject="./project/cloud/spring-cloud-alibaba/framework/framework-model/src">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
         <!-- targetPackage：mapper接口生成的位置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.junzijian.cloud.framework.model.order.mapper"
+                             targetPackage="com.junzijian.cloud.svc.order.mapper"
                              targetProject="./project/cloud/spring-cloud-alibaba/framework/framework-model/src">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false"/>

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author junzijian
  * @date 2019/10/28
  */
-@FeignClient(value = ServiceConst.STORAGE_SERVICE, path = "/v1/storage", url = "")
+@FeignClient(name = ServiceConst.STORAGE_SERVICE, path = "/v1/storage")
 public interface StorageClient {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)

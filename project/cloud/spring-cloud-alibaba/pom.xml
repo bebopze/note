@@ -19,7 +19,7 @@
 
     <modules>
         <module>framework</module>
-        <module>govern</module>
+        <!--<module>govern</module>-->
         <module>service</module>
         <module>client</module>
     </modules>

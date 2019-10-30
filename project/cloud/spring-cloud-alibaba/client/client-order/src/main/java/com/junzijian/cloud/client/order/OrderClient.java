@@ -21,5 +21,5 @@ public interface OrderClient {
     ResultBean<Long> save(@RequestBody OrderParam param);
 
     @GetMapping("/detail")
-    ResultBean<Object> detail(@RequestParam Long orderId);
+    ResultBean<Object> detail(@RequestParam("orderId") Long orderId);
 }

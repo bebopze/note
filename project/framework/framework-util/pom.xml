@@ -16,6 +16,13 @@
 
     <dependencies>
 
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!-- lombok -->
+
         <!-- guava -->
         <dependency>
             <groupId>com.google.guava</groupId>

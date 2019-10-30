@@ -15,8 +15,8 @@
 
 
     <modules>
-        <module>service-user-center</module>
-        <module>service-user-center-oauth</module>
+        <!--<module>service-user-center</module>-->
+        <!--<module>service-user-center-oauth</module>-->
 
         <module>svc-user</module>
         <module>svc-product</module>

@@ -31,9 +31,9 @@ public class Swagger2Config {
 
         List<Parameter> globalOperationParameters = Lists.newArrayList();
         // common header
-        globalOperationParameters.addAll(commonRequestHeader());
+//        globalOperationParameters.addAll(commonRequestHeader());
         // token header
-        globalOperationParameters.addAll(tokenHeader());
+//        globalOperationParameters.addAll(tokenHeader());
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
