@@ -33,4 +33,10 @@ public class BizController {
     public ResultBean<Long> placeOrder(@RequestBody @Valid PlaceOrderParam param) {
         return ResultBean.ofSuccess(bizService.placeOrder(param));
     }
+
+    @ApiOperation("下单")
+    @PostMapping(value = "/placeOrder/dubbo", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResultBean<Long> placeOrderDubbo(@RequestBody @Valid PlaceOrderParam param) {
+        return ResultBean.ofSuccess(bizService.placeOrderDubbo(param));
+    }
 }

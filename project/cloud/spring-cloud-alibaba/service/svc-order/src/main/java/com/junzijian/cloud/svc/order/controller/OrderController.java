@@ -1,5 +1,6 @@
 package com.junzijian.cloud.svc.order.controller;
 
+import com.junzijian.cloud.framework.model.order.entity.OrderDO;
 import com.junzijian.cloud.framework.model.order.param.OrderParam;
 import com.junzijian.cloud.svc.order.service.OrderService;
 import com.junzijian.framework.common.model.response.ResultBean;
@@ -34,7 +35,7 @@ public class OrderController {
     }
 
     @GetMapping("/detail")
-    public ResultBean<Object> detail(@RequestParam @NotNull(message = "orderId不能为空") Long orderId) {
+    public ResultBean<OrderDO> detail(@RequestParam @NotNull(message = "orderId不能为空") Long orderId) {
         return ResultBean.ofSuccess(orderService.detail(orderId));
     }
 }

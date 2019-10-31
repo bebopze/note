@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * @author junzijian
  * @date 2019/10/28
@@ -26,7 +28,7 @@ public class AccountController {
 
     @ApiOperation(value = "保存账户", notes = "创建/修改")
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResultBean<Void> save(@RequestBody @Validated AccountParam param) {
+    public ResultBean<Void> save(@RequestBody @Valid AccountParam param) {
         accountService.save(param);
         return ResultBean.ofSuccess();
     }

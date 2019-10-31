@@ -1,6 +1,7 @@
 package com.junzijian.cloud.client.order;
 
 import com.junzijian.cloud.framework.common.constant.ServiceConst;
+import com.junzijian.cloud.framework.model.order.entity.OrderDO;
 import com.junzijian.cloud.framework.model.order.param.OrderParam;
 import com.junzijian.framework.common.model.response.ResultBean;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -21,5 +22,5 @@ public interface OrderClient {
     ResultBean<Long> save(@RequestBody OrderParam param);
 
     @GetMapping("/detail")
-    ResultBean<Object> detail(@RequestParam("orderId") Long orderId);
+    ResultBean<OrderDO> detail(@RequestParam("orderId") Long orderId);
 }

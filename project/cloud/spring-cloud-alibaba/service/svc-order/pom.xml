@@ -45,6 +45,14 @@
         <!-- openfeign -->
 
 
+        <!-- dubbo -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-dubbo</artifactId>
+        </dependency>
+        <!-- dubbo -->
+
+
         <!-- web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -154,6 +162,14 @@
             <version>1.0.0</version>
         </dependency>
         <!-- storage -->
+
+        <!-- client-order -->
+        <dependency>
+            <groupId>com.junzijian.cloud</groupId>
+            <artifactId>cloud-ali-client-order</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- user -->
 
     </dependencies>
 

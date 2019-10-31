@@ -5,7 +5,6 @@ import com.junzijian.cloud.framework.model.account.param.AccountParam;
 import com.junzijian.framework.common.model.response.ResultBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -17,5 +16,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface AccountClient {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResultBean<Void> save(@RequestBody @Validated AccountParam param);
+    ResultBean<Void> save(@RequestBody AccountParam param);
 }

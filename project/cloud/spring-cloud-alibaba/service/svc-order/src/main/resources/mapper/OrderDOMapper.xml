@@ -19,15 +19,15 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from order
+        from product_order
         where id = #{id,jdbcType=BIGINT}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from order
+    delete from product_order
     where id = #{id,jdbcType=BIGINT}
   </delete>
     <insert id="insert" parameterType="com.junzijian.cloud.framework.model.order.entity.OrderDO">
-    insert into order (id, user_id, product_id, 
+    insert into product_order (id, user_id, product_id,
       product_name, product_price, status, 
       version, gmt_create, gmt_modify
       )
@@ -37,7 +37,7 @@
       )
   </insert>
     <insert id="insertSelective" parameterType="com.junzijian.cloud.framework.model.order.entity.OrderDO">
-        insert into order
+        insert into product_order
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -98,7 +98,7 @@
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.junzijian.cloud.framework.model.order.entity.OrderDO">
-        update order
+        update product_order
         <set>
             <if test="userId != null">
                 user_id = #{userId,jdbcType=BIGINT},
@@ -128,7 +128,7 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.junzijian.cloud.framework.model.order.entity.OrderDO">
-    update order
+    update product_order
     set user_id = #{userId,jdbcType=BIGINT},
       product_id = #{productId,jdbcType=BIGINT},
       product_name = #{productName,jdbcType=VARCHAR},

@@ -1,4 +1,4 @@
-package com.junzijian.cloud.svc.order.service;
+package com.junzijian.cloud.client.order;
 
 import com.junzijian.cloud.framework.model.order.entity.OrderDO;
 import com.junzijian.cloud.framework.model.order.param.OrderParam;
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author junzijian
- * @date 2019/10/28
+ * @date 2019/10/31
  */
 public interface OrderService {
 

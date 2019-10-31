@@ -5,7 +5,6 @@ import com.junzijian.cloud.framework.model.biz.param.PlaceOrderParam;
 import com.junzijian.framework.common.model.response.ResultBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -17,5 +16,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface BizClient {
 
     @PostMapping(value = "/placeOrder", consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResultBean<Long> placeOrder(@RequestBody @Validated PlaceOrderParam param);
+    ResultBean<Long> placeOrder(@RequestBody PlaceOrderParam param);
 }
