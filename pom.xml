@@ -28,7 +28,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.9.RELEASE</version>
+        <version>2.2.0.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -74,7 +74,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Greenwich.RELEASE</version>
+                <version>Hoxton.RC1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -380,25 +380,32 @@
         </plugins>
     </build>
 
+
+    <!-- jar远程仓库 -->
     <repositories>
+
         <repository>
-            <id>aliyun-repos</id>
+            <id>aliyun-repo</id>
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+
         <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>http://repo.spring.io/milestone</url>
+            <id>spring-repo</id>
+            <name>Spring Repository</name>
+            <url>http://repo.spring.io/milestone/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+
     </repositories>
 
+    <!-- plugin远程仓库 -->
     <pluginRepositories>
+
         <pluginRepository>
             <id>aliyun-plugin</id>
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
@@ -406,13 +413,7 @@
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
-        <pluginRepository>
-            <id>spring-milestones-plugin</id>
-            <url>http://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
+
     </pluginRepositories>
 
 </project>

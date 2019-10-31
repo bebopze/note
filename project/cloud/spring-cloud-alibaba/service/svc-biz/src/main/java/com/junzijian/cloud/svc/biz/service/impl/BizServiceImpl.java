@@ -35,9 +35,9 @@ public class BizServiceImpl implements BizService {
     @Override
     public Long placeOrder(PlaceOrderParam param) {
 
-        storageClient.save(param.getStorage());
+        ResultBean<Long> save = storageClient.save(param.getStorage());
 
-        accountClient.save(param.getAccount());
+        ResultBean<Void> save1 = accountClient.save(param.getAccount());
 
         ResultBean<Long> resultBean = orderClient.save(param.getOrder());
 

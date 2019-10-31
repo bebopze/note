@@ -1,6 +1,6 @@
 spring:
   application:
-    name: cloud-ali-svc-biz
+    name: cloud-ali-svc-order
 
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
