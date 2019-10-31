@@ -1,8 +1,12 @@
 package com.junzijian.framework.common.config;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.google.common.collect.Lists;
 import com.junzijian.framework.common.interceptor.CustomInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.*;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,6 +84,56 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
+    /**
+     * exclude swagger
+     *
+     * @param excludePathPatterns
+     * @return
+     */
+    private void excludeSwagger(List<String> excludePathPatterns) {
+
+        // 放开swagger文档
+        excludePathPatterns.addAll(Lists.newArrayList(
+                "/swagger-ui.html",
+                "/webjars/**",
+                "/swagger-resources/**",
+                "/v2/api-docs/**")
+        );
+    }
+
+
+//    @Override
+//    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+//
+//        converters.add(number2StringConverter());
+//    }
+//
+//    /**
+//     * number -> String Converter
+//     * <p>
+//     * TODO 此种解决方案 和 spring.jackson.date-format=yyyy-MM-dd HH:mm:ss 冲突！！！
+//     * <p>
+//     * TODO 最终解决方案：spring.jackson.generator.write-numbers-as-strings=true
+//     *
+//     * @return
+//     */
+//    private HttpMessageConverter<?> number2StringConverter() {
+//
+//        SimpleModule simpleModule = new SimpleModule();
+//        // 将Long、BigInteger 序列化的时候，转化为String
+//        simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
+//        simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
+//        simpleModule.addSerializer(BigInteger.class, ToStringSerializer.instance);
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        objectMapper.registerModule(simpleModule);
+//
+//        MappingJackson2HttpMessageConverter number2StringConverter = new MappingJackson2HttpMessageConverter();
+//        number2StringConverter.setObjectMapper(objectMapper);
+//
+//        return number2StringConverter;
+//    }
+
 
 //    @Override
 //    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -103,22 +158,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //    private void removeDefaultConver(List<HttpMessageConverter<?>> converters) {
 //        converters.removeIf(e -> e instanceof MappingJackson2HttpMessageConverter);
 //    }
-
-    /**
-     * exclude swagger
-     *
-     * @param excludePathPatterns
-     * @return
-     */
-    private void excludeSwagger(List<String> excludePathPatterns) {
-
-        // 放开swagger文档
-        excludePathPatterns.addAll(Lists.newArrayList(
-                "/swagger-ui.html",
-                "/webjars/**",
-                "/swagger-resources/**",
-                "/v2/api-docs/**")
-        );
-    }
 
 }
