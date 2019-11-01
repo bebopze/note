@@ -29,5 +29,19 @@ spring:
         min-idle: 24
         max-wait: 2000
 
+dubbo:
+  application:
+    name: ${spring.application.name}
+  registry:
+#    address: zookeeper://192.168.2.18:2181
+    address: nacos://127.0.0.1:8848
+  protocol:
+    name: dubbo
+    port: -1
+  consumer:
+    group: junzijian
+    version: 1.0.0
+    timeout: 30000
+
 # swagger-ui
 swagger-ui.open: true

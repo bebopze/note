@@ -25,7 +25,25 @@ import java.util.List;
  * @date 2019/10/24
  */
 @Configuration
-@EnableWebMvc
+/**
+ * tips: 不要在网上随便copy 增加 @EnableWebMvc 注解, 它会覆盖 SpringBoot MVC 的默认配置❗️❗️❗️
+ *
+ * 1. extends WebMvcConfigurationSupport：
+ *
+ *      在添加拦截器并继承 WebMvcConfigurationSupport 后
+ *      会覆盖 @EnableAutoConfiguration 关于WebMvcAutoConfiguration的配置！
+ *
+ *      从而导致所有的 spring.jackson.xx 配置失效！！！
+ *
+ *
+ *  2.  implements WebMvcConfigurer + @EnableWebMvc
+ *
+ *      效果&副作用 同上！！！
+ *
+ * @see <a href="https://www.52jingya.com/aid13381.html"/>
+ *
+ */
+//@EnableWebMvc ❌❌❌
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired

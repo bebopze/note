@@ -1,5 +1,6 @@
 package com.junzijian.cloud.svc.order.service.impl;
 
+import com.junzijian.cloud.client.order.dubbo.OrderDubboService;
 import com.junzijian.cloud.framework.model.order.entity.OrderDO;
 import com.junzijian.cloud.framework.model.order.param.OrderParam;
 import com.junzijian.cloud.svc.order.mapper.OrderDOMapper;
@@ -19,8 +20,13 @@ import javax.validation.constraints.NotNull;
  */
 @Slf4j
 @Service
-@org.apache.dubbo.config.annotation.Service
-public class OrderServiceImpl implements OrderService, com.junzijian.cloud.client.order.OrderService {
+/**
+ * dubbo provider：
+ *
+ *      OrderDubboService 放在第一位   OR   手动给定 interfaceClass/interfaceName
+ */
+@org.apache.dubbo.config.annotation.Service(interfaceClass = OrderDubboService.class/*, interfaceName = "com.junzijian.cloud.client.order.dubbo.OrderDubboService"*/)
+public class DubboServiceImpl implements OrderDubboService, OrderService {
 
     @Autowired
     private IdWorker idWorker;

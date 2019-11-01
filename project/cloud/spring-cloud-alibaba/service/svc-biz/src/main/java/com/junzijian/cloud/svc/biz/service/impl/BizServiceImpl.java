@@ -2,7 +2,7 @@ package com.junzijian.cloud.svc.biz.service.impl;
 
 import com.junzijian.cloud.client.account.AccountClient;
 import com.junzijian.cloud.client.order.OrderClient;
-import com.junzijian.cloud.client.order.OrderService;
+import com.junzijian.cloud.client.order.dubbo.OrderDubboService;
 import com.junzijian.cloud.client.storage.StorageClient;
 import com.junzijian.cloud.client.user.UserClient;
 import com.junzijian.cloud.framework.model.biz.param.PlaceOrderParam;
@@ -30,7 +30,7 @@ public class BizServiceImpl implements BizService {
     private OrderClient orderClient;
 
     @Reference
-    private OrderService orderService;
+    private OrderDubboService orderDubboService;
 
     @Autowired
     private StorageClient storageClient;
@@ -54,7 +54,7 @@ public class BizServiceImpl implements BizService {
     @Override
     public Long placeOrderDubbo(@Valid PlaceOrderParam param) {
 
-        Long orderId = orderService.save(param.getOrder());
+        Long orderId = orderDubboService.save(param.getOrder());
 
         return orderId;
     }
