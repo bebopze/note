@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>cloud-ali-client-account</artifactId>
+    <artifactId>client-account</artifactId>
 
 
     <dependencies>
@@ -49,7 +49,7 @@
         <!-- common -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>cloud-ali-framework-common</artifactId>
+            <artifactId>framework-common</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- common -->
@@ -57,7 +57,7 @@
         <!-- model -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>cloud-ali-framework-model</artifactId>
+            <artifactId>framework-model</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- model -->

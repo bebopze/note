@@ -8,6 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.math.BigDecimal;
+
 /**
  * @author junzijian
  * @date 2019/10/28
@@ -17,4 +19,8 @@ public interface AccountClient {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     ResultBean<Void> save(@RequestBody AccountParam param);
+
+    ResultBean<Void> minus(Long productId, BigDecimal price);
+
+    ResultBean<Void> plus(Long productId, BigDecimal price);
 }

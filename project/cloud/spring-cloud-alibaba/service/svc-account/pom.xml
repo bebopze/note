@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>cloud-ali-svc-account</artifactId>
+    <artifactId>svc-account</artifactId>
     <description>账户服务</description>
 
 
@@ -126,7 +126,7 @@
         <!-- model -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>cloud-ali-framework-model</artifactId>
+            <artifactId>framework-model</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- model -->
@@ -134,7 +134,7 @@
         <!-- user -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>cloud-ali-client-user</artifactId>
+            <artifactId>client-user</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- user -->
@@ -142,7 +142,7 @@
         <!-- order -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>cloud-ali-client-order</artifactId>
+            <artifactId>client-order</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- order -->
@@ -150,7 +150,7 @@
         <!-- storage -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>cloud-ali-client-storage</artifactId>
+            <artifactId>client-storage</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- storage -->

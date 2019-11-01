@@ -5,12 +5,12 @@
 
     <parent>
         <groupId>com.junzijian.cloud</groupId>
-        <artifactId>cloud-ali-framework</artifactId>
+        <artifactId>framework</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>cloud-ali-framework-common</artifactId>
+    <artifactId>framework-common</artifactId>
 
 
     <dependencies>
