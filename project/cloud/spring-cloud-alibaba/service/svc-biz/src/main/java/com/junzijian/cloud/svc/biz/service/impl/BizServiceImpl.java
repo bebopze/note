@@ -6,6 +6,7 @@ import com.junzijian.cloud.client.order.dubbo.OrderDubboService;
 import com.junzijian.cloud.client.storage.StorageClient;
 import com.junzijian.cloud.client.user.UserClient;
 import com.junzijian.cloud.framework.model.biz.param.PlaceOrderParam;
+import com.junzijian.cloud.framework.model.order.param.OrderParam;
 import com.junzijian.cloud.svc.biz.service.BizService;
 import com.junzijian.framework.common.model.response.ResultBean;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 
 /**
  * @author junzijian
@@ -42,11 +44,27 @@ public class BizServiceImpl implements BizService {
     @Override
     public Long placeOrder(PlaceOrderParam param) {
 
-//        ResultBean<Long> save = storageClient.save(param.getStorage());
+        Long productId = param.getProductId();
+        Integer num = param.getNum();
+        BigDecimal price = param.getPrice();
 
-//        ResultBean<Void> save1 = accountClient.save(param.getAccount());
+        // 减库存
+        ResultBean<Long> save = storageClient.minus(productId, num);
 
-        ResultBean<Long> resultBean = orderClient.save(param.getOrder());
+        // 扣款
+        BigDecimal totalPrice = price.multiply(BigDecimal.valueOf(num));
+        ResultBean<Void> save1 = accountClient.minus(productId, totalPrice);
+
+        // 下单
+        OrderParam order = new OrderParam();
+        order.setUserId(param.getUserId());
+        order.setProductId(productId);
+        order.setProductName(param.getProductName());
+        order.setProductPrice(price);
+        order.setProductNum(num);
+        order.setProductTotalPrice(totalPrice);
+
+        ResultBean<Long> resultBean = orderClient.save(order);
 
         return resultBean.getData();
     }

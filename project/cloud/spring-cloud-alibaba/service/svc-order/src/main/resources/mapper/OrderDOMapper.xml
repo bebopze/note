@@ -7,15 +7,17 @@
         <result column="product_id" jdbcType="BIGINT" property="productId"/>
         <result column="product_name" jdbcType="VARCHAR" property="productName"/>
         <result column="product_price" jdbcType="DECIMAL" property="productPrice"/>
+        <result column="product_num" jdbcType="INTEGER" property="productNum"/>
+        <result column="product_total_price" jdbcType="DECIMAL" property="productTotalPrice"/>
         <result column="status" jdbcType="TINYINT" property="status"/>
         <result column="version" jdbcType="BIGINT" property="version"/>
         <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
         <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, user_id, product_id, product_name, product_price, status, version, gmt_create, 
-    gmt_modify
-  </sql>
+        id, user_id, product_id, product_name, product_price, product_num, product_total_price,
+        status, version, gmt_create, gmt_modify
+    </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -23,19 +25,19 @@
         where id = #{id,jdbcType=BIGINT}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from product_order
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
+        delete from product_order
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
     <insert id="insert" parameterType="com.junzijian.cloud.framework.model.order.entity.OrderDO">
-    insert into product_order (id, user_id, product_id,
-      product_name, product_price, status, 
-      version, gmt_create, gmt_modify
-      )
-    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, 
-      #{productName,jdbcType=VARCHAR}, #{productPrice,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT}, 
-      #{version,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
-      )
-  </insert>
+        insert into product_order (id, user_id, product_id,
+        product_name, product_price, product_num,
+        product_total_price, status, version,
+        gmt_create, gmt_modify)
+        values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT},
+        #{productName,jdbcType=VARCHAR}, #{productPrice,jdbcType=DECIMAL}, #{productNum,jdbcType=INTEGER},
+        #{productTotalPrice,jdbcType=DECIMAL}, #{status,jdbcType=TINYINT}, #{version,jdbcType=BIGINT},
+        #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
+    </insert>
     <insert id="insertSelective" parameterType="com.junzijian.cloud.framework.model.order.entity.OrderDO">
         insert into product_order
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -53,6 +55,12 @@
             </if>
             <if test="productPrice != null">
                 product_price,
+            </if>
+            <if test="productNum != null">
+                product_num,
+            </if>
+            <if test="productTotalPrice != null">
+                product_total_price,
             </if>
             <if test="status != null">
                 status,
@@ -83,6 +91,12 @@
             <if test="productPrice != null">
                 #{productPrice,jdbcType=DECIMAL},
             </if>
+            <if test="productNum != null">
+                #{productNum,jdbcType=INTEGER},
+            </if>
+            <if test="productTotalPrice != null">
+                #{productTotalPrice,jdbcType=DECIMAL},
+            </if>
             <if test="status != null">
                 #{status,jdbcType=TINYINT},
             </if>
@@ -112,6 +126,12 @@
             <if test="productPrice != null">
                 product_price = #{productPrice,jdbcType=DECIMAL},
             </if>
+            <if test="productNum != null">
+                product_num = #{productNum,jdbcType=INTEGER},
+            </if>
+            <if test="productTotalPrice != null">
+                product_total_price = #{productTotalPrice,jdbcType=DECIMAL},
+            </if>
             <if test="status != null">
                 status = #{status,jdbcType=TINYINT},
             </if>
@@ -133,6 +153,8 @@
       product_id = #{productId,jdbcType=BIGINT},
       product_name = #{productName,jdbcType=VARCHAR},
       product_price = #{productPrice,jdbcType=DECIMAL},
+      product_num = #{productNum,jdbcType=INTEGER},
+      product_total_price = #{productTotalPrice,jdbcType=DECIMAL},
       status = #{status,jdbcType=TINYINT},
       version = #{version,jdbcType=BIGINT},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},

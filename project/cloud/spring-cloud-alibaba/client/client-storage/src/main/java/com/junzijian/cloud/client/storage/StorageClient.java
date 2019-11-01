@@ -17,4 +17,8 @@ public interface StorageClient {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     ResultBean<Long> save(@RequestBody StorageParam param);
+
+    ResultBean<Long> minus(Long productId, int amountToSubtract);
+
+    ResultBean<Long> plus(Long productId, int amountToAdd);
 }
