@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>cloud-ali-svc-order</artifactId>
+    <artifactId>cloud-ali-svc-dubbo-order</artifactId>
     <description>订单服务</description>
 
 

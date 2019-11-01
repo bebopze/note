@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <setting name="defaultFetchSize" value="100"/>
+        <setting name="defaultStatementTimeout" value="30"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias type="java.lang.Integer" alias="int"/>
+        <typeAlias type="java.lang.String" alias="string"/>
+        <typeAlias type="java.util.Map" alias="map"/>
+        <typeAlias type="java.util.List" alias="list"/>
+        <typeAlias type="java.util.Set" alias="set"/>
+    </typeAliases>
+
+    <plugins>
+        <!-- com.github.pagehelper为PageHelper类所在包名 -->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!-- 4.0.0以后版本可以不设置该参数 -->
+            <!--<property name="dialect" value="mysql"/>-->
+            <!--将RowBounds第一个参数offset当成pageNum页码使用 -->
+            <property name="offsetAsPageNum" value="true"/>
+            <!-- 使用RowBounds分页会进行count查询 -->
+            <property name="rowBoundsWithCount" value="true"/>
+            <!-- 如果pageSize=0或者RowBounds.limit = 0就会查询出全部的结果 -->
+            <property name="pageSizeZero" value="true"/>
+            <!-- 如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页（false返回空）；-->
+            <property name="reasonable" value="true"/>
+            <!-- 支持通过Mapper接口参数来传递分页参数 -->
+            <property name="supportMethodsArguments" value="true"/>
+            <!-- always总是返回PageInfo类型,check检查返回类型是否为PageInfo,none返回Page -->
+            <property name="returnPageInfo" value="check"/>
+        </plugin>
+
+        <plugin interceptor="com.junzijian.framework.common.aspect.SqlTimeInterceptor"/>
+    </plugins>
+
+</configuration>
+

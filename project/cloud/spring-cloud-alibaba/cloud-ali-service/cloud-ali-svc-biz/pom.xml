@@ -45,14 +45,16 @@
         <!-- openfeign -->
 
 
-        <!-- dubbo -->
-        <!--<dependency>-->
-        <!--<groupId>com.alibaba.cloud</groupId>-->
-        <!--<artifactId>spring-cloud-starter-dubbo</artifactId>-->
-        <!--</dependency>-->
-        <!-- dubbo -->
+        <!-- cloud-dubbo -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-dubbo</artifactId>
+        </dependency>
+        <!-- cloud-dubbo -->
+
 
         <!-- dubbo -->
+        <!--
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>
@@ -70,6 +72,7 @@
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-spring-boot-actuator</artifactId>
         </dependency>
+        -->
         <!-- dubbo -->
 
 

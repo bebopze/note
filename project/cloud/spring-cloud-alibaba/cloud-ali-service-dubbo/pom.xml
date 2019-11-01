@@ -5,25 +5,22 @@
 
     <parent>
         <groupId>com.junzijian.cloud</groupId>
-        <artifactId>cloud</artifactId>
+        <artifactId>spring-cloud-alibaba</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>spring-cloud-alibaba</artifactId>
+    <artifactId>cloud-ali-service-dubbo</artifactId>
     <packaging>pom</packaging>
-
-    <name>【SPRING-CLOUD::Alibaba】</name>
-    <description>spring cloud alibaba</description>
 
 
     <modules>
-        <module>cloud-ali-framework</module>
-        <!--<module>cloud-ali-govern</module>-->
-        <module>cloud-ali-service</module>
-        <module>cloud-ali-client</module>
-
-        <module>cloud-ali-service-dubbo</module>
+        <module>cloud-ali-svc-dubbo-user</module>
+        <module>cloud-ali-svc-dubbo-product</module>
+        <module>cloud-ali-svc-dubbo-storage</module>
+        <module>cloud-ali-svc-dubbo-account</module>
+        <module>cloud-ali-svc-dubbo-order</module>
+        <module>cloud-ali-svc-dubbo-biz</module>
     </modules>
 
 </project>

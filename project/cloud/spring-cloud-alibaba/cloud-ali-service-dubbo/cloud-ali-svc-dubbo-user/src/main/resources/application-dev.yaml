@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: cloud-ali-svc-user
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url: jdbc:mysql://192.168.2.14:3306/jzj_user?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      username: yunche
+      password: yc_123
+      max-wait: 10000
+      initialSize: 4
+      min-idle: 0
+      max-active: 20
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      validation-query: SELECT 'X'
+
+  redis:
+    host: 192.168.2.18
+    port: 6379
+    password: 123456
+    timeout: 3000
+    lettuce:
+      pool:
+        max-active: 200
+        max-idle: 50
+        min-idle: 24
+        max-wait: 2000
+
+# swagger-ui
+swagger-ui.open: true

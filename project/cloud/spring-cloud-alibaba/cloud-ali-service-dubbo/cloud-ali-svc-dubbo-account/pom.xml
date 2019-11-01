@@ -10,8 +10,8 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>cloud-ali-svc-order</artifactId>
-    <description>订单服务</description>
+    <artifactId>cloud-ali-svc-dubbo-account</artifactId>
+    <description>账户服务</description>
 
 
     <dependencies>
@@ -24,10 +24,10 @@
         <!-- nacos-discovery -->
 
         <!-- sentinel -->
-        <!--<dependency>-->
-        <!--<groupId>com.alibaba.cloud</groupId>-->
-        <!--<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
         <!-- sentinel -->
 
         <!-- ribbon -->
@@ -43,37 +43,6 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         <!-- openfeign -->
-
-
-        <!-- cloud-dubbo -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-dubbo</artifactId>
-        </dependency>
-        <!-- cloud-dubbo -->
-
-
-        <!-- dubbo -->
-        <!--
-        <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-dependencies-zookeeper</artifactId>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-spring-boot-actuator</artifactId>
-        </dependency>
-        -->
-        <!-- dubbo -->
 
 
         <!-- web -->
@@ -170,13 +139,13 @@
         </dependency>
         <!-- user -->
 
-        <!-- account -->
+        <!-- order -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>cloud-ali-client-account</artifactId>
+            <artifactId>cloud-ali-client-order</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <!-- account -->
+        <!-- order -->
 
         <!-- storage -->
         <dependency>
@@ -186,19 +155,10 @@
         </dependency>
         <!-- storage -->
 
-        <!-- client-order -->
-        <dependency>
-            <groupId>com.junzijian.cloud</groupId>
-            <artifactId>cloud-ali-client-order</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <!-- user -->
-
     </dependencies>
 
 
     <build>
-        <finalName>${artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
