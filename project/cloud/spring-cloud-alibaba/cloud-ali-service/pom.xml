@@ -18,12 +18,12 @@
         <!--<module>service-user-center</module>-->
         <!--<module>service-user-center-oauth</module>-->
 
-        <module>svc-user</module>
-        <module>svc-product</module>
-        <module>svc-storage</module>
-        <module>svc-account</module>
-        <module>svc-order</module>
-        <module>svc-biz</module>
+        <module>cloud-ali-svc-user</module>
+        <module>cloud-ali-svc-product</module>
+        <module>cloud-ali-svc-storage</module>
+        <module>cloud-ali-svc-account</module>
+        <module>cloud-ali-svc-order</module>
+        <module>cloud-ali-svc-biz</module>
     </modules>
 
 </project>

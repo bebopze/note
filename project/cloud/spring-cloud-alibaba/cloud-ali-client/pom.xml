@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -10,16 +10,17 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>cloud-ali-framework</artifactId>
+    <artifactId>cloud-ali-client</artifactId>
     <packaging>pom</packaging>
-    
+
 
     <modules>
-        <module>framework-common</module>
-        <module>framework-model</module>
-        <module>framework-util</module>
-
-        <!--<module>framework-stream</module>-->
+        <module>cloud-ali-client-user</module>
+        <module>cloud-ali-client-product</module>
+        <module>cloud-ali-client-storage</module>
+        <module>cloud-ali-client-account</module>
+        <module>cloud-ali-client-order</module>
+        <module>cloud-ali-client-biz</module>
     </modules>
 
 </project>
