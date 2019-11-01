@@ -19,10 +19,6 @@ public class OrderDO implements Serializable {
 
     private BigDecimal productPrice;
 
-    private Integer productNum;
-
-    private BigDecimal productTotalPrice;
-
     private Byte status;
 
     private Long version;

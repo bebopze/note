@@ -6,13 +6,13 @@
 
     <parent>
         <groupId>com.junzijian.cloud</groupId>
-        <artifactId>govern-gateway</artifactId>
+        <artifactId>cloud-ali-govern-gateway</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
 
-    <artifactId>govern-gateway-sc-gateway</artifactId>
+    <artifactId>cloud-ali-govern-gateway-sc-gateway</artifactId>
 
 
     <dependencies>

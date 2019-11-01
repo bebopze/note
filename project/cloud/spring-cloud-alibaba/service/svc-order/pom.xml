@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>svc-order</artifactId>
+    <artifactId>cloud-ali-svc-order</artifactId>
     <description>订单服务</description>
 
 
@@ -154,7 +154,7 @@
         <!-- model -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>framework-model</artifactId>
+            <artifactId>cloud-ali-framework-model</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- model -->
@@ -162,7 +162,7 @@
         <!-- user -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>client-user</artifactId>
+            <artifactId>cloud-ali-client-user</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- user -->
@@ -170,7 +170,7 @@
         <!-- account -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>client-account</artifactId>
+            <artifactId>cloud-ali-client-account</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- account -->
@@ -178,7 +178,7 @@
         <!-- storage -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>client-storage</artifactId>
+            <artifactId>cloud-ali-client-storage</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- storage -->
@@ -186,7 +186,7 @@
         <!-- client-order -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>client-order</artifactId>
+            <artifactId>cloud-ali-client-order</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- user -->

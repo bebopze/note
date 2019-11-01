@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>service</artifactId>
+    <artifactId>cloud-ali-service</artifactId>
     <packaging>pom</packaging>
 
 
