@@ -1,6 +1,7 @@
 package com.junzijian.cloud.svc.storage.mapper;
 
 import com.junzijian.cloud.framework.model.storage.entity.StorageDO;
+import org.apache.ibatis.annotations.Param;
 
 public interface StorageDOMapper {
 
@@ -15,4 +16,10 @@ public interface StorageDOMapper {
     int updateByPrimaryKeySelective(StorageDO record);
 
     int updateByPrimaryKey(StorageDO record);
+
+    void decrInventory(@Param("productId") Long productId,
+                        @Param("decrNum") int decrNum);
+
+    void incrInventory(@Param("productId") Long productId,
+                       @Param("incrNum") int incrNum);
 }

@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author junzijian
@@ -30,5 +31,23 @@ public class StorageController {
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResultBean<Long> save(@RequestBody @Valid StorageParam param) {
         return ResultBean.ofSuccess(storageService.save(param));
+    }
+
+    @ApiOperation(value = "减库存", notes = "cloud")
+    @GetMapping("/inventory/decr")
+    public ResultBean<Void> decrInventory(@RequestParam @NotNull(message = "productId不能为空") Long productId,
+                                          @RequestParam @NotNull(message = "decrNum不能为空") int decrNum) {
+
+        storageService.decrInventory(productId, decrNum);
+        return ResultBean.ofSuccess();
+    }
+
+    @ApiOperation(value = "加库存", notes = "cloud-dubbo")
+    @GetMapping("/inventory/incr")
+    public ResultBean<Void> incrInventory(@RequestParam @NotNull(message = "productId不能为空") Long productId,
+                                          @RequestParam @NotNull(message = "incrNum不能为空") int incrNum) {
+
+        storageService.incrInventory(productId, incrNum);
+        return ResultBean.ofSuccess();
     }
 }

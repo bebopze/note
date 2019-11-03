@@ -2,19 +2,16 @@ package com.junzijian.cloud.svc.biz.service.impl;
 
 import com.junzijian.cloud.client.account.AccountClient;
 import com.junzijian.cloud.client.order.OrderClient;
-import com.junzijian.cloud.client.order.dubbo.OrderDubboService;
 import com.junzijian.cloud.client.storage.StorageClient;
 import com.junzijian.cloud.client.user.UserClient;
-import com.junzijian.cloud.framework.model.biz.param.PlaceOrderParam;
+import com.junzijian.cloud.framework.model.biz.param.BuyOrderParam;
 import com.junzijian.cloud.framework.model.order.param.OrderParam;
 import com.junzijian.cloud.svc.biz.service.BizService;
 import com.junzijian.framework.common.model.response.ResultBean;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.math.BigDecimal;
 
 /**
@@ -31,9 +28,6 @@ public class BizServiceImpl implements BizService {
     @Autowired
     private OrderClient orderClient;
 
-    @Reference
-    private OrderDubboService orderDubboService;
-
     @Autowired
     private StorageClient storageClient;
 
@@ -42,38 +36,61 @@ public class BizServiceImpl implements BizService {
 
 
     @Override
-    public Long placeOrder(PlaceOrderParam param) {
+    public Long buy(BuyOrderParam param) {
+
+        return doBuy(param);
+    }
+
+    @Override
+    public Long buyCloudDubbo(BuyOrderParam param) {
+
+        return doBuy(param);
+    }
+
+
+    /**
+     * do buy
+     *
+     * @param param
+     * @return
+     */
+    private Long doBuy(BuyOrderParam param) {
 
         Long productId = param.getProductId();
         Integer num = param.getNum();
         BigDecimal price = param.getPrice();
 
         // 减库存
-        ResultBean<Long> save = storageClient.minus(productId, num);
+        ResultBean<Void> storageResult = storageClient.decrInventory(productId, num);
 
         // 扣款
         BigDecimal totalPrice = price.multiply(BigDecimal.valueOf(num));
-        ResultBean<Void> save1 = accountClient.minus(productId, totalPrice);
+        ResultBean<Void> accountResult = accountClient.decrAmount(productId, totalPrice);
 
         // 下单
-        OrderParam order = new OrderParam();
-        order.setUserId(param.getUserId());
-        order.setProductId(productId);
-        order.setProductName(param.getProductName());
-        order.setProductPrice(price);
-        order.setProductNum(num);
-        order.setProductTotalPrice(totalPrice);
+        OrderParam order = convertOrderParam(param, totalPrice);
+        ResultBean<Long> orderResult = orderClient.save(order);
 
-        ResultBean<Long> resultBean = orderClient.save(order);
-
-        return resultBean.getData();
+        return orderResult.getData();
     }
 
-    @Override
-    public Long placeOrderDubbo(@Valid PlaceOrderParam param) {
+    /**
+     * convert Order Param
+     *
+     * @param param
+     * @param totalPrice
+     * @return
+     */
+    private OrderParam convertOrderParam(BuyOrderParam param, BigDecimal totalPrice) {
 
-        Long orderId = orderDubboService.save(param.getOrder());
+        OrderParam order = new OrderParam();
+        order.setUserId(param.getUserId());
+        order.setProductId(param.getProductId());
+        order.setProductName(param.getProductName());
+        order.setProductPrice(param.getPrice());
+        order.setProductNum(param.getNum());
+        order.setProductTotalPrice(totalPrice);
 
-        return orderId;
+        return order;
     }
 }

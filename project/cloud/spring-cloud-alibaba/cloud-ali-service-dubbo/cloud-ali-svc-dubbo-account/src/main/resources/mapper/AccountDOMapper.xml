@@ -104,4 +104,24 @@
       gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+    <!-- decrAmount -->
+    <update id="decrAmount">
+        update account
+        SET amount =
+          CASE WHEN amount >= #{decrAmount}
+            THEN amount - #{decrAmount}
+            ELSE amount
+          END
+        where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+
+    <!-- incrAmount -->
+    <update id="incrAmount">
+        update account
+        SET amount = amount + #{incrAmount}
+        where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+
 </mapper>

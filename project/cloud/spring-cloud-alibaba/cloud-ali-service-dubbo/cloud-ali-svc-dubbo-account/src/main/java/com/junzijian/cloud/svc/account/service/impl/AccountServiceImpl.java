@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+
 /**
  * @author junzijian
  * @date 2019/10/28
@@ -36,5 +39,22 @@ public class AccountServiceImpl implements AccountService {
             // update
             accountDOMapper.updateByPrimaryKeySelective(param);
         }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void decrAmount(@NotNull(message = "userId不能为空") Long userId,
+                           @NotNull(message = "decrAmount不能为空") BigDecimal decrAmount) {
+
+
+        accountDOMapper.decrAmount(userId, decrAmount);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void incrAmount(@NotNull(message = "userId不能为空") Long userId,
+                           @NotNull(message = "incrAmount不能为空") BigDecimal incrAmount) {
+
+        accountDOMapper.incrAmount(userId, incrAmount);
     }
 }

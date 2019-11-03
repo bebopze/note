@@ -14,7 +14,7 @@ public class StorageDO implements Serializable {
 
     private String name;
 
-    private Integer num;
+    private Integer inventory;
 
     private Byte status;
 

@@ -1,30 +1,24 @@
-package com.junzijian.cloud.client.storage;
+package com.junzijian.cloud.client.storage.dubbo;
 
 import com.junzijian.cloud.framework.common.constant.ServiceConst;
 import com.junzijian.cloud.framework.model.storage.param.StorageParam;
 import com.junzijian.framework.common.model.response.ResultBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author junzijian
  * @date 2019/10/28
  */
-@FeignClient(name = ServiceConst.STORAGE_SERVICE, path = "/v1/storage")
+@FeignClient(name = ServiceConst.STORAGE_SERVICE, path = "/v1/cloud-dubbo/storage")
 public interface StorageClient {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     ResultBean<Long> save(@RequestBody StorageParam param);
 
-    @GetMapping("/inventory/decr")
-    ResultBean<Void> decrInventory(@RequestParam("productId") Long productId,
-                                   @RequestParam("decrNum") int decrNum);
+    ResultBean<Long> minus(Long productId, int amountToSubtract);
 
-    @GetMapping("/inventory/incr")
-    ResultBean<Void> incrInventory(@RequestParam("productId") Long productId,
-                                   @RequestParam("incrNum") int incrNum);
+    ResultBean<Long> plus(Long productId, int amountToAdd);
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author junzijian
@@ -46,5 +47,21 @@ public class StorageServiceImpl implements StorageService {
         }
 
         return param.getId();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void decrInventory(@NotNull(message = "productId不能为空") Long productId,
+                              @NotNull(message = "decrNum不能为空") int decrNum) {
+
+        storageDOMapper.decrInventory(productId, decrNum);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void incrInventory(@NotNull(message = "productId不能为空") Long productId,
+                              @NotNull(message = "incrNum不能为空") int incrNum) {
+
+        storageDOMapper.incrInventory(productId, incrNum);
     }
 }

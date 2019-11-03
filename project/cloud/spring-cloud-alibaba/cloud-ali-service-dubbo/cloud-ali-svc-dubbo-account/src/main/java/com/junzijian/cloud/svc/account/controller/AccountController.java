@@ -11,6 +11,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
  * @author junzijian
@@ -30,6 +32,24 @@ public class AccountController {
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResultBean<Void> save(@RequestBody @Valid AccountParam param) {
         accountService.save(param);
+        return ResultBean.ofSuccess();
+    }
+
+    @ApiOperation(value = "减账户金额", notes = "cloud")
+    @GetMapping("/amount/decr")
+    public ResultBean<Void> decrAmount(@RequestParam @NotNull(message = "userId不能为空") Long userId,
+                                       @RequestParam @NotNull(message = "decrAmount不能为空") BigDecimal decrAmount) {
+
+        accountService.decrAmount(userId, decrAmount);
+        return ResultBean.ofSuccess();
+    }
+
+    @ApiOperation(value = "加账户金额", notes = "cloud-dubbo")
+    @GetMapping("/amount/incr")
+    public ResultBean<Void> incrAmount(@RequestParam @NotNull(message = "userId不能为空") Long userId,
+                                       @RequestParam @NotNull(message = "incrAmount不能为空") BigDecimal incrAmount) {
+
+        accountService.incrAmount(userId, incrAmount);
         return ResultBean.ofSuccess();
     }
 }

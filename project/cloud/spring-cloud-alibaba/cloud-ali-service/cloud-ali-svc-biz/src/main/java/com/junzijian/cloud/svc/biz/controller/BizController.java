@@ -1,6 +1,6 @@
 package com.junzijian.cloud.svc.biz.controller;
 
-import com.junzijian.cloud.framework.model.biz.param.PlaceOrderParam;
+import com.junzijian.cloud.framework.model.biz.param.BuyOrderParam;
 import com.junzijian.cloud.svc.biz.service.BizService;
 import com.junzijian.framework.common.model.response.ResultBean;
 import io.swagger.annotations.Api;
@@ -28,15 +28,15 @@ public class BizController {
     private BizService bizService;
 
 
-    @ApiOperation("下单")
-    @PostMapping(value = "/placeOrder", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResultBean<Long> placeOrder(@RequestBody @Valid PlaceOrderParam param) {
-        return ResultBean.ofSuccess(bizService.placeOrder(param));
+    @ApiOperation(value = "下单", tags = "cloud")
+    @PostMapping(value = "/buy", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResultBean<Long> buy(@RequestBody @Valid BuyOrderParam param) {
+        return ResultBean.ofSuccess(bizService.buy(param));
     }
 
-    @ApiOperation("下单")
-    @PostMapping(value = "/placeOrder/dubbo", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResultBean<Long> placeOrderDubbo(@RequestBody @Valid PlaceOrderParam param) {
-        return ResultBean.ofSuccess(bizService.placeOrderDubbo(param));
+    @ApiOperation(value = "下单", tags = "cloud-dubbo")
+    @PostMapping(value = "/buy/cloud-dubbo", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResultBean<Long> buyCloudDubbo(@RequestBody @Valid BuyOrderParam param) {
+        return ResultBean.ofSuccess(bizService.buyCloudDubbo(param));
     }
 }

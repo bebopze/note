@@ -5,14 +5,14 @@
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="product_id" jdbcType="BIGINT" property="productId"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="num" jdbcType="INTEGER" property="num"/>
+        <result column="inventory" jdbcType="INTEGER" property="inventory"/>
         <result column="status" jdbcType="TINYINT" property="status"/>
         <result column="version" jdbcType="BIGINT" property="version"/>
         <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate"/>
         <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, product_id, name, num, status, version, gmt_create, gmt_modify
+    id, product_id, name, inventory, status, version, gmt_create, gmt_modify
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -26,10 +26,10 @@
   </delete>
     <insert id="insert" parameterType="com.junzijian.cloud.framework.model.storage.entity.StorageDO">
     insert into storage (id, product_id, name, 
-      num, status, version, 
+      inventory, status, version,
       gmt_create, gmt_modify)
-    values (#{id,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{num,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, #{version,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+      #{inventory,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, #{version,jdbcType=BIGINT},
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
     <insert id="insertSelective" parameterType="com.junzijian.cloud.framework.model.storage.entity.StorageDO">
@@ -44,8 +44,8 @@
             <if test="name != null">
                 name,
             </if>
-            <if test="num != null">
-                num,
+            <if test="inventory != null">
+                inventory,
             </if>
             <if test="status != null">
                 status,
@@ -70,8 +70,8 @@
             <if test="name != null">
                 #{name,jdbcType=VARCHAR},
             </if>
-            <if test="num != null">
-                #{num,jdbcType=INTEGER},
+            <if test="inventory != null">
+                #{inventory,jdbcType=INTEGER},
             </if>
             <if test="status != null">
                 #{status,jdbcType=TINYINT},
@@ -97,8 +97,8 @@
             <if test="name != null">
                 name = #{name,jdbcType=VARCHAR},
             </if>
-            <if test="num != null">
-                num = #{num,jdbcType=INTEGER},
+            <if test="inventory != null">
+                inventory = #{inventory,jdbcType=INTEGER},
             </if>
             <if test="status != null">
                 status = #{status,jdbcType=TINYINT},
@@ -116,14 +116,34 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.junzijian.cloud.framework.model.storage.entity.StorageDO">
-    update storage
-    set product_id = #{productId,jdbcType=BIGINT},
-      name = #{name,jdbcType=VARCHAR},
-      num = #{num,jdbcType=INTEGER},
-      status = #{status,jdbcType=TINYINT},
-      version = #{version,jdbcType=BIGINT},
-      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+        update storage
+        set product_id = #{productId,jdbcType=BIGINT},
+        name = #{name,jdbcType=VARCHAR},
+        inventory = #{inventory,jdbcType=INTEGER},
+        status = #{status,jdbcType=TINYINT},
+        version = #{version,jdbcType=BIGINT},
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+        gmt_modify = #{gmtModify,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <!-- decrInventory -->
+    <update id="decrInventory">
+        update storage
+        SET inventory =
+        CASE WHEN inventory >= #{decrNum}
+        THEN inventory - #{decrNum}
+        ELSE inventory
+        END
+        where product_id = #{productId,jdbcType=BIGINT}
+    </update>
+
+    <!-- incrInventory -->
+    <update id="incrInventory">
+        update storage
+        SET inventory = inventory + #{incrNum}
+        where product_id = #{productId,jdbcType=BIGINT}
+    </update>
+
 </mapper>
