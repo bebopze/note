@@ -16,6 +16,14 @@
 
     <dependencies>
 
+        <!-- cloud-dubbo -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-dubbo</artifactId>
+        </dependency>
+        <!-- cloud-dubbo -->
+
+
         <!-- nacos-discovery -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

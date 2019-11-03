@@ -1,7 +1,6 @@
 package com.junzijian.cloud.svc.biz;
 
-//import com.alibaba.cloud.sentinel.annotation.SentinelRestTemplate;
-
+import com.alibaba.cloud.sentinel.annotation.SentinelRestTemplate;
 import com.junzijian.framework.util.IdWorker;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -31,16 +30,16 @@ public class BizApp {
         return new IdWorker(1, 1);
     }
 
-//    @LoadBalanced
-//    @Bean
-//    public RestTemplate restTemplate() {
-//        return new RestTemplate();
-//    }
+    @LoadBalanced
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
-//    @LoadBalanced
-//    @Bean
-//    @SentinelRestTemplate
-//    public RestTemplate restTemplate1() {
-//        return new RestTemplate();
-//    }
+    @LoadBalanced
+    @Bean
+    @SentinelRestTemplate
+    public RestTemplate restTemplate1() {
+        return new RestTemplate();
+    }
 }

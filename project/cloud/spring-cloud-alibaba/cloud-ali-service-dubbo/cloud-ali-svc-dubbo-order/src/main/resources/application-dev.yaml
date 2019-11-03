@@ -34,12 +34,12 @@ dubbo:
   application:
     name: ${spring.application.name}
   registry:
-    # zk
+#    # zk
 #    address: zookeeper://192.168.2.18:2181
-    # 挂载到 Spring Cloud 注册中心
-#    address: spring-cloud://localhost
-    # nacos
-    address: nacos://127.0.0.1:8848
+#    # nacos
+#    address: nacos://127.0.0.1:8848
+    # 将 Dubbo 的注册中心 挂载到 SpringCloud 的注册中心上
+    address: spring-cloud://localhost
   protocol:
     name: dubbo
     port: -1

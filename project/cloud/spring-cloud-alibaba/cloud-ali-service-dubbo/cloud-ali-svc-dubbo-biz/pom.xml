@@ -16,34 +16,7 @@
 
     <dependencies>
 
-        <!-- nacos-discovery -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <!-- nacos-discovery -->
-
-        <!-- sentinel -->
-        <!--<dependency>-->
-        <!--<groupId>com.alibaba.cloud</groupId>-->
-        <!--<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
-        <!--</dependency>-->
-        <!-- sentinel -->
-
-        <!-- ribbon -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-        </dependency>
-        <!-- ribbon -->
-
-        <!-- openfeign -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!-- openfeign -->
-
+        <!-- ========================== dubbo ========================== -->
 
         <!-- cloud-dubbo -->
         <dependency>
@@ -75,6 +48,39 @@
         -->
         <!-- dubbo -->
 
+
+        <!-- ========================== cloud ========================== -->
+
+        <!-- nacos-discovery -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <!-- nacos-discovery -->
+
+        <!-- sentinel -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+        <!-- sentinel -->
+
+        <!-- ribbon -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+        </dependency>
+        <!-- ribbon -->
+
+        <!-- openfeign -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!-- openfeign -->
+
+
+        <!-- ========================== boot ========================== -->
 
         <!-- web -->
         <dependency>

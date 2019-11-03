@@ -33,8 +33,17 @@ dubbo:
   application:
     name: ${spring.application.name}
   registry:
+#    # zk
 #    address: zookeeper://192.168.2.18:2181
-    address: nacos://127.0.0.1:8848
+#    # nacos
+#    address: nacos://127.0.0.1:8848
+    ## The Spring Cloud Dubbo's registry extension
+    address: spring-cloud://localhost
+  cloud:
+    ##  默认"*"： subscribe all providers
+    ##  指定services：subscriber specifies the required providers.
+    # The subscribed services in consumer side
+    subscribed-services: cloud-ali-svc-storage,cloud-ali-svc-account,cloud-ali-svc-order
   protocol:
     name: dubbo
     port: -1

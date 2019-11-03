@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+
 @EnableDiscoveryClient
 @EnableFeignClients("com.junzijian.cloud.client")
 @SpringBootApplication

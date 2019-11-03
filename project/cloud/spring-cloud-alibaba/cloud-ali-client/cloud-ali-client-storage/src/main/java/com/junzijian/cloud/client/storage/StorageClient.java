@@ -1,5 +1,6 @@
 package com.junzijian.cloud.client.storage;
 
+import com.alibaba.cloud.dubbo.annotation.DubboTransported;
 import com.junzijian.cloud.framework.common.constant.ServiceConst;
 import com.junzijian.cloud.framework.model.storage.param.StorageParam;
 import com.junzijian.framework.common.model.response.ResultBean;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author junzijian
  * @date 2019/10/28
  */
+// Dubbo Feign Rest
+@DubboTransported(protocol = "dubbo")
 @FeignClient(name = ServiceConst.STORAGE_SERVICE, path = "/v1/storage")
 public interface StorageClient {
 

@@ -15,6 +15,14 @@
 
     <dependencies>
 
+        <!-- cloud-dubbo -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-dubbo</artifactId>
+        </dependency>
+        <!-- cloud-dubbo -->
+
+
         <!-- web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

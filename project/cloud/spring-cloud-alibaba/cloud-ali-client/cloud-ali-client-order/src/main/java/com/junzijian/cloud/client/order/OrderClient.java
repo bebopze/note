@@ -1,5 +1,6 @@
 package com.junzijian.cloud.client.order;
 
+import com.alibaba.cloud.dubbo.annotation.DubboTransported;
 import com.junzijian.cloud.framework.common.constant.ServiceConst;
 import com.junzijian.cloud.framework.model.order.entity.OrderDO;
 import com.junzijian.cloud.framework.model.order.param.OrderParam;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author junzijian
  * @date 2019/10/28
  */
+// Dubbo Feign Rest
+@DubboTransported
 @FeignClient(value = ServiceConst.ORDER_SERVICE, path = "/v1/order", url = "")
 public interface OrderClient {
 

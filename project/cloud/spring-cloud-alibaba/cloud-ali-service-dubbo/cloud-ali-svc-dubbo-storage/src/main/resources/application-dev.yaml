@@ -29,5 +29,26 @@ spring:
         min-idle: 24
         max-wait: 2000
 
+dubbo:
+  application:
+    name: ${spring.application.name}
+  registry:
+#    # zk
+#    address: zookeeper://192.168.2.18:2181
+#    # nacos
+#    address: nacos://127.0.0.1:8848
+    # cloud-dubbo 注册扩展
+    address: spring-cloud://localhost
+  protocols:
+    name: dubbo
+    port: -1
+    rest:
+      name: rest
+      port: 9090
+      server: tomcat
+  provider:
+    group: junzijian
+    version: 1.0.0
+
 # swagger-ui
 swagger-ui.open: true

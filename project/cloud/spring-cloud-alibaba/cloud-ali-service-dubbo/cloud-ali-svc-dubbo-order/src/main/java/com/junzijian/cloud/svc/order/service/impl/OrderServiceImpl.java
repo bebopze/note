@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
  *      OrderDubboService 放在第一位   OR   手动给定 interfaceClass/interfaceName
  */
 @org.apache.dubbo.config.annotation.Service(interfaceClass = OrderDubboService.class/*, interfaceName = "com.junzijian.cloud.client.order.dubbo.OrderDubboService"*/)
-public class DubboServiceImpl implements OrderDubboService, OrderService {
+public class OrderServiceImpl implements OrderDubboService, OrderService {
 
     @Autowired
     private IdWorker idWorker;

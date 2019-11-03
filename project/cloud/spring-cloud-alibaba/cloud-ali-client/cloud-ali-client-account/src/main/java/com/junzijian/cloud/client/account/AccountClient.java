@@ -1,5 +1,6 @@
 package com.junzijian.cloud.client.account;
 
+import com.alibaba.cloud.dubbo.annotation.DubboTransported;
 import com.junzijian.cloud.framework.common.constant.ServiceConst;
 import com.junzijian.cloud.framework.model.account.param.AccountParam;
 import com.junzijian.framework.common.model.response.ResultBean;
@@ -16,6 +17,9 @@ import java.math.BigDecimal;
  * @author junzijian
  * @date 2019/10/28
  */
+// Dubbo Feign Rest
+@DubboTransported(protocol = "dubbo")
+// Feign Rest
 @FeignClient(value = ServiceConst.ACCOUNT_SERVICE, path = "/v1/account", url = "")
 public interface AccountClient {
 
