@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -54,7 +55,8 @@ public class StorageServiceImpl implements StorageService {
     public void decrInventory(@NotNull(message = "productId不能为空") Long productId,
                               @NotNull(message = "decrNum不能为空") int decrNum) {
 
-        storageDOMapper.decrInventory(productId, decrNum);
+        int count = storageDOMapper.decrInventory(productId, decrNum);
+        Assert.isTrue(count > 0, "库存修改失败");
     }
 
     @Override
@@ -62,6 +64,7 @@ public class StorageServiceImpl implements StorageService {
     public void incrInventory(@NotNull(message = "productId不能为空") Long productId,
                               @NotNull(message = "incrNum不能为空") int incrNum) {
 
-        storageDOMapper.incrInventory(productId, incrNum);
+        int count = storageDOMapper.incrInventory(productId, incrNum);
+        Assert.isTrue(count > 0, "库存修改失败");
     }
 }

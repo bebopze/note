@@ -5,8 +5,8 @@ import com.junzijian.cloud.svc.storage.mapper.StorageDOMapper;
 import com.junzijian.cloud.svc.storage.service.StorageService;
 import com.junzijian.framework.util.IdWorker;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
  * @date 2019/10/28
  */
 @Slf4j
-@Service(protocol = {"dubbo", "rest"})
+@Service
 public class StorageServiceImpl implements StorageService {
 
     @Autowired

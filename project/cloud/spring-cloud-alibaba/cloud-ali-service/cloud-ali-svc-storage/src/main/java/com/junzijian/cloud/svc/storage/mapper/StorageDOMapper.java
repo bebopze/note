@@ -17,9 +17,9 @@ public interface StorageDOMapper {
 
     int updateByPrimaryKey(StorageDO record);
 
-    void decrInventory(@Param("productId") Long productId,
-                       @Param("decrNum") int decrNum);
+    int decrInventory(@Param("productId") Long productId,
+                      @Param("decrNum") int decrNum);
 
-    void incrInventory(@Param("productId") Long productId,
-                       @Param("incrNum") int incrNum);
+    int incrInventory(@Param("productId") Long productId,
+                      @Param("incrNum") int incrNum);
 }

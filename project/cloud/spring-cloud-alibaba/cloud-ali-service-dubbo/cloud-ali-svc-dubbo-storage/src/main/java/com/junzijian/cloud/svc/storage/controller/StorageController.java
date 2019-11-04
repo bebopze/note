@@ -1,10 +1,12 @@
 package com.junzijian.cloud.svc.storage.controller;
 
+import com.junzijian.cloud.client.storage.StorageClient;
 import com.junzijian.cloud.framework.model.storage.param.StorageParam;
 import com.junzijian.cloud.svc.storage.service.StorageService;
 import com.junzijian.framework.common.model.response.ResultBean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +23,8 @@ import javax.validation.constraints.NotNull;
 @Validated
 @RestController
 @RequestMapping("/v1/storage")
-public class StorageController {
+@Service(protocol = {/*"dubbo",*/ "rest"})
+public class StorageController implements StorageClient {
 
     @Autowired
     private StorageService storageService;

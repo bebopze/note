@@ -37,8 +37,7 @@
 - MyBatis PageHelper分页插件（[查看官方中文文档](https://pagehelper.github.io/)）
 - Druid Spring Boot Starter（[查看官方中文文档](https://github.com/alibaba/druid/tree/master/druid-spring-boot-starter/)）
 - Fastjson（[查看官方中文文档](https://github.com/Alibaba/fastjson/wiki/%E9%A6%96%E9%A1%B5)）
+- [Dubbo Spring Cloud 重塑微服务治理](https://segmentfault.com/a/1190000018991721)
 - 其他略
-
-
 
 

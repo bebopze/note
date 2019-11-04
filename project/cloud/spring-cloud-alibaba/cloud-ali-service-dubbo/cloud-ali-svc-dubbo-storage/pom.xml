@@ -147,6 +147,14 @@
         </dependency>
         <!-- user -->
 
+        <!-- storage -->
+        <dependency>
+            <groupId>com.junzijian.cloud</groupId>
+            <artifactId>cloud-ali-client-storage</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- storage -->
+
         <!-- account -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>

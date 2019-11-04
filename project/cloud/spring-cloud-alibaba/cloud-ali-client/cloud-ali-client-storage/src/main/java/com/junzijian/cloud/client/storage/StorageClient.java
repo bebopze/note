@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @date 2019/10/28
  */
 // Dubbo Feign Rest
-@DubboTransported(protocol = "dubbo")
+//@DubboTransported(protocol = "dubbo")
 @FeignClient(name = ServiceConst.STORAGE_SERVICE, path = "/v1/storage")
 public interface StorageClient {
 

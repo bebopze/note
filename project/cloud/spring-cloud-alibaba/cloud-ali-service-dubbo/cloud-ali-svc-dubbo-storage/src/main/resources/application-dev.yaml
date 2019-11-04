@@ -39,13 +39,13 @@ dubbo:
 #    address: nacos://127.0.0.1:8848
     # cloud-dubbo 注册扩展
     address: spring-cloud://localhost
-  protocols:
+  protocol:
     name: dubbo
     port: -1
-    rest:
-      name: rest
-      port: 9090
-      server: tomcat
+#    rest:
+#      name: rest
+#      port: 9090
+#      server: tomcat
   provider:
     group: junzijian
     version: 1.0.0
