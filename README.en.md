@@ -1,26 +1,15 @@
 # note
+    
+    个人笔记
 
-#### Description
+## 概览
 
+**[DevOps](https://gitee.com/junzijian/note/tree/master/DevOps)**：Jenkins、Docker、k8s
 
-#### Software Architecture
-Software architecture description
+**[Java知识库](https://gitee.com/junzijian/note/tree/master/java知识库)**：Java基础
 
-#### Installation
+**[project](https://gitee.com/junzijian/note/tree/master/project)**：Spring-Cloud-Alibaba、Cloud-Dubbo、Nacos、Sentinel
 
-1. xxxx
-2. xxxx
-3. xxxx
+**[script](https://gitee.com/junzijian/note/tree/master/script)**：vim、自动化脚本、Jenkins脚本、git命令
 
-#### Instructions
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### Contribution
-
-1. Fork the repository
-2. Create Feat_xxx branch
-3. Commit your code
-4. Create Pull Request
+**[便签](https://gitee.com/junzijian/note/tree/master/便签)**：便签
