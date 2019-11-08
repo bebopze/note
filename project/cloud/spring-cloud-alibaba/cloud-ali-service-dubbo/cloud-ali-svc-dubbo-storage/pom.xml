@@ -5,7 +5,7 @@
 
     <parent>
         <groupId>com.junzijian.cloud</groupId>
-        <artifactId>cloud-alibaba-service</artifactId>
+        <artifactId>cloud-ali-svc-dubbo</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -32,24 +32,24 @@
         <!-- nacos-discovery -->
 
         <!-- sentinel -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.alibaba.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
+        <!--</dependency>-->
         <!-- sentinel -->
 
         <!-- ribbon -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>-->
+        <!--</dependency>-->
         <!-- ribbon -->
 
         <!-- openfeign -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-starter-openfeign</artifactId>-->
+        <!--</dependency>-->
         <!-- openfeign -->
 
 
@@ -142,7 +142,7 @@
         <!-- user -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>cloud-ali-client-user</artifactId>
+            <artifactId>cloud-ali-client-dubbo-user</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- user -->
@@ -150,7 +150,7 @@
         <!-- storage -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>cloud-ali-client-storage</artifactId>
+            <artifactId>cloud-ali-client-dubbo-storage</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- storage -->
@@ -158,7 +158,7 @@
         <!-- account -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>cloud-ali-client-account</artifactId>
+            <artifactId>cloud-ali-client-dubbo-account</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- account -->

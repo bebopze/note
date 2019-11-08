@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>cloud-ali-service-dubbo</artifactId>
+    <artifactId>cloud-ali-svc-dubbo</artifactId>
     <packaging>pom</packaging>
 
 
@@ -20,7 +20,8 @@
         <module>cloud-ali-svc-dubbo-storage</module>
         <module>cloud-ali-svc-dubbo-account</module>
         <module>cloud-ali-svc-dubbo-order</module>
-        <module>cloud-ali-svc-dubbo-biz</module>
+
+        <module>cloud-ali-api-dubbo-biz</module>
     </modules>
 
 </project>

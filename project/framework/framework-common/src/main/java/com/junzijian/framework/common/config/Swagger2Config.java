@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Configuration
 @EnableSwagger2
-@ConditionalOnExpression("${swagger-ui.open}")
+//@ConditionalOnExpression("${swagger-ui.open}")
 public class Swagger2Config {
 
     @Bean

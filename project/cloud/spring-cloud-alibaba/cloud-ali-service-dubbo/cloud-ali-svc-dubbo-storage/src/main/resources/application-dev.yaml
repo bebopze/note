@@ -1,6 +1,6 @@
 spring:
   application:
-    name: cloud-ali-svc-storage
+    name: cloud-ali-svc-dubbo-storage
 
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -30,8 +30,8 @@ spring:
         max-wait: 2000
 
 dubbo:
-  application:
-    name: ${spring.application.name}
+#  application:
+#    name: cloud-ali-svc-dubbo-storage
   registry:
 #    # zk
 #    address: zookeeper://192.168.2.18:2181

@@ -1,8 +1,8 @@
 package com.junzijian.cloud.svc.account.service.impl;
 
+import com.junzijian.cloud.client.account.AccountClient;
 import com.junzijian.cloud.framework.model.account.param.AccountParam;
 import com.junzijian.cloud.svc.account.mapper.AccountDOMapper;
-import com.junzijian.cloud.svc.account.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.math.BigDecimal;
  */
 @Slf4j
 @Service
-public class AccountServiceImpl implements AccountService {
+public class AccountServiceImpl implements AccountClient {
 
     @Autowired
     private AccountDOMapper accountDOMapper;

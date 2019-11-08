@@ -5,7 +5,7 @@
 
     <parent>
         <groupId>com.junzijian.cloud</groupId>
-        <artifactId>cloud-alibaba-service</artifactId>
+        <artifactId>cloud-ali-svc-dubbo</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -165,7 +165,7 @@
         <!-- user -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>cloud-ali-client-user</artifactId>
+            <artifactId>cloud-ali-client-dubbo-user</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- user -->
@@ -173,7 +173,7 @@
         <!-- account -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>cloud-ali-client-account</artifactId>
+            <artifactId>cloud-ali-client-dubbo-account</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- account -->
@@ -181,7 +181,7 @@
         <!-- storage -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>cloud-ali-client-storage</artifactId>
+            <artifactId>cloud-ali-client-dubbo-storage</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- storage -->
@@ -189,7 +189,7 @@
         <!-- client-order -->
         <dependency>
             <groupId>com.junzijian.cloud</groupId>
-            <artifactId>cloud-ali-client-order</artifactId>
+            <artifactId>cloud-ali-client-dubbo-order</artifactId>
             <version>1.0.0</version>
         </dependency>
         <!-- user -->
