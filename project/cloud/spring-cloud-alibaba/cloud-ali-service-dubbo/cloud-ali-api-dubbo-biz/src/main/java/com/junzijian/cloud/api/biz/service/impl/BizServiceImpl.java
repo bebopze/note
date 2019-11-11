@@ -4,9 +4,10 @@ import com.junzijian.cloud.api.biz.service.BizService;
 import com.junzijian.cloud.client.account.AccountClient;
 import com.junzijian.cloud.client.order.OrderClient;
 import com.junzijian.cloud.client.storage.StorageClient;
-//import com.junzijian.cloud.client.user.UserClient;
 import com.junzijian.cloud.framework.model.biz.param.BuyOrderParam;
 import com.junzijian.cloud.framework.model.order.param.OrderParam;
+import io.seata.core.context.RootContext;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,6 @@ import java.math.BigDecimal;
 @Service
 public class BizServiceImpl implements BizService {
 
-//    @Reference
-//    private UserClient userClient;
-
     @Reference
     private OrderClient orderClient;
 
@@ -35,7 +33,9 @@ public class BizServiceImpl implements BizService {
 
 
     @Override
+    @GlobalTransactional(timeoutMills = 30000, name = "jzj-cloud-dubbo-tx")
     public Long buy(BuyOrderParam param) {
+        log.info("buy begin ... xid: " + RootContext.getXID());
 
         Long productId = param.getProductId();
         Integer num = param.getNum();
@@ -52,8 +52,10 @@ public class BizServiceImpl implements BizService {
         OrderParam order = convertOrderParam(param, totalPrice);
         Long orderId = orderClient.save(order);
 
+        log.info("buy end ... xid: " + RootContext.getXID());
         return orderId;
     }
+
 
     /**
      * convert Order Param

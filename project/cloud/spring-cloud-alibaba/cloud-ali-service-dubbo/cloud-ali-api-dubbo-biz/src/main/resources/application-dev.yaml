@@ -33,8 +33,6 @@ spring:
         max-wait: 2000
 
 dubbo:
-#  application:
-#    name: cloud-ali-api-dubbo-biz
   registry:
 
 #    # zk
@@ -43,7 +41,7 @@ dubbo:
 #    # nacos
 #    address: nacos://127.0.0.1:8848
 
-    # 挂载到 Spring Cloud 注册中心
+    # 将Dubbo的注册中心 挂载到 SpringCloud的注册中心上
     address: spring-cloud://localhost
 #  cloud:
 #    # 不推荐使用默认值为 "*"，它将订阅所有应用

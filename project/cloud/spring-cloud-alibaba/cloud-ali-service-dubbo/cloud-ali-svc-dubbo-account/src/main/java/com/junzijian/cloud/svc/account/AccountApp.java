@@ -1,6 +1,7 @@
 package com.junzijian.cloud.svc.account;
 
 import com.junzijian.framework.util.IdWorker;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @ComponentScan("com.junzijian")
 @MapperScan("com.junzijian.cloud.svc.account.mapper")
+@EnableDubbo
 public class AccountApp {
 
     public static void main(String[] args) {

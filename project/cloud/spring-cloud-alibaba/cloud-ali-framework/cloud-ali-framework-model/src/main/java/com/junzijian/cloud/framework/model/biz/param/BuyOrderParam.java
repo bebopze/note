@@ -17,15 +17,15 @@ import java.math.BigDecimal;
 @Data
 public class BuyOrderParam {
 
-    private UserParam user;
-
-    private ProductParam product;
-
-    private StorageParam storage;
-
-    private AccountParam account;
-
-    private OrderParam order;
+//    private UserParam user;
+//
+//    private ProductParam product;
+//
+//    private StorageParam storage;
+//
+//    private AccountParam account;
+//
+//    private OrderParam order;
 
 
     @NotNull

@@ -28,7 +28,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.0.RELEASE</version>
+        <version>2.2.1.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -38,8 +38,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
-        <dubbo.version>2.7.3</dubbo.version>
-        <seata.version>0.9.0</seata.version>
+        <dubbo.version>2.7.4.1</dubbo.version>
+        <seata.version>0.9.0.1</seata.version>
         <spring-boot-admin.version>2.1.2</spring-boot-admin.version>
         <zipkin-server.version>2.11.1</zipkin-server.version>
         <druid-spring-boot-starter.version>1.1.18</druid-spring-boot-starter.version>
@@ -105,6 +105,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-spring-boot-actuator</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo-dependencies-zookeeper</artifactId>
                 <version>${dubbo.version}</version>
                 <type>pom</type>
@@ -114,11 +119,6 @@
                         <artifactId>slf4j-log4j12</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.dubbo</groupId>
-                <artifactId>dubbo-spring-boot-actuator</artifactId>
-                <version>${dubbo.version}</version>
             </dependency>
             <!-- dubbo -->
 

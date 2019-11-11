@@ -16,7 +16,7 @@
 
     <dependencies>
 
-        <!-- ========================== dubbo ========================== -->
+        <!-- ========================== cloud-dubbo ========================== -->
 
         <!-- cloud-dubbo -->
         <dependency>
@@ -25,6 +25,8 @@
         </dependency>
         <!-- cloud-dubbo -->
 
+
+        <!-- ========================== dubbo ========================== -->
 
         <!-- dubbo -->
         <!--
@@ -38,12 +40,12 @@
         </dependency>
         <dependency>
             <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-dependencies-zookeeper</artifactId>
-            <type>pom</type>
+            <artifactId>dubbo-spring-boot-actuator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-spring-boot-actuator</artifactId>
+            <artifactId>dubbo-dependencies-zookeeper</artifactId>
+            <type>pom</type>
         </dependency>
         -->
         <!-- dubbo -->
@@ -74,8 +76,8 @@
 
         <!-- openfeign -->
         <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-starter-openfeign</artifactId>-->
+        <!--<groupId>org.springframework.cloud</groupId>-->
+        <!--<artifactId>spring-cloud-starter-openfeign</artifactId>-->
         <!--</dependency>-->
         <!-- openfeign -->
 
@@ -150,6 +152,14 @@
         <!-- pagehelper -->
 
 
+        <!-- seata -->
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-all</artifactId>
+        </dependency>
+        <!-- seata -->
+
+
         <!-- ========================== note-cloud-ali ========================== -->
 
         <!-- framework-common -->
@@ -167,14 +177,6 @@
             <version>1.0.0</version>
         </dependency>
         <!-- model -->
-
-        <!-- user -->
-        <!--<dependency>-->
-            <!--<groupId>com.junzijian.cloud</groupId>-->
-            <!--<artifactId>cloud-ali-client-dubbo-user</artifactId>-->
-            <!--<version>1.0.0</version>-->
-        <!--</dependency>-->
-        <!-- user -->
 
         <!-- order -->
         <dependency>

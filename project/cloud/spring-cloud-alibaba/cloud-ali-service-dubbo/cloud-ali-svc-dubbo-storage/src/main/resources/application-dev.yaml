@@ -33,19 +33,11 @@ dubbo:
 #  application:
 #    name: cloud-ali-svc-dubbo-storage
   registry:
-#    # zk
-#    address: zookeeper://192.168.2.18:2181
-#    # nacos
-#    address: nacos://127.0.0.1:8848
-    # cloud-dubbo 注册扩展
+    # 挂载到 Spring Cloud 注册中心
     address: spring-cloud://localhost
   protocol:
     name: dubbo
     port: -1
-#    rest:
-#      name: rest
-#      port: 9090
-#      server: tomcat
   provider:
     group: junzijian
     version: 1.0.0
