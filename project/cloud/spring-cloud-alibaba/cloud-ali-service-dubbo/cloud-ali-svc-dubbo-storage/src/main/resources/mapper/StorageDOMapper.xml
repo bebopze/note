@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="com.junzijian.cloud.framework.model.storage.entity.StorageDO">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="product_id" jdbcType="BIGINT" property="productId"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="product_name" jdbcType="VARCHAR" property="productName"/>
         <result column="inventory" jdbcType="INTEGER" property="inventory"/>
         <result column="status" jdbcType="TINYINT" property="status"/>
         <result column="version" jdbcType="BIGINT" property="version"/>
@@ -12,7 +12,7 @@
         <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, product_id, name, inventory, status, version, gmt_create, gmt_modify
+    id, product_id, product_name, inventory, status, version, gmt_create, gmt_modify
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
@@ -25,10 +25,10 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
     <insert id="insert" parameterType="com.junzijian.cloud.framework.model.storage.entity.StorageDO">
-    insert into storage (id, product_id, name,
+    insert into storage (id, product_id, product_name,
       inventory, status, version,
       gmt_create, gmt_modify)
-    values (#{id,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+    values (#{id,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, #{productName,jdbcType=VARCHAR},
       #{inventory,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, #{version,jdbcType=BIGINT},
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
@@ -41,8 +41,8 @@
             <if test="productId != null">
                 product_id,
             </if>
-            <if test="name != null">
-                name,
+            <if test="productName != null">
+                product_name,
             </if>
             <if test="inventory != null">
                 inventory,
@@ -67,8 +67,8 @@
             <if test="productId != null">
                 #{productId,jdbcType=BIGINT},
             </if>
-            <if test="name != null">
-                #{name,jdbcType=VARCHAR},
+            <if test="productName != null">
+                #{productName,jdbcType=VARCHAR},
             </if>
             <if test="inventory != null">
                 #{inventory,jdbcType=INTEGER},
@@ -94,8 +94,8 @@
             <if test="productId != null">
                 product_id = #{productId,jdbcType=BIGINT},
             </if>
-            <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
+            <if test="productName != null">
+                product_name = #{productName,jdbcType=VARCHAR},
             </if>
             <if test="inventory != null">
                 inventory = #{inventory,jdbcType=INTEGER},
@@ -118,7 +118,7 @@
     <update id="updateByPrimaryKey" parameterType="com.junzijian.cloud.framework.model.storage.entity.StorageDO">
     update storage
     set product_id = #{productId,jdbcType=BIGINT},
-      name = #{name,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
       inventory = #{inventory,jdbcType=INTEGER},
       status = #{status,jdbcType=TINYINT},
       version = #{version,jdbcType=BIGINT},

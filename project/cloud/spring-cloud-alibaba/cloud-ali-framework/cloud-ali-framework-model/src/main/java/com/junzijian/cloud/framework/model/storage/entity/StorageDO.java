@@ -12,7 +12,7 @@ public class StorageDO implements Serializable {
 
     private Long productId;
 
-    private String name;
+    private String productName;
 
     private Integer inventory;
 
