@@ -15,15 +15,10 @@
 
 
     <modules>
-        <!--<module>service-user-center</module>-->
-        <!--<module>service-user-center-oauth</module>-->
-
-        <module>cloud-ali-svc-feign-user</module>
-        <module>cloud-ali-svc-feign-product</module>
+        <module>cloud-ali-svc-feign-biz</module>
         <module>cloud-ali-svc-feign-storage</module>
         <module>cloud-ali-svc-feign-account</module>
         <module>cloud-ali-svc-feign-order</module>
-        <module>cloud-ali-svc-feign-biz</module>
     </modules>
 
 </project>

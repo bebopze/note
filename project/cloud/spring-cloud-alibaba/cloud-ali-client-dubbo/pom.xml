@@ -15,12 +15,13 @@
 
 
     <modules>
-        <module>cloud-ali-client-dubbo-user</module>
-        <module>cloud-ali-client-dubbo-product</module>
+        <module>cloud-ali-client-dubbo-biz</module>
         <module>cloud-ali-client-dubbo-storage</module>
         <module>cloud-ali-client-dubbo-account</module>
         <module>cloud-ali-client-dubbo-order</module>
-        <module>cloud-ali-client-dubbo-biz</module>
+
+        <module>cloud-ali-client-dubbo-product</module>
+        <module>cloud-ali-client-dubbo-user</module>
     </modules>
 
 </project>
