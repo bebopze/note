@@ -4,6 +4,7 @@ import com.junzijian.cloud.client.storage.StorageClient;
 import com.junzijian.cloud.framework.model.storage.param.StorageParam;
 import com.junzijian.cloud.svc.storage.mapper.StorageDOMapper;
 import com.junzijian.framework.util.IdWorker;
+import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,14 +53,20 @@ public class StorageServiceImpl implements StorageClient {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void decrInventory(Long productId, int decrNum) {
+        log.info("decrInventory begin        >>>     xid : {}", RootContext.getXID());
 
         storageDOMapper.decrInventory(productId, decrNum);
+
+        log.info("decrInventory end        >>>     xid : {}", RootContext.getXID());
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void incrInventory(Long productId, int incrNum) {
+        log.info("incrInventory begin        >>>     xid : {}", RootContext.getXID());
 
         storageDOMapper.incrInventory(productId, incrNum);
+
+        log.info("incrInventory end        >>>     xid : {}", RootContext.getXID());
     }
 }

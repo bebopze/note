@@ -5,6 +5,7 @@ import com.junzijian.cloud.framework.model.order.entity.OrderDO;
 import com.junzijian.cloud.framework.model.order.param.OrderParam;
 import com.junzijian.cloud.svc.order.mapper.OrderDOMapper;
 import com.junzijian.framework.util.IdWorker;
+import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class OrderServiceImpl implements OrderClient {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Long save(@Valid OrderParam param) {
+        log.info("saveOrder begin        >>>     xid : {}", RootContext.getXID());
 
         Long id = param.getId();
 
@@ -46,6 +48,8 @@ public class OrderServiceImpl implements OrderClient {
             // update
             orderDOMapper.updateByPrimaryKeySelective(param);
         }
+
+        log.info("saveOrder end        >>>     xid : {}", RootContext.getXID());
 
         return param.getId();
     }

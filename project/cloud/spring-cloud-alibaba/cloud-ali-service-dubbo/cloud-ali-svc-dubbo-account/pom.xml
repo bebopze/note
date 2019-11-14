@@ -16,7 +16,7 @@
 
     <dependencies>
 
-        <!-- ========================== cloud-dubbo ========================== -->
+        <!-- ========================== cloud ========================== -->
 
         <!-- cloud-dubbo -->
         <dependency>
@@ -25,33 +25,12 @@
         </dependency>
         <!-- cloud-dubbo -->
 
-
-        <!-- ========================== dubbo ========================== -->
-
-        <!-- dubbo -->
-        <!--
+        <!-- seata -->
         <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo</artifactId>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-dependencies-zookeeper</artifactId>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-spring-boot-actuator</artifactId>
-        </dependency>
-        -->
-        <!-- dubbo -->
-
-
-        <!-- ========================== cloud ========================== -->
+        <!-- seata -->
 
         <!-- nacos-discovery -->
         <dependency>

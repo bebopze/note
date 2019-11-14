@@ -26,6 +26,21 @@
         </dependency>
         <!-- util -->
 
+
+        <!-- Druid x Seata Proxy-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-all</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- Druid x Seata Proxy -->
+
+
         <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>

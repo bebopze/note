@@ -1,6 +1,6 @@
 spring:
   application:
-    name: cloud-ali-svc-order
+    name: cloud-ali-svc-dubbo-order
 
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource

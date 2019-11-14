@@ -6,6 +6,7 @@ import com.junzijian.cloud.client.order.OrderClient;
 import com.junzijian.cloud.client.storage.StorageClient;
 import com.junzijian.cloud.framework.model.biz.param.BuyOrderParam;
 import com.junzijian.cloud.framework.model.order.param.OrderParam;
+import com.junzijian.framework.common.exception.CustomException;
 import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
@@ -33,9 +34,9 @@ public class BizServiceImpl implements BizService {
 
 
     @Override
-    @GlobalTransactional(timeoutMills = 30000, name = "jzj-cloud-dubbo-tx")
+    @GlobalTransactional(timeoutMills = 30000, name = "cloud-ali-api-dubbo-biz--buy")
     public Long buy(BuyOrderParam param) {
-        log.info("buy begin ... xid: " + RootContext.getXID());
+        log.info("buy begin        >>>     xid : {}", RootContext.getXID());
 
         Long productId = param.getProductId();
         Integer num = param.getNum();
@@ -52,7 +53,11 @@ public class BizServiceImpl implements BizService {
         OrderParam order = convertOrderParam(param, totalPrice);
         Long orderId = orderClient.save(order);
 
-        log.info("buy end ... xid: " + RootContext.getXID());
+        if (param.isException()) {
+            throw new CustomException("下单失败了...");
+        }
+        log.info("buy end        >>>     xid : {}", RootContext.getXID());
+
         return orderId;
     }
 

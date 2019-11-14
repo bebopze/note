@@ -1,6 +1,6 @@
 spring:
   application:
-    name: cloud-ali-svc-account
+    name: cloud-ali-svc-dubbo-account
 
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource

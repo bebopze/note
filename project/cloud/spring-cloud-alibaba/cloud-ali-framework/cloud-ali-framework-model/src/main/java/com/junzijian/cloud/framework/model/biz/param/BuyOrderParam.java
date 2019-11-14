@@ -42,4 +42,6 @@ public class BuyOrderParam {
 
     @NotNull
     private Integer num;
+
+    private boolean exception = false;
 }

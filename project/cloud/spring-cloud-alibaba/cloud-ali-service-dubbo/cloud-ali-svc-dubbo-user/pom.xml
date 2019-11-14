@@ -15,6 +15,22 @@
 
     <dependencies>
 
+        <!-- ========================== cloud ========================== -->
+
+        <!-- cloud-dubbo -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-dubbo</artifactId>
+        </dependency>
+        <!-- cloud-dubbo -->
+
+        <!-- seata -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+        </dependency>
+        <!-- seata -->
+
         <!-- nacos-discovery -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
