@@ -724,12 +724,12 @@ docker push 192.168.184.141:5000/jdk1.8
     docker-compose images  /   docker images
     
     
-    // 部署
+    // --部署
     
-    // 应用-环境变量
+    // 应用 - 环境变量
     kubectl apply -f config.yml
     
-    // 应用-Deployment、Service
+    // 应用 - Deployment、Service
     kubectl apply -f test
     
     
@@ -741,25 +741,23 @@ docker push 192.168.184.141:5000/jdk1.8
     
     
     // 命令行校验
-    
     kubectl get pods -o wide
     
-    Kubectl get services
+    kubectl get services
     
-    Kubectl get deployments
-    
+    kubectl get deployments
     
     
     // K8s Dashboard校验
     
     
+    
     // 清理
+    kubectl delete deployments --all
     
-    kubectl delete deployments —all
+    kubectl delete services --all
     
-    kubectl delete services —all
-    
-    kubectl delete configmaps —all
+    kubectl delete configmaps --all
 
 ```
 
