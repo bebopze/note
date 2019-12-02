@@ -1,5 +1,6 @@
 package com.junzijian.cloud.api.biz.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.junzijian.cloud.api.biz.service.BizService;
 import com.junzijian.cloud.framework.model.biz.param.BuyOrderParam;
 import com.junzijian.framework.common.model.response.ResultBean;
@@ -28,6 +29,21 @@ public class BizController {
     private BizService bizService;
 
 
+    /**
+     * - @SentinelResource 注解用来标识资源是否被限流、降级。本例该注解的属性 hello 表示资源名。
+     * -
+     * - @SentinelResource 还提供了其它额外的属性如 blockHandler，blockHandlerClass，fallback，
+     * - 用于表示限流或降级的操作（注意有方法签名要求）。
+     * -
+     * -
+     * - 一般推荐将 @SentinelResource 注解加到服务上！！！
+     * -
+     * - 在 Web 层直接使用 Spring Cloud Alibaba 自带的 Web 适配埋点。
+     *
+     * @param param
+     * @return
+     */
+    @SentinelResource("hello")
     @ApiOperation(value = "下单", tags = "cloud-dubbo")
     @PostMapping(value = "/buy/cloud-dubbo", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResultBean<Long> buy(@RequestBody @Valid BuyOrderParam param) {
