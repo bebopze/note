@@ -33,7 +33,7 @@
 
 ​	Docker 是一个开源项目，诞生于 2013 年初，最初是 dotCloud 公司内部的一个业余项目。它基于 Google 公司推出的 Go 语言实现。 项目后来加入了 Linux 基金会，遵从了 Apache 2.0 协议，项目代码在 [GitHub](https://github.com/docker/docker) 上进行维护。
 
-​	![](image/1-3.png)
+​	![什么是Docker](image/docker-logo.png)
 
 
 
@@ -67,7 +67,7 @@
 
 ​	下面的图片比较了 Docker 和传统虚拟化方式的不同之处，可见容器是在操作系统层面上实现虚拟化，直接复用本地主机的操作系统，而传统方式则是在硬件层面实现。
 
-![](image/1-1.png)
+![容器与虚拟机比较](image/容器与虚拟机比较.png)
 
 与传统的虚拟机相比，Docker优势体现为启动速度快、占用体积小。
 
@@ -77,7 +77,7 @@
 
 ​	Docker是一个客户端-服务器（C/S）架构程序。Docker客户端只需要向Docker服务器或者守护进程发出请求，服务器或者守护进程将完成所有工作并返回结果。Docker提供了一个命令行工具Docker以及一整套RESTful API。你可以在同一台宿主机上运行Docker守护进程和客户端，也可以从本地的Docker客户端连接到运行在另一台宿主机上的远程Docker守护进程。
 
-![](image/1-2.png)
+![Docker服务器与客户端](image/Docker服务器与客户端.png)
 
 ### 1.4.2 Docker镜像与容器
 
