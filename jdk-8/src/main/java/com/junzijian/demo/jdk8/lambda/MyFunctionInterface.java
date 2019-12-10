@@ -20,7 +20,7 @@ public interface MyFunctionInterface {
 
 
     /**
-     * FunctionalInterface 只能有且只有一个抽象方法
+     * FunctionalInterface 有且只能有一个抽象方法
      */
 //    String method2();
 }
