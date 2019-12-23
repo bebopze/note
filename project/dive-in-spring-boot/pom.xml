@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.junzijian</groupId>
+        <artifactId>note-parent</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>dive-in-spring-boot</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>dive-in-spring-boot</name>
+
+
+    <modules>
+        <module>spring-boot-overview</module>
+        <module>spring-boot-autoconfigure</module>
+        <module>spring-boot-spring-application</module>
+        <module>spring-webmvc</module>
+        <module>springboot-webmvc</module>
+        <module>springboot-view</module>
+        <module>springboot-rest</module>
+        <module>spring-servlet</module>
+        <module>spring-boot-servlet</module>
+    </modules>
+
+</project>

@@ -1,0 +1,15 @@
+# ApplicationContextInitializer ʵ������
+org.springframework.context.ApplicationContextInitializer=\
+com.junzijian.diveinspringboot.context.AfterHelloWorldApplicationContextInitializer,\
+com.junzijian.diveinspringboot.context.HelloWorldApplicationContextInitializer
+
+# ApplicationListener ʵ������
+org.springframework.context.ApplicationListener=\
+com.junzijian.diveinspringboot.listener.AfterHelloWorldApplicationListener,\
+com.junzijian.diveinspringboot.listener.HelloWorldApplicationListener,\
+com.junzijian.diveinspringboot.listener.BeforeConfigFileApplicationListener
+
+# SpringApplicationRunListener ʵ������
+org.springframework.boot.SpringApplicationRunListener=\
+com.junzijian.diveinspringboot.run.HelloWorldRunListener
+ 

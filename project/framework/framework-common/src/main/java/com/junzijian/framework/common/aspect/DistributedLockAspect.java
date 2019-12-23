@@ -71,7 +71,7 @@ public class DistributedLockAspect {
             boolean getLock = lockUtils.lock(key, val, timeout);
             log.debug(getLock ? "获取锁成功！KEY：" + key + " , VAL：" + val : "获取锁失败！KEY：" + key + " , VAL：" + val);
 
-            // 获m取到锁
+            // 获取到锁
             if (getLock) {
 
                 // 执行原方法

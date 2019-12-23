@@ -6,6 +6,8 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 
+.tomcat_executable_archive.timestamp
+
 target/
 .idea/
 .mvn/
@@ -13,3 +15,5 @@ target/
 logs/
 *mvnw
 *.cmd
+
+

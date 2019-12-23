@@ -20,8 +20,8 @@
     <modules>
 
         <!-- spring-cloud -->
-        <module>spring-cloud-alibaba</module>
-        <!--<module>spring-cloud-netflix</module>-->
+        <!--<module>spring-cloud-alibaba</module>-->
+        <module>spring-cloud-netflix</module>
 
     </modules>
 

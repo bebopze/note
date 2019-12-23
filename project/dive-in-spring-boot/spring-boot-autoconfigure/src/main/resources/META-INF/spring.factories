@@ -1,0 +1,3 @@
+# �Զ�װ��
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.junzijian.diveinspringboot.configuration.HelloWorldAutoConfiguration
