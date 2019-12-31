@@ -5,5 +5,5 @@ print(not true)
 
 -- 其它运算符
 str = "helloworld"
-print(#str)
+print(#str) -- 字符串长度
 
