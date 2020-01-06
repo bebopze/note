@@ -11,7 +11,9 @@ local value = 1
 local limit = tonumber(ARGV[1])
 local expire = ARGV[2]
 
-if redis.call("SET", key, value, "NX", "EX", expire) then
+local repay = redis.call("SET", key, startTime, "NX", "EX", expire);
+
+if repay.ok == "OK" then
     return true
 else
     if redis.call("INCR", key) <= limit then

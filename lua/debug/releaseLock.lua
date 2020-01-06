@@ -10,7 +10,7 @@
 -- ./redis-cli --ldb --eval releaseLock.lua k , v
 
 --      ./redis-cli  :  redis client
---      ldb          :  dubug
+--      ldb          :  debug
 --      eval         :  执行lua script
 
 --      debug 模式下常用指令：
