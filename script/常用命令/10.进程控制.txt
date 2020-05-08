@@ -1,0 +1,29 @@
+1.查看用户最近登录情况
+last
+lastlog
+
+2.查看硬盘使用情况
+df
+
+3.查看文件大小
+du
+
+4.查看内存使用情况
+free
+
+5.查看文件系统
+/proc
+
+6.查看日志
+ls /var/log/
+
+7.查看系统报错日志
+tail /var/log/messages
+
+8.查看进程
+top
+
+9.结束进程
+kill 1234
+kill -9 4333
+

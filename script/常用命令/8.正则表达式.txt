@@ -1,0 +1,45 @@
+1.cut截取以:分割保留第七段
+grep hadoop /etc/passwd | cut -d: -f7
+
+2.排序
+du | sort -n
+
+3.查询不包含hadoop的
+grep -v hadoop /etc/passwd
+
+4.正则表达包含hadoop
+grep 'hadoop' /etc/passwd
+
+5.正则表达(点代表任意一个字符)
+grep 'h.*p' /etc/passwd
+
+6.正则表达以hadoop开头
+grep '^hadoop' /etc/passwd
+
+7.正则表达以hadoop结尾
+grep 'hadoop$' /etc/passwd
+
+规则：
+.  : 任意一个字符
+a* : 任意多个a(零个或多个a)
+a? : 零个或一个a
+a+ : 一个或多个a
+.* : 任意多个任意字符
+\. : 转义.
+\<h.*p\> ：以h开头，p结尾的一个单词
+o\{2\} : o重复两次
+
+grep '^i.\{18\}n$' /usr/share/dict/words
+
+查找不是以#开头的行
+grep -v '^#' a.txt | grep -v '^$'
+
+以h或r开头的
+grep '^[hr]' /etc/passwd
+
+不是以h和r开头的
+grep '^[^hr]' /etc/passwd
+
+不是以h到r开头的
+grep '^[^h-r]' /etc/passwd
+

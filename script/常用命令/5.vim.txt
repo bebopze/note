@@ -1,0 +1,35 @@
+i
+a/A
+o/O
+r + ?替换
+
+0:文件当前行的开头
+$:文件当前行的末尾
+G:文件的最后一行开头
+1 + G到第一行
+9 + G到第九行 = :9
+
+dd:删除一行
+3dd：删除3行
+yy:复制一行
+3yy:复制3行
+p:粘贴
+u:undo
+ctrl + r:redo
+
+"a剪切板a
+"b剪切板b
+
+"ap粘贴剪切板a的内容
+
+每次进入vi就有行号
+vi ~/.vimrc
+set nu
+
+:w a.txt另存为
+:w >> a.txt内容追加到a.txt
+
+:e!恢复到最初状态
+
+:1,$s/hadoop/root/g 将第一行到追后一行的hadoop替换为root
+:1,$s/hadoop/root/c 将第一行到追后一行的hadoop替换为root(有提示)

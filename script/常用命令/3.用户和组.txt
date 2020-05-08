@@ -1,0 +1,45 @@
+﻿添加一个tom用户，设置它属于users组，并添加注释信息
+分步完成：useradd tom
+          usermod -g users tom
+	      usermod -c "hr tom" tom
+一步完成：useradd -g users -c "hr tom" tom
+
+设置tom用户的密码
+passwd tom
+
+修改tom用户的登陆名为tomcat
+usermod -l tomcat tom
+
+将tomcat添加到sys和root组中
+usermod -G sys,root tomcat
+
+查看tomcat的组信息
+groups tomcat
+
+添加一个jerry用户并设置密码
+useradd jerry
+passwd jerry
+
+添加一个交america的组
+groupadd america
+
+将jerry添加到america组中
+usermod -g america jerry
+
+将tomcat用户从root组和sys组删除
+gpasswd -d tomcat root
+gpasswd -d tomcat sys
+
+将america组名修改为am
+groupmod -n am america
+
+
+
+
+
+
+
+
+
+
+

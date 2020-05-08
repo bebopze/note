@@ -1,0 +1,11 @@
+1.查看文件夹属性
+ls -ld test
+
+2.文件夹的rwx
+--x:可以cd进去
+r-x:可以cd进去并ls
+-wx:可以cd进去并touch，rm自己的文件，并且可以vi其他用户的文件
+-wt:可以cd进去并touch，rm自己的文件
+
+ls -ld /tmp
+drwxrwxrwt的权限值是1777(sticky)

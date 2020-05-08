@@ -1,0 +1,29 @@
+1.新建一个文件
+touch a.txt
+> b.txt
+
+2.错误重定向:2>
+find /etc -name zhaoxing.txt 2> error.txt
+
+3.将正确或错误的信息都输入到log.txt中
+find /etc -name passwd > /tmp/log.txt 2>&1
+find /etc -name passwd &> /tmp/log.txt
+
+4.追加>>
+
+5.将小写转为大写（输入重定向）
+tr "a-z" "A-Z" < /etc/passwd
+
+6.自动创建文件
+cat > log.txt << EXIT
+> ccc
+> ddd
+> EXI
+
+7.查看/etc下的文件有多少个？
+ls -l /etc/ | grep '^d' | wc -l
+
+8.查看/etc下的文件有多少个，并将文件详情输入到result.txt中
+ls -l /etc/ | grep '^d' | tee result.txt | wc -l
+
+

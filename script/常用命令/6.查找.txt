@@ -1,0 +1,35 @@
+1.查找可执行的命令：
+which ls
+
+2.查找可执行的命令和帮助的位置：
+whereis ls
+
+3.查找文件(需要更新库:updatedb)
+locate hadoop.txt
+
+4.从某个文件夹开始查找
+find / -name "hadooop*"
+find / -name "hadooop*" -ls
+
+5.查找并删除
+find / -name "hadooop*" -ok rm {} \;
+find / -name "hadooop*" -exec rm {} \;
+
+6.查找用户为hadoop的文件
+find /usr -user hadoop -ls
+
+7.查找用户为hadoop并且(-a)拥有组为root的文件
+find /usr -user hadoop -a -group root -ls
+
+8.查找用户为hadoop或者(-o)拥有组为root并且是文件夹类型的文件
+find /usr -user hadoop -o -group root -a -type d
+
+9.查找权限为777的文件
+find / -perm -777 -type d -ls
+
+10.显示命令历史
+history
+
+11.grep
+grep hadoop /etc/password
+

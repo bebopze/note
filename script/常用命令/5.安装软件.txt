@@ -1,0 +1,26 @@
+1.安装JDK
+	*添加执行权限 
+		chmod u+x jdk-6u45-linux-i586.bin
+	*解压
+		./jdk-6u45-linux-i586.bin
+	*在/usr目录下创建java目录
+		mkdir /usr/java
+	*将/soft目录下的解压的jdk1.6.0_45剪切到/usr/java目录下
+		mv jdk1.6.0_45/ /usr/java/
+	*添加环境变量
+		vim /etc/profile
+		*在/etc/profile文件最后添加
+			export JAVA_HOME=/usr/java/jdk1.6.0_45
+			export CLASSPATH=$JAVA_HOME/lib
+			export PATH=$PATH:$JAVA_HOME/bin
+	*更新配置
+		source /etc/profile
+		
+2.安装tomcat
+	tar -zxvf /soft/apache-tomcat-7.0.47.tar.gz -C /programs/
+	cd /programs/apache-tomcat-7.0.47/bin/
+	./startup.sh
+	
+3.安装eclipse
+	
+		 
