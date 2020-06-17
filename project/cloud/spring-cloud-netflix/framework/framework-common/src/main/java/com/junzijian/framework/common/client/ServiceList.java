@@ -1,7 +1,7 @@
 package com.junzijian.framework.common.client;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2019/4/29
  */
 public class ServiceList {

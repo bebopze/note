@@ -5,13 +5,13 @@ chmod ug+w,o-w a.txt b.txt
 chmod a=wx c.txt 或chmod 666 c.txt
 
 将/bebop目录下的所有文件与子目录皆设为任何人可读取
-chmod -R a+r /bebop
+chmod -R a+r /bebopze
 
 将/bebop目录下的所有文件与子目录的拥有者设为root，用户拥有组为users
-chown -R root:users /bebop
+chown -R root:users /bebopze
 
 将当前目录下的所有文件与子目录的用户皆设为bebop，组设为users
-chown -R bebop:users *
+chown -R bebopze:users *
 
 
 

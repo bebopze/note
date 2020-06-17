@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 通用Result
  *
- * @author bebop
+ * @author bebopze
  * @date 2018/11/20
  */
 @Data

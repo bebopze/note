@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * 统一异常捕获类
  *
- * @author bebop
+ * @author bebopze
  * @date 2018/11/14
  */
 @Slf4j

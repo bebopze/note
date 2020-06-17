@@ -3,7 +3,7 @@ package com.junzijian.framework.model.oauth.param;
 import lombok.Data;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2019/4/29
  */
 @Data

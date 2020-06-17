@@ -14,7 +14,7 @@ import java.util.concurrent.locks.LockSupport;
  * <p>
  * Disruptor - 干扰器
  *
- * @author bebop
+ * @author bebopze
  * @date 2019/6/28
  */
 public class DisruptorDemo {

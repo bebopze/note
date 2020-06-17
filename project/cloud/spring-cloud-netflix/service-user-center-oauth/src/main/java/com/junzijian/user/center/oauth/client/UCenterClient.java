@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2019/5/5
  */
 @FeignClient(value = ServiceList.SERVICE_USER_CENTER)

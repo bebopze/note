@@ -3,7 +3,7 @@ package com.junzijian.user.center.oauth.service;
 import com.junzijian.framework.model.oauth.param.LoginParam;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2019/4/29
  */
 public interface AuthService {

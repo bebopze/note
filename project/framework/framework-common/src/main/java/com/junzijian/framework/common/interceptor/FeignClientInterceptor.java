@@ -11,7 +11,7 @@ import java.util.Enumeration;
 /**
  * Feign拦截器
  *
- * @author bebop
+ * @author bebopze
  * @date 2018/11/13
  */
 public class FeignClientInterceptor implements RequestInterceptor {

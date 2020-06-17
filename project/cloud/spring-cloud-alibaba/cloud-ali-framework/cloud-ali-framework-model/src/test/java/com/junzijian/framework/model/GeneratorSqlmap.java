@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2018/1/11
  */
 public class GeneratorSqlmap {

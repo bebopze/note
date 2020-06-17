@@ -17,7 +17,7 @@ import static com.junzijian.framework.common.constant.OAuthConst.COOKIE_KEY;
 /**
  * 身份认证
  *
- * @author bebop
+ * @author bebopze
  * @date 2018/11/13
  */
 @Service

@@ -1,7 +1,7 @@
 package com.junzijian.framework.common.constant;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2019/5/11
  */
 public class OAuthConst {

@@ -7,7 +7,7 @@ package com.junzijian.framework.common.model.response;
  * 24000-- cms错误代码
  * 25000-- 文件系统
  *
- * @author bebop
+ * @author bebopze
  * @date 2018/11/13
  */
 public interface ResultCode {

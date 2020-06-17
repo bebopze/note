@@ -3,7 +3,7 @@ package com.junzijian.jdk.concurrent.threadpool;
 import java.util.concurrent.*;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2019/6/5
  */
 public class MyCompletableFuture {

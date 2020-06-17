@@ -6,7 +6,7 @@ import com.junzijian.framework.common.model.response.code.ResultCode;
 /**
  * 异常捕获
  *
- * @author bebop
+ * @author bebopze
  * @date 2018/11/14
  */
 public class ExceptionCast {

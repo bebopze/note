@@ -10,7 +10,7 @@ import java.util.concurrent.*;
 /**
  * 生产-消费 模式
  *
- * @author bebop
+ * @author bebopze
  * @date 2019/6/26
  */
 public class ProducerConsumerModel {

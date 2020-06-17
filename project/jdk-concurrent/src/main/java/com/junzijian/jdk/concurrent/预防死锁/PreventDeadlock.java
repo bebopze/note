@@ -14,7 +14,7 @@ import java.util.function.Function;
 /**
  * 预防死锁
  *
- * @author bebop
+ * @author bebopze
  * @date 2020/5/11
  */
 public class PreventDeadlock {

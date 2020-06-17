@@ -4,8 +4,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.*;
 
 ///**
-// * Java并发包 基石 - AQSLock  -->  https://www.cnblogs.com/chengxiao/p/7141160.html
-// *                           -->  https://www.cnblogs.com/waterystone/p/4920797.html
+// * Java并发包 基石 - AQS      -->  https://www.cnblogs.com/waterystone/p/4920797.html
+// *                           -->  https://www.cnblogs.com/chengxiao/p/7141160.html
+// *
 // * ----------------------------------------------
 // *
 // *      AQS是一个用来构建锁和同步器的框架，使用AQS能简单且高效地，构造出应用广泛的大量的同步器。
@@ -18,7 +19,7 @@ import java.util.concurrent.locks.*;
 // *
 // * ----------------------------------------------
 // *
-// *      AQSLock 方便使用者 实现 不同类型的 同步组件
+// *      AQS 方便使用者 实现 不同类型的 同步组件
 // *
 // *      独占式：ReentrantLock
 // *      共享式：Semaphore、CountDownLatch

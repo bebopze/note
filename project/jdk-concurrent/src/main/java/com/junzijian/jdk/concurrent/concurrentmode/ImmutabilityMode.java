@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * 3.1  Immutability模式：如何利用不变性解决并发问题？
  *
- * @author bebop
+ * @author bebopze
  * @date 2019/6/13
  */
 public class ImmutabilityMode {

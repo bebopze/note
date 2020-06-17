@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * validator
  *
- * @author bebop
+ * @author bebopze
  * @date 2019/9/16
  */
 @Validated // GET

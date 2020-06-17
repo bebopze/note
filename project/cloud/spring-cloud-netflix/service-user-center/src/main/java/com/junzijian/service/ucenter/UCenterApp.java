@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2019/4/29
  */
 @EnableDiscoveryClient

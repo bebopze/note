@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2019/6/26
  */
 public class MyRateLimiter {

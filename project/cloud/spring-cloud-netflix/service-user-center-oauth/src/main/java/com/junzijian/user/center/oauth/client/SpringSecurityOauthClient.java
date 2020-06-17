@@ -12,7 +12,7 @@ import java.security.Principal;
 import java.util.Map;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2019/5/11
  */
 @FeignClient(ServiceList.SERVICE_USER_CENTER_OAUTH)

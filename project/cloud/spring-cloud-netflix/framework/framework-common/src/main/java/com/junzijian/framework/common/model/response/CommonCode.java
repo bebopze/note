@@ -3,7 +3,7 @@ package com.junzijian.framework.common.model.response;
 import lombok.ToString;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2018/11/13
  */
 @ToString

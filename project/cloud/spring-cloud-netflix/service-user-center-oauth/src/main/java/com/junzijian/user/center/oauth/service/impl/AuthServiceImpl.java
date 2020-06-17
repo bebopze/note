@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit;
 import static com.junzijian.framework.common.constant.OAuthConst.COOKIE_KEY;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2019/4/29
  */
 @Service

@@ -1,7 +1,7 @@
 package com.junzijian.framework.common.model.response.template;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2018/1/11
  */
 public enum ExceptionEnum {

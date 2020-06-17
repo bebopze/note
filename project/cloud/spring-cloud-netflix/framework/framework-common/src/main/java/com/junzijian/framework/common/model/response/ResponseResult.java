@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2018/11/13
  */
 @Data

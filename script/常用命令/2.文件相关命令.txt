@@ -7,7 +7,7 @@ cd ~ 或 cd
 pwd
 
 3.进入到bebop用户根目录
-cd ~bebop
+cd ~bebopze
 
 4.返回到原来目录
 cd -
@@ -19,12 +19,12 @@ cd ..
 ls -la
 
 7.在根目录下创建一个bebop的文件夹
-mkdir /bebop
+mkdir /bebopze
 
 8.在/bebop目录下创建src和WebRoot两个文件夹
-分别创建：mkdir /bebop/src
-		  mkdir /bebop/WebRoot
-同时创建：mkdir /bebop/{src,WebRoot}
+分别创建：mkdir /bebopze/src
+		  mkdir /bebopze/WebRoot
+同时创建：mkdir /bebopze/{src,WebRoot}
 
 进入到/bebop目录，在该目录下创建.classpath和README文件
 分别创建：touch .classpath
@@ -48,10 +48,10 @@ echo "please read me first" >> README
 将test.txt的内容追加到README文件中
 cat test.txt >> README
 
-拷贝/bebop目录下的所有文件到/bebop-bak
-cp -r /bebop /bebop-bak
+拷贝/bebop目录下的所有文件到/bebopze-bak
+cp -r /bebopze /bebopze-bak
 
-进入到/bebop-bak目录，将test.txt移动到src目录下，并修改文件名为Student.java
+进入到/bebopze-bak目录，将test.txt移动到src目录下，并修改文件名为Student.java
 mv test.txt src/Student.java
 
 在src目录下创建一个struts.xml
@@ -60,25 +60,25 @@ mv test.txt src/Student.java
 删除所有的xml类型的文件
 rm -rf *.xml
 
-删除/bebop-bak目录和下面的所有文件
-rm -rf /bebop-bak
+删除/bebopze-bak目录和下面的所有文件
+rm -rf /bebopze-bak
 
 返回到/bebop目录，查看一下README文件有多单词，多少个少行
 wc -w README
 wc -l README
 
 返回到根目录，将/bebop目录先打包，再用gzip压缩
-分步完成：tar -cvf bebop.tar bebop
-		  gzip bebop.tar
-一步完成：tar -zcvf bebop.tar.gz bebop
+分步完成：tar -cvf bebopze.tar bebopze
+		  gzip bebopze.tar
+一步完成：tar -zcvf bebopze.tar.gz bebopze
 
 将其解压缩，再取消打包
-分步完成：gzip -d bebop.tar.gz 或 gunzip bebop.tar.gz
-一步完成：tar -zxvf bebop.tar.gz
+分步完成：gzip -d bebopze.tar.gz 或 gunzip bebopze.tar.gz
+一步完成：tar -zxvf bebopze.tar.gz
 
 将/bebop目录先打包，同时用bzip2压缩，并保存到/tmp目录下
-tar -jcvf /tmp/bebop.tar.bz2 bebop
+tar -jcvf /tmp/bebopze.tar.bz2 bebopze
 
-将/tmp/bebop.tar.bz2解压到/usr目录下面
-tar -jxvf bebop.tar.bz2 -C /usr/
+将/tmp/bebopze.tar.bz2解压到/usr目录下面
+tar -jxvf bebopze.tar.bz2 -C /usr/
 

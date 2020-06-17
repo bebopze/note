@@ -3,7 +3,7 @@ package com.junzijian.jdk.string;
 import java.io.InputStream;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2020/6/12
  */
 public class StringDemo {

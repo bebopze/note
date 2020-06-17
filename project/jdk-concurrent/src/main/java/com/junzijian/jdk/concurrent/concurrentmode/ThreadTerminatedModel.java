@@ -5,7 +5,7 @@ package com.junzijian.jdk.concurrent.concurrentmode;
  * <p>
  * 3.8 两阶段终止模式：如何优雅地终止线程？
  *
- * @author bebop
+ * @author bebopze
  * @date 2019/6/26
  */
 public class ThreadTerminatedModel {

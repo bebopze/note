@@ -8,7 +8,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.Data;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2019/6/28
  */
 public class NettyReactorDemo {

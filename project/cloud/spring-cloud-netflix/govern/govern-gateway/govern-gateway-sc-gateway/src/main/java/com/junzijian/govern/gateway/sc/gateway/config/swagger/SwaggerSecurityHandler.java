@@ -15,7 +15,7 @@ import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 import java.util.Optional;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2018/12/17
  */
 @Component

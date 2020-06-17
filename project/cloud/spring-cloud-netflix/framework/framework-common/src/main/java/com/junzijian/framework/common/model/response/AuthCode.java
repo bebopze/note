@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2019/4/29
  */
 public enum AuthCode implements ResultCode {

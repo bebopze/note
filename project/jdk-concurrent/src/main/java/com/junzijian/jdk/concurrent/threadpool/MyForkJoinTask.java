@@ -6,7 +6,7 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
 /**
- * @author bebop
+ * @author bebopze
  * @date 2019/6/12
  */
 public class MyForkJoinTask {
