@@ -22,7 +22,7 @@ import reactor.core.publisher.Mono;
 /**
  * 请求url权限校验
  *
- * @author liuzhe
+ * @author bebop
  * @date 2018/11/19
  */
 @Slf4j

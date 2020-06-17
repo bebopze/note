@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutorService;
 /**
  * 3.3 线程本地存储模式：没有共享，就没有伤害
  *
- * @author liuzhe
+ * @author bebop
  * @date 2019/6/16
  */
 public class ThreadLocalModel {

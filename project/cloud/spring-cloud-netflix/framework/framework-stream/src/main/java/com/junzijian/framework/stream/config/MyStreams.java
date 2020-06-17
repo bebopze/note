@@ -6,7 +6,7 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
 
 /**
- * @author liuzhe
+ * @author bebop
  * @date 2019/2/26
  */
 public interface MyStreams {

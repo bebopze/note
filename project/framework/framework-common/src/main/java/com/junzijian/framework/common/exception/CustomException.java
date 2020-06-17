@@ -5,7 +5,7 @@ import com.junzijian.framework.common.model.response.code.ResultCode;
 import lombok.Data;
 
 /**
- * @author liuzhe
+ * @author bebop
  * @date 2019/10/24
  */
 @Data

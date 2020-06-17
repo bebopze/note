@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author liuzhe
+ * @author bebop
  * @date 2018/11/13
  */
 public class BaseController {

@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSON;
 import java.util.concurrent.*;
 
 /**
- * @author liuzhe
+ * @author bebop
  * @date 2019/6/5
  */
 public class MyFutureTask {

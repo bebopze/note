@@ -6,7 +6,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * @author liuzhe
+ * @author bebop
  * @date 2019/6/5
  */
 public class ThreadPool {

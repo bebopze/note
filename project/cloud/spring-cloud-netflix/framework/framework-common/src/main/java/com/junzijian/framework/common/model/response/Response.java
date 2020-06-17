@@ -1,7 +1,7 @@
 package com.junzijian.framework.common.model.response;
 
 /**
- * @author liuzhe
+ * @author bebop
  * @date 2018/11/13
  */
 public interface Response {

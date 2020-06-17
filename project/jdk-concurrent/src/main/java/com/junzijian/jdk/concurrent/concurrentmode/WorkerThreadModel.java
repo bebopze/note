@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * @author liuzhe
+ * @author bebop
  * @date 2019/6/25
  */
 public class WorkerThreadModel {

@@ -5,7 +5,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import java.util.concurrent.*;
 
 /**
- * @author liuzhe
+ * @author bebop
  * @date 2019/6/11
  */
 public class CustomThreadPool {

@@ -10,7 +10,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 /**
- * @author liuzhe
+ * @author bebop
  * @date 2019/10/24
  */
 @Configuration

@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 import springfox.documentation.swagger.web.UiConfigurationBuilder;
 
 /**
- * @author liuzhe
+ * @author bebop
  * @date 2018/12/17
  */
 @Component

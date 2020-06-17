@@ -8,7 +8,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 /**
  * copy-on-write
  *
- * @author liuzhe
+ * @author bebop
  * @date 2019/6/15
  */
 public class CopyOnWrite {

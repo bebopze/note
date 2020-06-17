@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * base Response Result
  *
- * @author liuzhe
+ * @author bebop
  * @date 2018/11/13
  */
 @Data

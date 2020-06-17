@@ -3,7 +3,7 @@ package com.junzijian.framework.common.model.response;
 import lombok.Data;
 
 /**
- * @author liuzhe
+ * @author bebop
  * @date 2018/11/13
  */
 @Data

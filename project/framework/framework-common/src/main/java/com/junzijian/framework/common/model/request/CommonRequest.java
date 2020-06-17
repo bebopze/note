@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * 公共参数-订单相关
  *
- * @author liuzhe
+ * @author bebop
  * @date 2019/10/24
  */
 @Data

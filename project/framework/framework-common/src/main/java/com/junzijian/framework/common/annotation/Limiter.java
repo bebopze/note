@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * 用户级别限流
  *
- * @author liuzhe
+ * @author bebop
  * @date 2018/4/16
  */
 @Retention(RetentionPolicy.RUNTIME)

@@ -5,7 +5,7 @@ import lombok.ToString;
 /**
  * 10xxx - 通用错误代码
  *
- * @author liuzhe
+ * @author bebop
  * @date 2018/11/13
  */
 @ToString

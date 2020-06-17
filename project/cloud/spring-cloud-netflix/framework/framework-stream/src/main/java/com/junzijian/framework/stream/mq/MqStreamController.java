@@ -14,7 +14,7 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author liuzhe
+ * @author bebop
  * @date 2019/2/26
  */
 @CrossOrigin
