@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.junzijian.ucenter.mapper.ApiDOMapper">
-  <resultMap id="BaseResultMap" type="com.junzijian.framework.model.ucenter.entity.ApiDO">
+<mapper namespace="com.bebopze.ucenter.mapper.ApiDOMapper">
+  <resultMap id="BaseResultMap" type="com.bebopze.framework.model.ucenter.entity.ApiDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="url" jdbcType="VARCHAR" property="url" />
@@ -22,7 +22,7 @@
     delete from api
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.junzijian.framework.model.ucenter.entity.ApiDO">
+  <insert id="insert" parameterType="com.bebopze.framework.model.ucenter.entity.ApiDO">
     insert into api (id, name, url, 
       method, gmt_create, gmt_modified
       )
@@ -30,7 +30,7 @@
       #{method,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.junzijian.framework.model.ucenter.entity.ApiDO">
+  <insert id="insertSelective" parameterType="com.bebopze.framework.model.ucenter.entity.ApiDO">
     insert into api
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -73,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.junzijian.framework.model.ucenter.entity.ApiDO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.bebopze.framework.model.ucenter.entity.ApiDO">
     update api
     <set>
       <if test="name != null">
@@ -94,7 +94,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.junzijian.framework.model.ucenter.entity.ApiDO">
+  <update id="updateByPrimaryKey" parameterType="com.bebopze.framework.model.ucenter.entity.ApiDO">
     update api
     set name = #{name,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},

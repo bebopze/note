@@ -12,7 +12,7 @@ spring:
       server:
         git:
           # 配置git仓库地址   ==>  可以单独另创建一个git仓库：来放配置文件!!!
-          uri: https://gitee.com/junzijian/spring-cloud-study.git
+          uri: https://gitee.com/bebopze/spring-cloud-study.git
           # 配置仓库路径下的相对搜索位置，可以配置多个
           searchPaths: spring-cloud-netflix-study/config-repo/**
           # 如果Git仓库为公开仓库，可以不填写用户名和密码，如果是私有仓库需要填写

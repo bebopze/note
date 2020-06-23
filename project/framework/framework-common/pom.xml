@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.junzijian.framework</groupId>
+        <groupId>com.bebopze.framework</groupId>
         <artifactId>framework</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -20,7 +20,7 @@
 
         <!-- util -->
         <dependency>
-            <groupId>com.junzijian.framework</groupId>
+            <groupId>com.bebopze.framework</groupId>
             <artifactId>framework-util</artifactId>
             <version>1.0.0</version>
         </dependency>

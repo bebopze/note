@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.junzijian.cloud.svc.storage.mapper.StorageDOMapper">
-    <resultMap id="BaseResultMap" type="com.junzijian.cloud.framework.model.storage.entity.StorageDO">
+<mapper namespace="com.bebopze.cloud.svc.storage.mapper.StorageDOMapper">
+    <resultMap id="BaseResultMap" type="com.bebopze.cloud.framework.model.storage.entity.StorageDO">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="product_id" jdbcType="BIGINT" property="productId"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
@@ -24,7 +24,7 @@
     delete from storage
     where id = #{id,jdbcType=BIGINT}
   </delete>
-    <insert id="insert" parameterType="com.junzijian.cloud.framework.model.storage.entity.StorageDO">
+    <insert id="insert" parameterType="com.bebopze.cloud.framework.model.storage.entity.StorageDO">
     insert into storage (id, product_id, name, 
       inventory, status, version,
       gmt_create, gmt_modify)
@@ -32,7 +32,7 @@
       #{inventory,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, #{version,jdbcType=BIGINT},
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
-    <insert id="insertSelective" parameterType="com.junzijian.cloud.framework.model.storage.entity.StorageDO">
+    <insert id="insertSelective" parameterType="com.bebopze.cloud.framework.model.storage.entity.StorageDO">
         insert into storage
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -88,7 +88,7 @@
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective"
-            parameterType="com.junzijian.cloud.framework.model.storage.entity.StorageDO">
+            parameterType="com.bebopze.cloud.framework.model.storage.entity.StorageDO">
         update storage
         <set>
             <if test="productId != null">
@@ -115,7 +115,7 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.junzijian.cloud.framework.model.storage.entity.StorageDO">
+    <update id="updateByPrimaryKey" parameterType="com.bebopze.cloud.framework.model.storage.entity.StorageDO">
         update storage
         set product_id = #{productId,jdbcType=BIGINT},
         name = #{name,jdbcType=VARCHAR},

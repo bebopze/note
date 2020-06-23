@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.junzijian.cloud</groupId>
+        <groupId>com.bebopze.cloud</groupId>
         <artifactId>cloud-netflix-framework</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -60,7 +60,7 @@
 
         <!-- common -->
         <dependency>
-            <groupId>com.junzijian</groupId>
+            <groupId>com.bebopze</groupId>
             <artifactId>framework-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
@@ -68,7 +68,7 @@
 
         <!-- model -->
         <dependency>
-            <groupId>com.junzijian</groupId>
+            <groupId>com.bebopze</groupId>
             <artifactId>framework-model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

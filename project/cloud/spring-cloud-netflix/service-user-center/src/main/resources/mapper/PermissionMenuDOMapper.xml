@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.junzijian.ucenter.mapper.PermissionMenuDOMapper">
-  <resultMap id="BaseResultMap" type="com.junzijian.framework.model.ucenter.entity.PermissionMenuDO">
+<mapper namespace="com.bebopze.ucenter.mapper.PermissionMenuDOMapper">
+  <resultMap id="BaseResultMap" type="com.bebopze.framework.model.ucenter.entity.PermissionMenuDO">
     <id column="permission_id" jdbcType="BIGINT" property="permissionId" />
     <id column="menu_id" jdbcType="BIGINT" property="menuId" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
@@ -10,25 +10,25 @@
   <sql id="Base_Column_List">
     permission_id, menu_id, gmt_create, gmt_modified
   </sql>
-  <select id="selectByPrimaryKey" parameterType="com.junzijian.framework.model.ucenter.entity.PermissionMenuDOKey" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="com.bebopze.framework.model.ucenter.entity.PermissionMenuDOKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from permission_menu
     where permission_id = #{permissionId,jdbcType=BIGINT}
       and menu_id = #{menuId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.junzijian.framework.model.ucenter.entity.PermissionMenuDOKey">
+  <delete id="deleteByPrimaryKey" parameterType="com.bebopze.framework.model.ucenter.entity.PermissionMenuDOKey">
     delete from permission_menu
     where permission_id = #{permissionId,jdbcType=BIGINT}
       and menu_id = #{menuId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.junzijian.framework.model.ucenter.entity.PermissionMenuDO">
+  <insert id="insert" parameterType="com.bebopze.framework.model.ucenter.entity.PermissionMenuDO">
     insert into permission_menu (permission_id, menu_id, gmt_create, 
       gmt_modified)
     values (#{permissionId,jdbcType=BIGINT}, #{menuId,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.junzijian.framework.model.ucenter.entity.PermissionMenuDO">
+  <insert id="insertSelective" parameterType="com.bebopze.framework.model.ucenter.entity.PermissionMenuDO">
     insert into permission_menu
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="permissionId != null">
@@ -59,7 +59,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.junzijian.framework.model.ucenter.entity.PermissionMenuDO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.bebopze.framework.model.ucenter.entity.PermissionMenuDO">
     update permission_menu
     <set>
       <if test="gmtCreate != null">
@@ -72,7 +72,7 @@
     where permission_id = #{permissionId,jdbcType=BIGINT}
       and menu_id = #{menuId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.junzijian.framework.model.ucenter.entity.PermissionMenuDO">
+  <update id="updateByPrimaryKey" parameterType="com.bebopze.framework.model.ucenter.entity.PermissionMenuDO">
     update permission_menu
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}

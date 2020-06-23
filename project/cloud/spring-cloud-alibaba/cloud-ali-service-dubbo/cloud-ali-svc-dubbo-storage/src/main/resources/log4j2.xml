@@ -32,7 +32,7 @@
 
 
     <Loggers>
-        <logger level="INFO" name="com.junzijian">
+        <logger level="INFO" name="com.bebopze">
             <AppenderRef ref="App-File-Appender"/>
         </logger>
         <Root level="INFO">

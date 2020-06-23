@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.junzijian.cloud</groupId>
+        <groupId>com.bebopze.cloud</groupId>
         <artifactId>cloud-ali-govern-gateway</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -19,7 +19,7 @@
 
         <!-- common -->
         <dependency>
-            <groupId>com.junzijian.cloud</groupId>
+            <groupId>com.bebopze.cloud</groupId>
             <artifactId>cloud-netflix-framework-common</artifactId>
             <version>1.0.0</version>
         </dependency>

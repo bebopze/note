@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Implementation-Title: spring-boot-servlet
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: junzijian
-Implementation-Vendor-Id: com.junzijian
+Built-By: bebopze
+Implementation-Vendor-Id: com.bebopze
 Created-By: Apache Maven 3.5.0
 Build-Jdk: 1.8.0_152
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo

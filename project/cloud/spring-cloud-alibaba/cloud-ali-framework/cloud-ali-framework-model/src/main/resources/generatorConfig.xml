@@ -24,7 +24,7 @@
         </javaTypeResolver>
 
         <!-- targetProject:生成PO类的位置 -->
-        <javaModelGenerator targetPackage="com.junzijian.cloud.framework.model.order.entity"
+        <javaModelGenerator targetPackage="com.bebopze.cloud.framework.model.order.entity"
                             targetProject="./project/cloud/spring-cloud-alibaba/framework/framework-model/src">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false"/>
@@ -32,14 +32,14 @@
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!-- targetProject:mapper映射文件生成的位置 -->
-        <sqlMapGenerator targetPackage="com.junzijian.cloud.svc.order.xml"
+        <sqlMapGenerator targetPackage="com.bebopze.cloud.svc.order.xml"
                          targetProject="./project/cloud/spring-cloud-alibaba/framework/framework-model/src">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
         <!-- targetPackage：mapper接口生成的位置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.junzijian.cloud.svc.order.mapper"
+                             targetPackage="com.bebopze.cloud.svc.order.mapper"
                              targetProject="./project/cloud/spring-cloud-alibaba/framework/framework-model/src">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false"/>

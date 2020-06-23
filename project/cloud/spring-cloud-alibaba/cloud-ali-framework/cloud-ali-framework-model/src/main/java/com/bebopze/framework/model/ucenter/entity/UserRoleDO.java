@@ -1,0 +1,25 @@
+package com.bebopze.framework.model.ucenter.entity;
+
+import java.util.Date;
+
+public class UserRoleDO extends UserRoleDOKey {
+    private Date gmtCreate;
+
+    private Date gmtModified;
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
+    }
+}

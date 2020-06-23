@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.junzijian.cloud.svc.user.mapper.UserDOMapper">
-    <resultMap id="BaseResultMap" type="com.junzijian.cloud.framework.model.user.entity.UserDO">
+<mapper namespace="com.bebopze.cloud.svc.user.mapper.UserDOMapper">
+    <resultMap id="BaseResultMap" type="com.bebopze.cloud.framework.model.user.entity.UserDO">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
@@ -30,7 +30,7 @@
     delete from user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-    <insert id="insert" parameterType="com.junzijian.cloud.framework.model.user.entity.UserDO">
+    <insert id="insert" parameterType="com.bebopze.cloud.framework.model.user.entity.UserDO">
     insert into user (id, name, password, 
       id_card, mobile, email, 
       ding_ding, machine_id, notify, 
@@ -42,7 +42,7 @@
       #{status,jdbcType=TINYINT}, #{feature,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModify,jdbcType=TIMESTAMP})
   </insert>
-    <insert id="insertSelective" parameterType="com.junzijian.cloud.framework.model.user.entity.UserDO">
+    <insert id="insertSelective" parameterType="com.bebopze.cloud.framework.model.user.entity.UserDO">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -127,7 +127,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.junzijian.cloud.framework.model.user.entity.UserDO">
+    <update id="updateByPrimaryKeySelective" parameterType="com.bebopze.cloud.framework.model.user.entity.UserDO">
         update user
         <set>
             <if test="name != null">
@@ -169,7 +169,7 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.junzijian.cloud.framework.model.user.entity.UserDO">
+    <update id="updateByPrimaryKey" parameterType="com.bebopze.cloud.framework.model.user.entity.UserDO">
     update user
     set name = #{name,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

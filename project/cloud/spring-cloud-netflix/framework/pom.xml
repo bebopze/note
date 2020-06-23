@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.junzijian.cloud</groupId>
+        <groupId>com.bebopze.cloud</groupId>
         <artifactId>spring-cloud-netflix</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>

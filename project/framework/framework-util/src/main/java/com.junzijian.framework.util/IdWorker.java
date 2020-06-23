@@ -1,4 +1,4 @@
-package com.junzijian.framework.util;
+package com.bebopze.framework.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import java.net.NetworkInterface;
 /**
  * 雪花算法
  *
- * @author junzijian
+ * @author bebopze
  * @date 2019/10/30
  */
 @Slf4j

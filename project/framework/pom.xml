@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.junzijian</groupId>
+        <groupId>com.bebopze</groupId>
         <artifactId>note-parent</artifactId>
         <version>1.0.0</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.junzijian.framework</groupId>
+    <groupId>com.bebopze.framework</groupId>
     <artifactId>framework</artifactId>
     <packaging>pom</packaging>
 

@@ -39,7 +39,7 @@ dubbo:
     name: dubbo
     port: -1
   consumer:
-    group: junzijian
+    group: bebopze
     version: 1.0.0
     timeout: 30000
 

@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>spring-cloud-netflix-study</artifactId>
-        <groupId>com.junzijian</groupId>
+        <groupId>com.bebopze</groupId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -18,7 +18,7 @@
 
         <!-- common -->
         <dependency>
-            <groupId>com.junzijian</groupId>
+            <groupId>com.bebopze</groupId>
             <artifactId>framework-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
@@ -26,7 +26,7 @@
 
         <!-- model -->
         <dependency>
-            <groupId>com.junzijian</groupId>
+            <groupId>com.bebopze</groupId>
             <artifactId>framework-model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

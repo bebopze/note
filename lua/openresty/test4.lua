@@ -25,26 +25,26 @@ end
 --]]
 
 
-ok, err = red:set("junzijian", "good school,good ......")
+ok, err = red:set("bebopze", "good school,good ......")
 if not ok then
-    ngx.say("failed to set junzijian: ", err)
+    ngx.say("failed to set bebopze: ", err)
     return
 end
 
 ngx.say("set result: ", ok)
 
-local res, err = red:get("junzijian")
+local res, err = red:get("bebopze")
 if not res then
-    ngx.say("failed to get junzijian: ", err)
+    ngx.say("failed to get bebopze: ", err)
     return
 end
 
 if res == ngx.null then
-    ngx.say("junzijian not found.")
+    ngx.say("bebopze not found.")
     return
 end
 
-ngx.say("junzijian: ", res)
+ngx.say("bebopze: ", res)
 
 -- put it into the connection pool of size 100,
 -- with 10 seconds max idle time

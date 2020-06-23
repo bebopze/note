@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.junzijian.cloud.svc.product.mapper.ProductDOMapper">
-    <resultMap id="BaseResultMap" type="com.junzijian.cloud.framework.model.product.entity.ProductDO">
+<mapper namespace="com.bebopze.cloud.svc.product.mapper.ProductDOMapper">
+    <resultMap id="BaseResultMap" type="com.bebopze.cloud.framework.model.product.entity.ProductDO">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="price" jdbcType="DECIMAL" property="price"/>
@@ -14,7 +14,7 @@
         <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify"/>
     </resultMap>
     <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
-               type="com.junzijian.cloud.framework.model.product.entity.ProductDO">
+               type="com.bebopze.cloud.framework.model.product.entity.ProductDO">
         <result column="info" jdbcType="LONGVARCHAR" property="info"/>
     </resultMap>
     <sql id="Base_Column_List">
@@ -35,7 +35,7 @@
     delete from product
     where id = #{id,jdbcType=BIGINT}
   </delete>
-    <insert id="insert" parameterType="com.junzijian.cloud.framework.model.product.entity.ProductDO">
+    <insert id="insert" parameterType="com.bebopze.cloud.framework.model.product.entity.ProductDO">
     insert into product (id, name, price, 
       sale_time, is_sale, is_hot, 
       is_new, status, gmt_create, 
@@ -45,7 +45,7 @@
       #{isNew,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModify,jdbcType=TIMESTAMP}, #{info,jdbcType=LONGVARCHAR})
   </insert>
-    <insert id="insertSelective" parameterType="com.junzijian.cloud.framework.model.product.entity.ProductDO">
+    <insert id="insertSelective" parameterType="com.bebopze.cloud.framework.model.product.entity.ProductDO">
         insert into product
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -119,7 +119,7 @@
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective"
-            parameterType="com.junzijian.cloud.framework.model.product.entity.ProductDO">
+            parameterType="com.bebopze.cloud.framework.model.product.entity.ProductDO">
         update product
         <set>
             <if test="name != null">
@@ -156,7 +156,7 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
     <update id="updateByPrimaryKeyWithBLOBs"
-            parameterType="com.junzijian.cloud.framework.model.product.entity.ProductDO">
+            parameterType="com.bebopze.cloud.framework.model.product.entity.ProductDO">
     update product
     set name = #{name,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
@@ -170,7 +170,7 @@
       info = #{info,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-    <update id="updateByPrimaryKey" parameterType="com.junzijian.cloud.framework.model.product.entity.ProductDO">
+    <update id="updateByPrimaryKey" parameterType="com.bebopze.cloud.framework.model.product.entity.ProductDO">
     update product
     set name = #{name,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},

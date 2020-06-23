@@ -52,7 +52,7 @@ dubbo:
     # dubbo 协议端口（ -1 表示自增端口，从 20880 开始）
     port: -1
   consumer:
-    group: junzijian
+    group: bebopze
     version: 1.0.0
     timeout: 30000
 

@@ -1,4 +1,4 @@
-package com.junzijian.framework.util;
+package com.bebopze.framework.util;
 
 import com.google.common.collect.Lists;
 import org.springframework.core.io.ClassPathResource;

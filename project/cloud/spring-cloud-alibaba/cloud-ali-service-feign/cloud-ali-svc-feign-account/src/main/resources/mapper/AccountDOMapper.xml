@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.junzijian.cloud.svc.account.mapper.AccountDOMapper">
-    <resultMap id="BaseResultMap" type="com.junzijian.cloud.framework.model.account.entity.AccountDO">
+<mapper namespace="com.bebopze.cloud.svc.account.mapper.AccountDOMapper">
+    <resultMap id="BaseResultMap" type="com.bebopze.cloud.framework.model.account.entity.AccountDO">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="user_id" jdbcType="BIGINT" property="userId"/>
         <result column="amount" jdbcType="DECIMAL" property="amount"/>
@@ -22,7 +22,7 @@
         delete from account
         where id = #{id,jdbcType=BIGINT}
     </delete>
-    <insert id="insert" parameterType="com.junzijian.cloud.framework.model.account.entity.AccountDO">
+    <insert id="insert" parameterType="com.bebopze.cloud.framework.model.account.entity.AccountDO">
         insert into account (id, user_id, amount,
         version, gmt_create, gmt_modify
         )
@@ -30,7 +30,7 @@
         #{version,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModify,jdbcType=TIMESTAMP}
         )
     </insert>
-    <insert id="insertSelective" parameterType="com.junzijian.cloud.framework.model.account.entity.AccountDO">
+    <insert id="insertSelective" parameterType="com.bebopze.cloud.framework.model.account.entity.AccountDO">
         insert into account
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -74,7 +74,7 @@
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective"
-            parameterType="com.junzijian.cloud.framework.model.account.entity.AccountDO">
+            parameterType="com.bebopze.cloud.framework.model.account.entity.AccountDO">
         update account
         <set>
             <if test="userId != null">
@@ -95,7 +95,7 @@
         </set>
         where id = #{id,jdbcType=BIGINT}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.junzijian.cloud.framework.model.account.entity.AccountDO">
+    <update id="updateByPrimaryKey" parameterType="com.bebopze.cloud.framework.model.account.entity.AccountDO">
         update account
         set user_id = #{userId,jdbcType=BIGINT},
         amount = #{amount,jdbcType=DECIMAL},

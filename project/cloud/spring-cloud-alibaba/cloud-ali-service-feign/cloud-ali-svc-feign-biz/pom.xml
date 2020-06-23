@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.junzijian.cloud</groupId>
+        <groupId>com.bebopze.cloud</groupId>
         <artifactId>cloud-ali-service-feign</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -148,7 +148,7 @@
 
         <!-- framework-common -->
         <dependency>
-            <groupId>com.junzijian.framework</groupId>
+            <groupId>com.bebopze.framework</groupId>
             <artifactId>framework-common</artifactId>
             <version>1.0.0</version>
         </dependency>
@@ -156,7 +156,7 @@
 
         <!-- model -->
         <dependency>
-            <groupId>com.junzijian.cloud</groupId>
+            <groupId>com.bebopze.cloud</groupId>
             <artifactId>cloud-ali-framework-model</artifactId>
             <version>1.0.0</version>
         </dependency>
@@ -164,7 +164,7 @@
 
         <!-- user -->
         <dependency>
-            <groupId>com.junzijian.cloud</groupId>
+            <groupId>com.bebopze.cloud</groupId>
             <artifactId>cloud-ali-client-feign-user</artifactId>
             <version>1.0.0</version>
         </dependency>
@@ -172,7 +172,7 @@
 
         <!-- order -->
         <dependency>
-            <groupId>com.junzijian.cloud</groupId>
+            <groupId>com.bebopze.cloud</groupId>
             <artifactId>cloud-ali-client-feign-order</artifactId>
             <version>1.0.0</version>
         </dependency>
@@ -180,7 +180,7 @@
 
         <!-- account -->
         <dependency>
-            <groupId>com.junzijian.cloud</groupId>
+            <groupId>com.bebopze.cloud</groupId>
             <artifactId>cloud-ali-client-feign-account</artifactId>
             <version>1.0.0</version>
         </dependency>
@@ -188,7 +188,7 @@
 
         <!-- storage -->
         <dependency>
-            <groupId>com.junzijian.cloud</groupId>
+            <groupId>com.bebopze.cloud</groupId>
             <artifactId>cloud-ali-client-feign-storage</artifactId>
             <version>1.0.0</version>
         </dependency>
