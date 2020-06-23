@@ -15,7 +15,7 @@
 
 
     <modules>
-        <module>govern-gateway-sc-gateway</module>
+        <!--<module>govern-gateway-sc-gateway</module>-->
         <module>govern-gateway-zuul</module>
     </modules>
 

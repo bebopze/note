@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>spring-cloud-netflix-study</artifactId>
         <groupId>com.bebopze</groupId>
+        <artifactId>spring-cloud-netflix-study</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -18,17 +18,17 @@
 
         <!-- common -->
         <dependency>
-            <groupId>com.bebopze</groupId>
-            <artifactId>framework-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>com.bebopze.cloud</groupId>
+            <artifactId>cloud-netflix-framework-common</artifactId>
+            <version>1.0.0</version>
         </dependency>
         <!-- common -->
 
         <!-- model -->
         <dependency>
-            <groupId>com.bebopze</groupId>
-            <artifactId>framework-model</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>com.bebopze.cloud</groupId>
+            <artifactId>cloud-netflix-framework-model</artifactId>
+            <version>1.0.0</version>
         </dependency>
         <!-- model -->
 
