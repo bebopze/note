@@ -1,0 +1,269 @@
+jdk1.7
+
+数据结构
+    数组 + 链表
+    transient Entry<K,V>[] table                // 哈希数组
+    Entry<K,V>                                  // 链表
+
+
+put流程:
+    1.计算hash
+    2.计算在数组中的位置index
+    3.遍历链表，比较hash、值，相等则key存在，值替换，并返回旧值.
+    4.key不存在，则走新增
+    5.modCount++
+    6.走新增                                                         // addEntry(hash, key, value, i);
+        6.1 比较size>=阈值 && key的数组坑位链表是否非空，是，则扩容2倍
+        6.2 扩容2倍:                                                 // resize(2 * table.length);
+            1.创建2倍容量的新数组newTable[]
+            2.遍历原table，重新计算hash和index，并采用头插的方式插入到新newTable[]的链表
+            3.新数组替换旧数组                                        // table = newTable;
+            4.重新计算阈值
+            5.重新计算当前key的hash和index
+
+        6.3 创建当前key的Entry实体，并头插插入链表                      // createEntry(hash, key, value, bucketIndex);
+            1.拿到当前链表的头                                        // Entry<K,V> e = table[bucketIndex];
+            2.创建当前key的Entry实体，并将新Entry的next指向当前链表头    // new Entry<>(hash, key, value, e);
+            3.将当前key的Entry插入链表头                              // table[bucketIndex] = key_entry;
+            4.put插入完成，size++
+
+    7.新增完成，返回null.
+
+
+
+get流程:
+    1.计算hash和index
+    2.获取链表
+    3.遍历链表，比较hash、地址值 || key值，拿到entry(k-v).
+    4.返回value
+
+
+
+
+put源码分析:
+    1.计算key在table[]数组中的位置i
+        hash(key) -> indexFor(hash, table.length)
+
+    2.从table[]数组中取出链表
+        Entry<K,V> e = table[i]
+
+    3.遍历链表比较key：
+        如果链表不为空
+        先比较hash -> 再比较key值（地址值 || key真实值）
+        if (e.hash == hash && ((k = e.key) == key || key.equals(k)))
+
+    4.update值覆盖：
+        key的hash相同（hash冲突）&& 值也相同：新值覆盖，并返回oldValue.
+
+    5.insert插入新值：
+        1.modCount++  // fail-fast(快速失败) : 并发修改
+            1.迭代器初始化的时候会expectedModCount = modCount;
+            2.每次迭代时，比较：
+                if (modCount != expectedModCount)
+                    throw new ConcurrentModificationException();
+
+        2.addEntry(hash, key, value, i);
+
+            1.map的k-v键值对size >= 阈(yu)值
+                if ((size >= threshold) && (null != table[bucketIndex]))
+
+                    -> 数组扩容
+
+                        resize(2 * table.length);   // 仅针对现table[]数组，进行扩容：数组扩容x2，链表Entry（k-v）位置重新散列
+
+                            -> 创建新的数组 newTable
+                                Entry[] newTable = new Entry[newCapacity];
+
+                            -> 遍历现table，将每个Entry（k-v）重新散列 到 newTable 中
+
+                                transfer(newTable, initHashSeedAsNeeded(newCapacity));
+
+                                    -> 遍历原table[]数组
+                                        重新计算hash
+                                        重新计算index
+
+
+                                        采用头插插入链表Entry
+                                            -> 当前e.next 永远等于 链表的上一个头部，而自己则替换其，成为新的头部  ...循环往替...
+
+                                            e.next = newTable[i];  // 先为e.next赋值
+                                                                        第一个e，next为null    -> 因为此时newTable[i]本身还未存储任何值，newTable[i] = null.
+                                                                        第二个e，next为同一个链表下的(上一个)头部e，而自身将成为同链表下的新头部  --> newTable[i]
+
+                                            newTable[i] = e;       // 再将原Entry e(k-v)采用头插的方式，放入新数组newTable[]的链表头部
+                                                                        因为每次都将e放置到了newTable[i]位置，为链表中的头
+
+
+                                            e1  e1.next = e2
+                                            e2  e2.next = e3
+                                            e3  e3.next = null
+
+
+                                            e1.next = null      // 先为e1.next赋值，e2.next = newTable[i] (链表头)= null. 第一次插入，新链表当然为null.
+                                            e1                  // 将e1插入链表头， 链表头 newTable[i] = e1
+
+                                            ↓
+
+                                            e2.next = e1        // 先为e2.next赋值，e2.next = newTable[i] (链表头)= e1.   此时链表头已经插入了e1，就是将e1赋值给e2.next
+                                            e2                  // 将e2插入链表头， 链表头 newTable[i] = e2
+
+                                            ↓
+
+                                            e3.next = e2        // 先为e3.next赋值，e3.next = newTable[i] (链表头)= e2.   此时链表头已经插入了e2，就是将e2赋值给e3.next
+                                            e3                  // 将e3插入链表头， 链表头 newTable[i] = e3
+
+
+                            -> 数组替换
+                                table = newTable;
+
+                            -> 更新阈值
+                                threshold = (int)Math.min(newCapacity * loadFactor, MAXIMUM_CAPACITY + 1);
+
+
+                    -> 重新计算当前要put的key在newTable[]数组中的位置
+                        hash = (null != key) ? hash(key) : 0;
+                        bucketIndex = indexFor(hash, table.length);
+
+
+            2.创建并插入(头插)链表
+
+                createEntry
+
+                    1.获取当前key在数组中同一链表当前的头
+                        Entry<K,V> e = table[bucketIndex];
+
+                    2.创建新的Entry key_e，并将当前的链表头e 赋值到 新Entry(k-v)的next   --> key_e.next = e
+                         Entry key_e = new Entry<>(hash, key, value, e);
+
+                    3.并将key_e插入链表头
+                        table[bucketIndex] = key_e;
+
+
+            3.Entry(k-v)数量更新
+                size++
+
+
+为什么不能用在多线程中？            // -->  https://coolshell.cn/articles/9606.html
+
+    这个问题本身就很奇葩！！！
+    因为设计上就不允许啊！！！
+
+    Java的HashMap是非线程安全的，所以在并发下必然出现问题.
+    HashMap里面所有方法都没有同步，多线程下的并发读写(get/put/remove)，必然涉及到对同一个资源的竞争.
+
+    所以，真要说的话，恐怕只有在面试中，才每次必在多线程中使用HashMap了...
+
+
+    无非想问的是 扩容 和 重新散列 的问题
+        // 扩容
+        resize(2 * table.length);
+        // 重新散列
+        transfer(newTable, rehash);
+
+        如果，你非要在多线程环境下，使用HashMap，能造成你想问的————死循环-OOM 的情况：
+
+            除非是 线程t1 和 线程t2   同时在操作
+
+            t1操作时e1-->e2     t2先一步resize把e2-->e1
+
+
+            单向指向，变成双向指向  --> 死循环了
+
+            也不一定是 e1-->e2-->e1
+
+
+            只要是链表首尾相互指向，就形成环形链了...   -->  死循环
+
+            e1-->e2-->e...-->e100-->e1
+
+            ...
+            死循环了，能不OOM吗...
+
+
+    有人把这个问题报给了Sun，不过Sun不认为这个是一个问题。
+    因为HashMap本来就不支持并发，要并发就用ConcurrentHashMap！！！
+
+        - https://bugs.java.com/bugdatabase/view_bug.do?bug_id=6423457
+        - Doug Lea写道：“这是错误使用HashMap的典型症状。很明显，提交者需要使用线程安全的HashMap。如果他们升级到Java 5，则可以使用ConcurrentHashMap。如果不能，则可以使用ConcurrentHashMap。这样做，他们可以使用Martin提到的JSR166之前版本或更好的非官方backport。如果他们不能执行任何这些操作，则可以使用Hashtable或synchhronizedMap包装器，并且性能较差。无论如何，这不是JDK或JVM错误。” 我同意仅存在损坏的数据结构并不表示JDK中存在错误。
+
+
+
+
+
+jdk1.8
+
+数据结构                                             // https://www.cnblogs.com/doufuyu/p/10874689.html
+    数组 + 链表(<=6会转回链表) + 红黑树(>=8)
+
+    transient Node<K,V>[] table                     // 哈希桶数组    存储（位桶）的数组
+    Node<K,V>                                       // 链表         名称由Entry(1.7)变更为Node(1.8)  成员变量hash变成final不可变 --> final int hash;   其他没啥变化
+    TreeNode<K,V>                                   // 红黑树
+
+
+
+put流程:
+    1. 根据key计算得到key.hash = (h = k.hashCode()) ^ (h >>> 16)；
+
+    2. 根据key.hash计算得到桶数组的索引index = key.hash & (table.length - 1)，这样就找到该key的存放位置了：
+
+        ① 如果该位置没有数据，用该数据新生成一个节点保存新数据，返回null；
+
+        ② 如果该位置有数据是一个红黑树，那么执行相应的插入/更新操作；
+
+        ③ 如果该位置有数据是一个链表，分两种情况一是该链表没有这个节点，另一个是该链表上有这个节点，注意这里判断的依据是key.hash和key值是否一样：
+
+            如果该链表没有这个节点，那么采用尾插法，新增节点保存新数据，返回null；
+
+            如果该链表已经有这个节点了，那么找到该节点，并更新新数据，返回老数据。
+
+
+
+put流程:
+    1.先判断table是否为空，为空，则初始化table（resize()）
+    2.计算hash和index，获取index桶的(链表/红黑树)头p                          // p = tab[i = (n - 1) & hash]
+        1.桶p为空                                                          // p == null
+            新建Node插入index桶                                             // tab[i] = newNode(hash, key, value, null);
+        2.桶p不为空
+            1.比较key和p，hash和值相同，则e = p;                             // e = p;
+            1.p为红黑树，红黑树插入                                          // e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
+            3.p为链表，遍历链表p
+                1.比较hash、值相同，key存在，返回当前遍历到的Node              // e = p.next（挨个遍历）
+                2.key在链表中不存在，新建Node，插入链表尾                     // p.next = newNode(hash, key, value, null);
+                3.并判断链表长度>=8，是，则链表转为红黑树                      // if (binCount >= TREEIFY_THRESHOLD - 1)  treeifyBin(tab, hash);
+            4.e非空，表示key（在红黑树/链表中）已存在
+                替换新值
+                访问后回调                                                  // afterNodeAccess(e);          空方法，作用于子类LinkedHashMap
+                返回oldValue
+
+    3.++modCount
+    4.扩容
+        比较size>=阈值，是，则扩容2倍                                        // if (++size > threshold)      resize()
+    5.插入后回调                                                            // afterNodeInsertion(evict);    空方法，作用于子类LinkedHashMap
+    6.新增完成，返回null.
+
+
+
+
+
+get流程:
+    1.计算hash，查找key对应的node.
+    2.判断table是否为空，为空，直接返回null.
+    3.计算index，获取table中的项first，first若为空，直接返回null.
+    4.first不为空，先比较key和first，相同，则返回first.
+    5.桶中不止first一个元素，开始遍历查找
+    6.若为红黑树，到红黑树中找
+    7.若为链表，到链表中遍历找
+    8.返回找到的node.value，或者null.
+
+
+
+
+put源码分析:
+
+
+
+
+
+
+
+
