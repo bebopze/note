@@ -1,0 +1,157 @@
+jdk1.7
+
+数据结构:
+    分段锁 + 数组 + 链表
+    final Segment<K,V>[] segments;                      // Segment[]   数组
+    Segment<K,V> extends ReentrantLock                  // Segment     分段锁             锁粒度：HashEntry[]   多个hash表
+    transient volatile HashEntry<K,V>[] table;              // HashEntry[] 数组
+    HashEntry<K,V>                                          // HashEntry   链表           和HashMap的Entry 结构一模一样
+
+
+put流程:
+    1.计算hash
+    2.计算segments数组的index
+    3.获取segment
+        1、如果相应位置的Segment还未初始化，则通过CAS自旋进行Segment初始化                  // s = ensureSegment(j);
+
+    4.执行segment对象的put方法，通过加锁机制插入数据                                      // tryLock() ? null : scanAndLockForPut(key, hash, value);
+                                                                                                            单核：tryLock()1次  多核：tryLock()64次  --> lock()，加入阻塞队列挂起
+        1、获取锁：
+            场景：线程A和线程B，同时执行相同Segment对象的put方法
+                1、线程A执行tryLock()方法成功获取锁，则把HashEntry对象插入到相应的位置；
+                2、线程B获取锁失败，则执行scanAndLockForPut()方法，
+                    在scanAndLockForPut()方法中，会通过重复执行tryLock()方法尝试获取锁，
+                    在多处理器环境下，重复次数为64，单处理器重复次数为1，
+                    当执行tryLock()方法的次数超过上限时，则执行lock()方法挂起线程B；
+                3、当线程A执行完插入操作时，会通过unlock()方法释放锁，接着唤醒线程B继续执行；
+
+        2、获取到锁，执行插入：
+            1、拿到segment的table[]
+            2、计算table.index，拿到table[]具体的桶first
+            3、遍历链表first
+            4、比较key，相同，替换新值，返回旧值.
+            5、key不存在于链表，则构建新的node并新插
+                链表size >= 阈值，tab.length < 最大容量，扩容，并插入新node
+                不扩容，直接插入新node
+                ++modCount;
+                链表size+1
+            6、释放锁
+            7、返回oldValue
+
+
+
+
+size实现:
+    先采用不加锁的方式，连续计算元素的个数，最多计算3次：
+        1、如果前后两次计算结果相同，则说明计算出来的元素个数是准确的；
+        2、如果前后两次计算结果都不同，则给每个Segment进行加锁，再计算一次元素的个数；
+
+
+
+
+
+get流程:
+    1.计算hash
+    2.计算segment.index
+    3.获取segment、和segment.table(hash表)，有一个为空，直接返回null
+    4.计算table.index，获取key在table中的链表桶，链表为空，直接返回null
+    5.遍历链表，比较hash、key值，存在返回value.
+
+
+get为什么不用加锁:                                                                 // JDK1.8也是一样
+
+    get操作可以无锁，是由于Entry的元素val和指针next是用volatile修饰的，
+    在多线程环境下，线程A修改结点的val、或者新增节点的时候，是对线程B可见的。
+
+
+    HashEntry<K,V>的value和是next都是volatile修饰的，保证了并发下的可见性.
+
+        volatile V value;
+        volatile HashEntry<K,V> next;
+
+
+table[]也加volatile                                                          // transient volatile Node<K,V>[] table;
+    使得Node数组在扩容的时候，对其他线程具有可见性而加的volatile
+
+
+锁粒度：
+    1.7  Segment.HashEntry[]            锁粒度：HashEntry[]   多个hash表
+    1.8  Node                           锁粒度：Node          单个hash表           锁粒度更低
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+jdk1.8                                                  //  https://www.jianshu.com/p/e694f1e868ec
+
+数据结构:
+    Node[] + CAS + Synchronized                         // 数组 + 链表/红黑树 + CAS + Synchronized
+
+
+    数据结构同JDK1.8的HashMap：     数组 + 链表/红黑树
+    安全+效率：                     CAS + Synchronized
+
+
+    transient volatile Node<K,V>[] table;               // Node数组
+    Node<K,V>                                           // 链表
+    TreeBin<K,V>  extends Node<K,V>                     // 红黑树 包装类    -->  拥有一颗红黑树的完整包装信息(field)、持有TreeNode对象
+                                                                                    TreeNode<K,V> root;                 // root Node
+                                                                                    volatile TreeNode<K,V> first;       // 真正的 红黑树
+                                                                                    volatile Thread waiter;
+                                                                                    volatile int lockState;
+    TreeNode<K,V> extends Node<K,V>                     // 真正的 红黑树
+
+
+
+put流程:
+    1.根据key的hash值，在Node数组中找到相应的位置；
+    2.如果相应位置的Node还未初始化，则通过CAS插入相应的数据；插入false，则重走put逻辑                             // for (Node<K,V>[] tab = table;;) { put...}
+    3.如果相应位置的Node不为空，且当前该节点不处于移动状态，
+        则对该节点加synchronized锁，
+        如果该节点的hash不小于0，则一定为链表（TreeBin的root节点hash字段，统一初始化为了-2标识）                  // super(TREEBIN, null, null, null);
+        则遍历链表，更新节点或插入新节点；
+    4.如果该节点是TreeBin类型的节点，说明是红黑树结构，则通过putTreeVal方法往红黑树中插入节点；
+    5.如果binCount不为0，说明put操作对数据产生了影响，
+        如果当前链表的个数达到8个，则通过treeifyBin方法转化为红黑树，
+        如果oldVal不为空，说明是一次更新操作，没有对元素个数产生影响，则直接返回旧值；
+    6.如果插入的是一个新节点，则执行addCount()方法尝试更新元素个数baseCount；
+
+
+
+
+put流程:
+    1.计算hash
+    2.table为空，则初始化table                                                // initTable()
+    3.计算桶index，从主内存(不走当前线程的本地内存缓存)中获取桶元素f               // f = (Node<K,V>)U.getObjectVolatile(tab, ((long)i << ASHIFT) + ABASE);
+        1、桶f为空，则通过CAS插入                                             // casTabAt(tab, i, null, new Node<K,V>(hash, key, value, null))
+                                                                               空节点，不需要加锁，用CAS更新保证数据安全性.
+        2、桶f不为空
+            1、f.hash == -1，正在扩容                                        // tab = helpTransfer(tab, f);               根节点用hash = -1，来标识正在扩容
+            2、否则，对当前节点f加锁，遍历链表，存在则替换，不存在则尾插
+                对桶f加锁，再次确认一遍桶f有没有发生变化                        // synchronized (f)    if (tabAt(tab, i) == f)
+
+            3、如果桶f是红黑树，走红黑树putTreeVal，存在则替换，不存在则新增Node并插入
+
+            4、如果是链表，比较节点大小 >= 阈值(8)，是，则链表转换为红黑树         // if (binCount >= TREEIFY_THRESHOLD)   treeifyBin(tab, i);
+            5、如果oldValue不为空，则是一个更新操作，没有对元素个数产生影响，则直接返回旧值
+
+    4、如果插入的是一个新节点，则执行addCount()方法，尝试更新元素个数baseCount     // addCount(1L, binCount);
+
+
+
+get流程:
+
+
+
+
+
+
+get无锁:
+
+    在1.8中ConcurrentHashMap的get操作全程不需要加锁，
+    这也是它比其他并发集合，比如HashTable、用Collections.synchronizedMap()包装的HashMap，安全效率高的原因之一。
+
+    get操作全程不需要加锁，是因为Node的成员val是用volatile修饰的，和数组用volatile修饰没有关系。
+
+    数组用volatile修饰，主要是保证在数组扩容的时候保证可见性。
