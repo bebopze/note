@@ -6,8 +6,10 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.scripting.support.ResourceScriptSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author bebopze
@@ -52,5 +54,29 @@ public class LockUtils {
 
         Boolean result = stringRedisTemplate.execute(redisScript, Lists.newArrayList(key), val);
         return result;
+    }
+
+
+    /**
+     * 锁val是否还在（业务逻辑还没执行完）
+     *
+     * @param key
+     * @param val
+     * @return
+     */
+    public boolean isLocked(String key, String val) {
+        String lockVal = stringRedisTemplate.opsForValue().get(key);
+        return val.equals(lockVal);
+    }
+
+
+    /**
+     * 锁还在(业务逻辑还没执行完)，重置🔐过期时间（锁续期）
+     *
+     * @param key
+     * @param timeout
+     */
+    public void resetLockExpire(String key, long timeout) {
+        stringRedisTemplate.expire(key, timeout, TimeUnit.SECONDS);
     }
 }

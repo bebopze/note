@@ -14,7 +14,10 @@ import org.springframework.util.DigestUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 分布式🔐
@@ -31,6 +34,12 @@ public class DistributedLockAspect {
      * 🔐KEY前缀
      */
     private static final String LOCK_KEY_PREFIX = "lock:key:";
+
+    /**
+     * 异步延时任务线程池
+     */
+    private static final ScheduledExecutorService resetLockExpireService = Executors.newScheduledThreadPool(1);
+
 
     @Autowired
     private LockUtils lockUtils;
@@ -73,6 +82,9 @@ public class DistributedLockAspect {
 
             // 获取到锁
             if (getLock) {
+
+                // 开启一个异步定时任务  --> 每隔2/3过期时间，检测lock是否还在（业务逻辑还没执行完），locked则锁自动续期
+                resetLockExpireTask(key, val, timeout);
 
                 // 执行原方法
                 Object result = point.proceed();
@@ -117,6 +129,33 @@ public class DistributedLockAspect {
         }
 
         return fullMethodName.toString();
+    }
+
+    /**
+     * 开启一个异步定时任务  --> 每隔2/3过期时间，检测lock是否还在（业务逻辑还没执行完），isLocked 则锁自动续期
+     * -
+     * - https://mp.weixin.qq.com/s/MLDeZ_GKlY289pZ_IPJvOA
+     *
+     * @param key
+     * @param val
+     * @param timeout x秒
+     */
+    private void resetLockExpireTask(String key, String val, long timeout) {
+
+        resetLockExpireService.schedule(() -> {
+
+            // 锁还在（业务逻辑还没执行完）
+            if (lockUtils.isLocked(key, val)) {
+
+                // 重置🔐过期时间（锁续期）
+                lockUtils.resetLockExpire(key, timeout);
+                log.debug("锁续期成功！key : {} , timeout : {}", val, timeout);
+
+                // 递归
+                resetLockExpireTask(key, val, timeout);
+            }
+
+        }, timeout * 1000 * 2 / 3, TimeUnit.MICROSECONDS);
     }
 
 }
