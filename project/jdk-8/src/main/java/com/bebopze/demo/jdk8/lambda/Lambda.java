@@ -15,18 +15,18 @@ import java.util.function.*;
  * -
  * @link 从入门到入土：Lambda完整学习指南  https://mp.weixin.qq.com/s/ogcRRWBE8CtOY5l6kcQvhg
  */
-public class Lumbda {
+public class Lambda {
 
     public static void main(String[] args) {
 
-        // JDK8 Lumbda语法
-        testJdk8Lumbda();
+        // JDK8 Lambda语法
+        testJdk8Lambda();
 
         // Java 内置四大核心函数式接口
         testJdkFunctionInterface();
 
         // 自定义 函数式接口
-        testMyFunctionInterfaceLumbda();
+        testMyFunctionInterfaceLambda();
 
         // 方法引用
         testMethodReference();
@@ -41,14 +41,14 @@ public class Lumbda {
         testCollectionFunction();
 
         // Lambda 语法糖问题
-        lumbdaSyntacticSugar();
+        lambdaSyntacticSugar();
     }
 
 
     /**
-     * JDK8 Lumbda语法
+     * JDK8 Lambda语法
      */
-    private static void testJdk8Lumbda() {
+    private static void testJdk8Lambda() {
 
         // 实现函数接口(FunctionalInterface)
         Runnable runnable = () -> System.out.println("语法格式一：无参，无返回值，Lambda 体只需一条语句");
@@ -151,7 +151,7 @@ public class Lumbda {
     /**
      * 自定义函数式接口
      */
-    private static void testMyFunctionInterfaceLumbda() {
+    private static void testMyFunctionInterfaceLambda() {
 
         // 完整写法
         MyFunctionInterface myFunctionInterface1 = (String name) -> {
@@ -317,7 +317,7 @@ public class Lumbda {
     /**
      * Lambda 语法糖问题
      */
-    private static void lumbdaSyntacticSugar() {
+    private static void lambdaSyntacticSugar() {
 
         /**
          * 关于lambda并不是语法糖的问题
@@ -337,7 +337,7 @@ public class Lumbda {
          *
          *
          *
-         *  // 另：按照Lumbda的语法编码： 实际应用中，按照常规写法  IDEA会有提示 一键自动转换为Lumbda最精简语法！！！
+         *  // 另：按照Lambda的语法编码： 实际应用中，按照常规写法  IDEA会有提示 一键自动转换为Lambda最精简语法！！！
          *
          */
     }
