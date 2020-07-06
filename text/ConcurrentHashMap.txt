@@ -141,6 +141,12 @@ put流程:
 
 
 get流程:
+    1、计算hash
+    2、计算index
+    3、获取桶(头)e
+    4、比较e和key
+    5、如果e.hash < 0，说明在扩容，走find
+    6、遍历节点e，比较hash、key值
 
 
 
@@ -152,6 +158,6 @@ get无锁:
     在1.8中ConcurrentHashMap的get操作全程不需要加锁，
     这也是它比其他并发集合，比如HashTable、用Collections.synchronizedMap()包装的HashMap，安全效率高的原因之一。
 
-    get操作全程不需要加锁，是因为Node的成员val是用volatile修饰的，和数组用volatile修饰没有关系。
+    get操作全程不需要加锁，是因为Node的成员value是用volatile修饰的，而跟table[]数组用volatile修饰没有关系。
 
-    数组用volatile修饰，主要是保证在数组扩容的时候保证可见性。
+    table[]数组用volatile修饰，主要是保证在数组扩容的时候的可见性。
