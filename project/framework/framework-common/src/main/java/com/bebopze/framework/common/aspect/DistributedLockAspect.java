@@ -48,25 +48,15 @@ public class DistributedLockAspect {
     @Around(value = "@annotation(com.bebopze.framework.common.annotation.DistributedLock)")
     public Object around(ProceedingJoinPoint point) throws Throwable {
 
-        MethodSignature methodSignature = (MethodSignature) point.getSignature();
-        Method method = methodSignature.getMethod();
+        Method method = ((MethodSignature) point.getSignature()).getMethod();
 
         DistributedLock annotation = method.getAnnotation(DistributedLock.class);
 
         // timeout
         long timeout = annotation.value();
 
-
         // key
-        // sessionId
-        Serializable sessionId = null;//SessionUtils.getSessionId();
-        // methodName
-        String fullMethodName = getFullMethodName(method);
-        // sessionId + fullMethodName
-        String lockKey = sessionId + ":" + fullMethodName;
-
-        // prefix + MD5(key)
-        String key = LOCK_KEY_PREFIX + DigestUtils.md5DigestAsHex(lockKey.getBytes());
+        String key = generateKey(method);
 
 
         // randomVal     生成一个随机数：作为当前🔐的val
@@ -100,6 +90,28 @@ public class DistributedLockAspect {
         }
 
         return null;
+    }
+
+    /**
+     * generate key
+     *
+     * @param method
+     * @return
+     */
+    private String generateKey(Method method) {
+
+        // sessionId
+        Serializable sessionId = null;//SessionUtils.getSessionId();
+
+        // methodName
+        String fullMethodName = getFullMethodName(method);
+
+        // sessionId + fullMethodName
+        String lockKey = sessionId + ":" + fullMethodName;
+
+
+        // prefix + MD5(key)
+        return LOCK_KEY_PREFIX + DigestUtils.md5DigestAsHex(lockKey.getBytes());
     }
 
     /**
@@ -138,9 +150,9 @@ public class DistributedLockAspect {
      *
      * @param key
      * @param val
-     * @param timeout x秒
+     * @param internalLockLeaseTime x秒
      */
-    private void resetLockExpireTask(String key, String val, long timeout) {
+    private void resetLockExpireTask(String key, String val, long internalLockLeaseTime) {
 
         resetLockExpireService.schedule(() -> {
 
@@ -148,14 +160,14 @@ public class DistributedLockAspect {
             if (lockUtils.isLocked(key, val)) {
 
                 // 重置🔐过期时间（锁续期）
-                lockUtils.resetLockExpire(key, timeout);
-                log.debug("锁续期成功！key : {} , timeout : {}", val, timeout);
+                lockUtils.resetLockExpire(key, internalLockLeaseTime);
+                log.debug("锁续期成功！key : {} , timeout : {}", key, internalLockLeaseTime);
 
                 // 递归
-                resetLockExpireTask(key, val, timeout);
+                resetLockExpireTask(key, val, internalLockLeaseTime);
             }
 
-        }, timeout * 1000 * 2 / 3, TimeUnit.MICROSECONDS);
+        }, internalLockLeaseTime * 1000 * 2 / 3, TimeUnit.MICROSECONDS);
     }
 
 }

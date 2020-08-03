@@ -62,6 +62,7 @@
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-math3.version>3.6.1</commons-math3.version>
         <commons-io.version>2.6</commons-io.version>
+        <hibernate-validator.version>7.0.0.Alpha6</hibernate-validator.version>
         <feign-okhttp.version>8.18.0</feign-okhttp.version>
         <zookeeper.version>3.5.5</zookeeper.version>
         <zkclient.version>0.11</zkclient.version>
@@ -250,6 +251,14 @@
             </dependency>
             <!-- guava -->
 
+            <!-- hibernate-validator -->
+            <dependency>
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
+            </dependency>
+            <!-- hibernate-validator -->
+
             <!-- disruptor -->
             <dependency>
                 <groupId>com.lmax</groupId>
@@ -353,6 +362,19 @@
                 <version>${zxing.version}</version>
             </dependency>
             <!-- zxing -->
+
+
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>3.13.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>3.13.2</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
