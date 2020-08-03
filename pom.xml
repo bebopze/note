@@ -17,6 +17,9 @@
 
 
     <modules>
+        <module>project/ghost</module>
+        <module>project/cowboy</module>
+
         <module>project/jdk-8</module>
         <module>project/jdk-concurrent</module>
         <module>project/dive-in-spring-boot</module>

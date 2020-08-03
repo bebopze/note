@@ -1,0 +1,52 @@
+反射调用
+
+    1.反射调用先是调用了 Method.invoke
+
+    2.委派给 MethodAccessor 来处理
+
+        两个实现：
+
+            1、先进入，委派实现（DelegatingMethodAccessorImpl）
+                目的：委派给  本地实现(1-15) / 动态实现(>=16)
+
+                生成字节码 十分耗时，仅调用一次的话，反而是 本地实现 要快上 3 到 4 倍.
+                动态实现 和 本地实现 相比，其运行效率要快上 20 倍。这是因为 动态实现 无需经过 Java 到 C++ 再到 Java 的切换.
+
+            2.1、再进入，本地实现（NativeMethodAccessorImpl）
+                许多反射调用仅会执行一次，Java 虚拟机设置了一个阈值 15， 15 之下时，采用本地实现.
+
+            2.2、动态实现（GeneratedMethodAccessor1xx）
+                达到 15 时，便开始动态生成字节码，并将委派实现的委派对象切换至动态实现，这个过程我们称之为 Inflation.
+
+                方法内联：
+                    在生产环境中，我们往往拥有多个不同的反射调用，对应多个 GeneratedMethodAccessor，也就是动态实现。
+
+                    // 方法内联 指的是编译器在编译一个方法时，将某个方法调用的目标方法也纳入编译范围内，并用其返回值替代原方法调用这么个过程。
+
+            3、最后，到达目标方法.
+
+
+
+
+
+        public Object invoke(Object obj, Object... args) throws Exception {
+
+            // 1、权限检查
+            if (!override) {
+                if (!Reflection.quickCheckMemberAccess(clazz, modifiers)) {
+                    Class<?> caller = Reflection.getCallerClass();
+                    checkAccess(caller, clazz, obj, modifiers);
+                }
+            }
+
+
+            // 2、委派给 MethodAccessor 来处理
+            MethodAccessor ma = methodAccessor;             // read volatile
+            if (ma == null) {
+                ma = acquireMethodAccessor();
+            }
+            return ma.invoke(obj, args);
+        }
+
+
+
