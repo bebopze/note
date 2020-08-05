@@ -188,7 +188,8 @@ put源码分析:
     因为HashMap本来就不支持并发，要并发就用ConcurrentHashMap！！！
 
         - https://bugs.java.com/bugdatabase/view_bug.do?bug_id=6423457
-        - Doug Lea写道：“这是错误使用HashMap的典型症状。很明显，提交者需要使用线程安全的HashMap。如果他们升级到Java 5，则可以使用ConcurrentHashMap。如果不能，则可以使用ConcurrentHashMap。这样做，他们可以使用Martin提到的JSR166之前版本或更好的非官方backport。如果他们不能执行任何这些操作，则可以使用Hashtable或synchhronizedMap包装器，并且性能较差。无论如何，这不是JDK或JVM错误。” 我同意仅存在损坏的数据结构并不表示JDK中存在错误。
+        - Doug Lea写道：“这是错误使用HashMap的典型症状。很明显，提交者需要使用线程安全的HashMap。如果他们升级到Java 5，则可以使用ConcurrentHashMap。如果不能，他们可以使用JSR166之前的版本，或者更好的，如Martin提到的非官方的backport。如果他们不能执行任何这些操作，则可以使用 Hashtable 或 synchronizedMap 包装器，它们性能较差。
+          无论如何，这不是JDK或JVM错误。” 我同意存在损坏的数据结构，并不表示JDK中存在错误。
 
 
 
