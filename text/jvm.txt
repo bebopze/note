@@ -205,7 +205,7 @@ GC正常执行标准
 
 ---------
 
-字节码工具
+字节码 修改工具
 
     ASM：Java 字节码框架
 
@@ -218,6 +218,67 @@ GC正常执行标准
             Java 8 中 Lambda 表达式的适配器类，也是借助 ASM 来 动态生成 的.
 
             // java -cp  .../rt.jar  xx.xx.ASMifier  Demo.class | tee DemoDump.java
+
+
+        实践：     // ASM  -->  cglib  --> Spring AOP 动态代理
+
+            cglib 就是 基于 ASM 封装的 字节码工具类库
+
+            Spring 就是使用 cglib 代理库
+
+
+动态代理：
+
+    1. JDK 动态代理：                    // 核心：反射
+        通过反射 实现被代理类的接口
+
+        JDK动态代理只需要 JDK环境 就 可以进行代理，流程为：
+            1、实现InvocationHandler
+            2、使用Proxy.newProxyInstance产生代理对象
+            3、被代理的对象必须实现接口
+
+        实现原理：
+            target -->  接口  -->  接口代理类 实例
+
+            通过 被代理对象实例target --->  拿到 target的 (所有) 接口  --->  通过反射 生成target的接口 的 代理对象proxy
+
+            通过实现InvocationHandler，重写其invoke函数，来进行对 target类的方法增强，并将 该InvocationHandler 注册到 proxy
+
+            调用 proxy的方法时，就会调用 InvocationHandler中重写过的invoke函数
+
+
+    2. CGLIB 动态代理：                  // 核心：.class字节码修改
+        通过 修改被代理类的字节码
+
+            cglib 基于 ASM字节码工具 封装，Spring AOP 就是使用 cglib 代理库。
+
+        实现：
+            ASM 字节码工具  -->  cglib 动态代理  -->  Spring AOP 动态代理
+
+                通过 ASM 字节码工具 提供的 .class 字节码修改能力，进行进一步的封装   --->  cglib 得到 ASM的 .class字节码编辑能力
+
+                cglib 通过 ASM工具，达到 运行时 动态的修改被代理类的 .class字节码，从而进行 代理增强。
+
+
+    两种代理方式的本质：
+        1、JDK 动态代理 是针对实现了接口的类生成代理，不是针对类。
+        2、CGLIB 使用的是 为被代理类 生成一个 子类，通过 继承 的方式，覆盖并增强 其方法，
+            但是因为是继承所以 不能声明 被代理类 和 增强方法 为 final，无法被继承、覆盖就无法实现CGLIB代理。
+
+
+    Spring 的 AOP 实现：
+
+        根据 目标类target 有没有实现interface，来选择 动态代理方式：
+            1、有接口 -->  JDK   动态代理
+            2、无接口 -->  CGLIB 动态代理
+
+
+
+
+
+
+
+
 
 
 
