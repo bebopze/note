@@ -156,6 +156,13 @@
         </dependency>
         <!-- fastjson -->
 
+
+        <dependency>
+            <groupId>com.bebopze.framework</groupId>
+            <artifactId>framework-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
     </dependencies>
 
 
