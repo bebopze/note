@@ -45,7 +45,7 @@ public class _7_Decorator {
     //       从而有FilterInputStream类，也是避免代码的重复，多个装饰器只用写一遍包装代码即可。
 
 
-    // ---------------------------------------------------------------¬¬
+    // ---------------------------------------------------------------
 
 
     public static void main(String[] args) throws IOException {
