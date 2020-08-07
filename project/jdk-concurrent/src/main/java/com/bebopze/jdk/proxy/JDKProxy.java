@@ -35,6 +35,15 @@ public class JDKProxy {
     //         final无法被继承、覆盖，就无法实现CGLIB代理。
 
 
+    // 场景：
+    //     有接口类的代理
+
+
+    // Spring AOP 动态代理选择：
+    //     1、当一个类有接口的时候，就会选用JDK的动态代理
+    //     2、当一个类没有实现接口的时候，就会选用CGLIB代理的方式
+
+
     // --------------------------------------------------------------------------------
 
 
@@ -46,7 +55,7 @@ public class JDKProxy {
     }
 
 
-    private static void test_Proxy() {
+    public static void test_Proxy() {
 
         // 代理对象
         UserServiceImpl target = new UserServiceImpl();
@@ -62,7 +71,7 @@ public class JDKProxy {
     }
 
 
-    private static void test_MyFactoryBean() {
+    public static void test_MyFactoryBean() {
 
         // target ： 目标类
         final UserService target = new UserServiceImpl();
@@ -152,14 +161,14 @@ class MyFactoryBean {
                         }
 
                         // 执行原方法
-                        Object invoke = method.invoke(target, args);
+                        Object result = method.invoke(target, args);
 
                         // 接口方法增强
                         if (method.getName().equals("wc")) {
                             aspect.after();
                         }
 
-                        return invoke;
+                        return result;
                     }
                 });
 
@@ -234,7 +243,7 @@ class MyInvocationHandler implements InvocationHandler {
      *
      * @return
      */
-    Object getProxy() {
+    public Object getProxy() {
 
         /**
          * 通过反射 实现被代理类target的接口

@@ -18,12 +18,24 @@ import java.lang.reflect.Method;
  */
 public class CglibProxy {
 
+
     // CGLIB动态代理
     //     1、通过加载对象类的class文件，修改其字节码 生成子类 的方式完成，不需要实现接口.
     //     2、但是需要第三方库：CGLIB类库的支持
 
 
-    // 通过 ASM 修改运行时 target 的 .class字节码，来进行增强
+    // 实现：
+    //     1、生成 target 的子类
+    //     2、通过 ASM 修改运行时 子类方法 的 .class字节码，来进行增强
+
+
+    // 场景：
+    //     无接口类的代理，作为JDK Proxy的补充。
+
+
+    // Spring AOP 动态代理选择：
+    //     1、当一个类有接口的时候，就会选用JDK的动态代理
+    //     2、当一个类没有实现接口的时候，就会选用CGLIB代理的方式
 
 
     // --------------------------------------------------------------------------------
@@ -34,7 +46,7 @@ public class CglibProxy {
         test_Proxy();
     }
 
-    private static void test_Proxy() {
+    public static void test_Proxy() {
 
         // target
         PeopleService target = new PeopleService();
@@ -48,6 +60,10 @@ public class CglibProxy {
     }
 }
 
+
+// ------------------------------------------------- Cglib Proxy 实现 ---------------------------------------------------
+
+
 /**
  * - 实现 MethodInterceptor   ---> 生成代理类，及方法增强
  * -
@@ -56,8 +72,17 @@ public class CglibProxy {
  */
 class MyMethodInterceptor implements MethodInterceptor {
 
+    /**
+     * 被代理对象
+     */
     private Object target;
 
+    /**
+     * 生成代理对象  --> 创建target的子类，然后通过 ASM 字节码注入的方式，对 父类target的方法 字节码 进行修改覆盖，达到方法代理增强。
+     *
+     * @param target
+     * @return
+     */
     public Object createProxy(Object target) {
 
         // target
