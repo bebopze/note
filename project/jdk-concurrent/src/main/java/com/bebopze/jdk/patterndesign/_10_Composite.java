@@ -12,16 +12,31 @@ import java.util.List;
 public class _10_Composite {
 
 
+    // 主要用来：
+    //      处理 树形结构 数据
+
+
     // ---------------------------------------------------------------
 
 
     public static void main(String[] args) {
 
+        test();
     }
 
 
-    // ----------------------------------实现-----------------------------
+    private static void test() {
+
+        Demo demo = new Demo();
+
+        demo.buildOrganization();
+    }
+
+
 }
+
+
+// ----------------------------------实现-----------------------------
 
 
 abstract class HumanResource {
