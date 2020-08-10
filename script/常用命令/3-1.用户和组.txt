@@ -1,7 +1,7 @@
 ﻿添加一个tom用户，设置它属于users组，并添加注释信息
 分步完成：useradd tom
-          usermod -g users tom
-	      usermod -c "hr tom" tom
+         usermod -g users tom
+	     usermod -c "hr tom" tom
 一步完成：useradd -g users -c "hr tom" tom
 
 设置tom用户的密码
