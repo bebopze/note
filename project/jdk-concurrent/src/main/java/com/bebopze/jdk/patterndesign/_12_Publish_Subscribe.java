@@ -12,10 +12,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * 12. 观察者 模式（Observer1 Design Pattern）--->  发布订阅 模式（Publish-Subscribe Design Pattern）
- * -
- * -
- * -
+ * 12. 观察者 模式（Observer）--->  发布订阅 模式（Publish-Subscribe）
  *
  * @author bebopze
  * @date 2020/8/10

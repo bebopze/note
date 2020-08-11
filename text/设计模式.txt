@@ -390,9 +390,6 @@
         Subject-Observer、Publisher-Subscriber、Producer-Consumer、EventEmitter-EventListener、Dispatcher-Listener
 
 
-
-
-
     实现方式：
         同步阻塞的实现方式，异步非阻塞的实现方式；
             单线程/新开子线程
@@ -423,7 +420,7 @@
 
 
             执行逻辑：
-                post -> msg -> fun()  -->  反射执行 clazz.fun(msg)
+                post -> msg -> clazz.fun()  -->  反射执行 clazz.fun(msg)
 
 
         3、消息队列
@@ -440,9 +437,127 @@
 
 
 
+13、模板模式                         // 扩展、复用
+
+    定义
+        模板方法模式 在一个方法中定义一个 算法骨架，并将某些步骤 推迟到子类中实现。
+        模板方法模式 可以让子类在不改变算法整体结构的情况下，重新定义算法中的某些步骤。
+
+    作用
+        复用、扩展
+
+        复用 指的是，所有的子类可以复用父类中提供的模板方法的代码。
+        扩展 指的是，框架通过模板模式提供功能扩展点，让框架用户可以在不修改框架源码的情况下，基于扩展点定制化框架的功能。
+
+    “算法”
+        可以理解为 广义上的“业务逻辑”，并不特指数据结构和算法中的“算法”。
+        这里的算法骨架就是“模板”，包含算法骨架的方法就是“模板方法”，这也是模板方法模式名字的由来。
+
+    经典实现
+        模板方法 定义为 final，可以 避免被子类重写。
+        需要子类重写的方法 定义为 abstract，可以 强迫子类去实现。
 
 
-13、模板模式
+    案例：
+          Java IO  InputStream    read(byte b[], int off, int len);   -->    read();
+          AbstractList            addAll();                           -->    add();
+          Servlet                 service();                          -->    doGet();    /   doPost();
+          JUnit                   runBare();                          -->    setUp();    /   tearDown();
+
+
+    应用场景：
+        常用在框架开发中
+            通过提供功能扩展点，让框架用户在不修改框架源码的情况下，基于扩展点定制化框架的功能。
+
+
+    ---------------------------
+
+    回调
+
+        作用：
+            扩展、复用
+
+        同步/异步：
+            同步回调 看起来更像 模板模式
+            异步回调 看起来更像 观察者模式
+
+        经典实现：
+            1、回调对象作为参数：抽象的回调接口
+
+                void process(ICallback iCallback) {
+                    // ...
+
+                    // 回调对象.回调函数();
+                    iCallback.callback();
+                }
+
+            2、客户端使用时，传入回调接口的匿名内部类作为回调对象，回调对象内部实现回调内容的扩展.
+
+                b.process(new ICallback() { // 回调对象
+                    @Override
+                    public void callback() {
+                        // 回调扩展
+                        System.out.println("callback me ...");
+                    }
+                });
+
+
+        应用：
+
+            1、JdbcTemplate
+
+                基于(同步)回调，非基于模板：
+
+                    Spring 提供的 xxTemplate 类：JdbcTemplate、RedisTemplate、RestTemplate
+
+                    尽管都叫作 xxTemplate
+                        但它们 并非基于 模板模式 来实现的，而是基于 回调 来实现的，确切地说应该是 同步回调。
+
+                    同步回调 从应用场景上 很像 模板模式
+                        所以，在命名上，这些类使用 Template（模板）这个单词作为后缀。
+
+                底层实现：
+                    JdbcTemplate 通过回调的机制，
+                    将 不变的执行流程 抽离出来，放到 模板方法 execute() 中，
+                    将 可变的部分 设计成 回调 StatementCallback，由用户来定制。
+
+                    class JdbcTemplate {
+
+                        execute(StatementCallback<T> action) {
+
+                            // ...
+
+                            // 回调
+                            action.callback();
+                        }
+                    }
+
+
+            2、setClickListener
+                Android控件 注册事件监听器
+
+            3、addShutdownHook()
+                Tomcat 和 JVM 的 shutdown hook
+
+
+    ---------------------------
+
+    回调 VS 模板：
+
+        应用场景 一致：
+            复用、扩展
+
+        实现不同：
+            回调  -->  组合  -->   回调对象
+            模板  -->  继承  -->   子类复写
+
+
+14、策略模式
+
+
+
+
+
 
 
 
@@ -522,3 +637,11 @@
     隐藏实现细节，降低开发难度，做到代码复用，解耦业务与非业务代码，让程序员聚焦业务开发。
 
 
+
+
+----------------
+重点
+----------------
+
+关于所谓的模式，实现和原理并不重要，重要的是模式的 应用场景、意图！！！
+切勿本末倒置！！！

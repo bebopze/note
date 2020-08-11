@@ -12,6 +12,9 @@ import java.util.Map;
 public class _11_Flyweight {
 
 
+    // 核心：不变
+
+
     // 意图：
     //      复用对象，节省内存。
 
@@ -70,7 +73,7 @@ public class _11_Flyweight {
     private static void test__String() {
 
 
-        System.out.println("----------------------String 字符串常量");
+        System.out.println("----------------------String 字符串常量池");
 
         String s1 = "小争哥";
         String s2 = "小争哥";
