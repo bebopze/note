@@ -1,6 +1,6 @@
 1.查看用户最近登录情况
 last
-lastlog
+last log
 
 2.查看硬盘使用情况
 df

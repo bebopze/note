@@ -1,20 +1,20 @@
 1.内部命令：echo
-查看内部命令帮助：help echo 或者 man echo
+    查看内部命令帮助：help echo 或者 man echo
 
 2.外部命令：ls
-查看外部命令帮助：ls --help 或者 man ls 或者 info ls
+    查看外部命令帮助：ls --help 或者 man ls 或者 info ls
 
 3.man文档的类型(1~9)
-man 7 man
-man 5 passwd
+    man 7 man
+    man 5 passwd
 
 4.快捷键：
-ctrl + c：停止进程
+    ctrl + c：停止进程
 
-ctrl + l：清屏
+    ctrl + l：清屏
 
-ctrl + r：搜索历史命令
+    ctrl + r：搜索历史命令
 
-ctrl + q：退出
+    ctrl + q：退出
 
 5.善于用tab键

@@ -8,12 +8,12 @@ whereis ls
 locate hadoop.txt
 
 4.从某个文件夹开始查找
-find / -name "hadooop*"
-find / -name "hadooop*" -ls
+find / -name "hadoop*"
+find / -name "hadoop*" -ls
 
 5.查找并删除
-find / -name "hadooop*" -ok rm {} \;
-find / -name "hadooop*" -exec rm {} \;
+find / -name "hadoop*" -ok rm {} \;
+find / -name "hadoop*" -exec rm {} \;
 
 6.查找用户为hadoop的文件
 find /usr -user hadoop -ls

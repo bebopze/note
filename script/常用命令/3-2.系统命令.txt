@@ -1,55 +1,55 @@
 1.查看主机名
-hostname
+    hostname
 
 2.修改主机名(重启后无效)
-hostname hadoop
+    hostname hadoop
 
 3.修改主机名(重启后永久生效)
-vi /ect/sysconfig/network
+    vi /ect/sysconfig/network
 
 4.修改IP(重启后无效)
-ifconfig eth0 192.168.12.22
+    ifconfig eth0 192.168.12.22
 
 5.修改IP(重启后永久生效)
-vi /etc/sysconfig/network-scripts/ifcfg-eth0
+    vi /etc/sysconfig/network-scripts/ifcfg-eth0
 
 6.查看系统信息
-uname -a
-uname -r
+    uname -a
+    uname -r
 
 7.查看ID命令
-id -u
-id -g
+    id -u
+    id -g
 
 8.日期
-date
-date +%Y-%m-%d
-date +%T
-date +%Y-%m-%d" "%T
+    date
+    date +%Y-%m-%d
+    date +%T
+    date +%Y-%m-%d" "%T
 
 9.日历
-cal 2012
+    cal 2012
 
 10.查看文件信息
-file filename
+    file filename
 
 11.挂载硬盘
-mount
-umount
-加载windows共享
-mount -t cifs //192.168.1.100/tools /mnt
+    mount
+    umount
+    加载windows共享
+    mount -t cifs //192.168.1.100/tools /mnt
 
 12.查看文件大小
-du -h
-du -ah
+    du -h
+    du -ah
 
 13.查看分区
-df -h
+    df -h
 
 14.ssh
-ssh hadoop@192.168.1.1
+    ssh hadoop@192.168.1.1
 
 15.关机
-shutdown -h now /init 0
-shutdown -r now /reboot
+    shutdown -h now /init 0
+    shutdown -r now /reboot
 

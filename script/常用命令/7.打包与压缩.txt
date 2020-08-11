@@ -1,42 +1,42 @@
 1.gzip压缩
-gzip a.txt
+    gzip a.txt
 
 2.解压
-gunzip a.txt.gz
-gzip -d a.txt.gz
+    gunzip a.txt.gz
+    gzip -d a.txt.gz
 
 3.bzip2压缩
-bzip2 a
+    bzip2 a
 
 4.解压
-bunzip2 a.bz2
-bzip2 -d a.bz2
+    bunzip2 a.bz2
+    bzip2 -d a.bz2
 
 5.将当前目录的文件打包
-tar -cvf bak.tar .
-将/etc/password追加文件到bak.tar中(r)
-tar -rvf bak.tar /etc/password
+    tar -cvf bak.tar .
+  将/etc/password追加文件到bak.tar中(r)
+    tar -rvf bak.tar /etc/password
 
 6.解压
-tar -xvf bak.tar
+    tar -xvf bak.tar
 
 7.打包并压缩gzip
-tar -zcvf a.tar.gz
+    tar -zcvf a.tar.gz
 
 8.解压缩
-tar -zxvf a.tar.gz
-解压到/usr/下
-tar -zxvf a.tar.gz -C /usr
+    tar -zxvf a.tar.gz
+  解压到/usr/下
+    tar -zxvf a.tar.gz -C /usr
 
 9.查看压缩包内容
-tar -ztvf a.tar.gz
+    tar -ztvf a.tar.gz
 
-zip/unzip
+    zip/unzip
 
 10.打包并压缩成bz2
-tar -jcvf a.tar.bz2
+    tar -jcvf a.tar.bz2
 
 11.解压bz2
-tar -jxvf a.tar.bz2
+    tar -jxvf a.tar.bz2
 
 

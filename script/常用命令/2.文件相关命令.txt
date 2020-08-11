@@ -23,12 +23,12 @@ mkdir /bebopze
 
 8.在/bebop目录下创建src和WebRoot两个文件夹
 分别创建：mkdir /bebopze/src
-		  mkdir /bebopze/WebRoot
+		 mkdir /bebopze/WebRoot
 同时创建：mkdir /bebopze/{src,WebRoot}
 
 进入到/bebop目录，在该目录下创建.classpath和README文件
 分别创建：touch .classpath
-		  touch README
+		 touch README
 同时创建：touch {.classpath,README}
 
 查看/bebop目录下面的所有文件
@@ -48,8 +48,8 @@ echo "please read me first" >> README
 将test.txt的内容追加到README文件中
 cat test.txt >> README
 
-拷贝/bebop目录下的所有文件到/bebopze-bak
-cp -r /bebopze /bebopze-bak
+拷贝/bebopze目录下的所有文件到/bebopze-bak
+cp -r /bebop /bebop-bak
 
 进入到/bebopze-bak目录，将test.txt移动到src目录下，并修改文件名为Student.java
 mv test.txt src/Student.java
@@ -69,7 +69,7 @@ wc -l README
 
 返回到根目录，将/bebop目录先打包，再用gzip压缩
 分步完成：tar -cvf bebopze.tar bebopze
-		  gzip bebopze.tar
+		 gzip bebopze.tar
 一步完成：tar -zcvf bebopze.tar.gz bebopze
 
 将其解压缩，再取消打包

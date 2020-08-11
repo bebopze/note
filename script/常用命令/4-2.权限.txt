@@ -1,17 +1,17 @@
 创建a.txt和b.txt文件，将他们设为其拥有者和所在组可写入，但其他以外的人则不可写入:
-chmod ug+w,o-w a.txt b.txt
+    chmod ug+w,o-w a.txt b.txt
 
 创建c.txt文件所有人都可以写和执行
-chmod a=wx c.txt 或chmod 666 c.txt
+    chmod a=wx c.txt 或chmod 666 c.txt
 
-将/bebop目录下的所有文件与子目录皆设为任何人可读取
-chmod -R a+r /bebopze
+将/bebopze目录下的所有文件与子目录皆设为任何人可读取
+    chmod -R a+r /bebopze
 
-将/bebop目录下的所有文件与子目录的拥有者设为root，用户拥有组为users
-chown -R root:users /bebopze
+将/bebopze目录下的所有文件与子目录的拥有者设为root，用户拥有组为users
+    chown -R root:users /bebopze
 
-将当前目录下的所有文件与子目录的用户皆设为bebop，组设为users
-chown -R bebopze:users *
+将当前目录下的所有文件与子目录的用户皆设为bebopze，组设为users
+    chown -R bebopze:users *
 
 
 
