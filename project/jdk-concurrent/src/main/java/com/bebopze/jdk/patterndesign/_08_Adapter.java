@@ -6,7 +6,7 @@ package com.bebopze.jdk.patterndesign;
  * @author bebopze
  * @date 2020/8/7
  */
-public class _8_Adapter {
+public class _08_Adapter {
 
 
     // 是一种 "补偿模式"，用来补救设计上的缺陷。       --->   无奈之举

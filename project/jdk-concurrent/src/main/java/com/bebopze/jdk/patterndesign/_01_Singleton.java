@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author bebopze
  * @date 2020/8/3
  */
-public class _1_Singleton {
+public class _01_Singleton {
 
 
     // 定义

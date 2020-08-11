@@ -8,7 +8,7 @@ import java.io.*;
  * @author bebopze
  * @date 2020/8/7
  */
-public class _7_Decorator {
+public class _07_Decorator {
 
     // 核心：增强 原功能      --->    跟原始类相关
 

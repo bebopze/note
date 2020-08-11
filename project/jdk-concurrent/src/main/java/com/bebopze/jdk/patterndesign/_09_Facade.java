@@ -6,7 +6,7 @@ package com.bebopze.jdk.patterndesign;
  * @author bebopze
  * @date 2020/8/10
  */
-public class _9_Facade {
+public class _09_Facade {
 
     // 应用场景：
     //  1、解决易用性问题

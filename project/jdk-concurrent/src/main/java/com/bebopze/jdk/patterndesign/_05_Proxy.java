@@ -12,7 +12,7 @@ import com.bebopze.jdk.proxy.JDKProxy;
  * @author bebopze
  * @date 2020/8/7
  */
-public class _5_Proxy {
+public class _05_Proxy {
 
 
     // 核心场景：添加 跟原始类 无关的 功能      ---> 添加 业务不想关的 非功能性需求，如：监控、统计、鉴权、限流、事务、幂等、日志。
