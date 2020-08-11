@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
  * @author bebopze
  * @date 2020/8/10
  */
-public class _12__Publish_Subscribe {
+public class _12_Publish_Subscribe {
 
 
     // 观察者模式 也被称为 发布订阅模式
