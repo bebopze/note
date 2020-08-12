@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.bebopze.jdk.patterndesign.OrderType.*;
+import static com.bebopze.jdk.patterndesign._07_Decorator.getNoteAbsolutePath;
 
 /**
  * 14. 策略模式
@@ -46,9 +47,11 @@ public class _14_Strategy {
 
     public static void main(String[] args) {
 
+        // 1、经典实现
         test_1();
 
 
+        // 案例：大文件排序
         test_sortFile();
     }
 
@@ -68,9 +71,11 @@ public class _14_Strategy {
 
         Sorter sorter = new Sorter();
 
-        sorter.sortFile("/note/text/设计模式.txt");
-    }
 
+        String note_path = getNoteAbsolutePath();
+
+        sorter.sortFile(note_path + "/text/设计模式.txt");
+    }
 
 }
 
@@ -179,11 +184,16 @@ enum OrderType {
 
 // ----------------------------------- 2、给大文件的内容排序 ---------------------------------------
 
-
+/**
+ * 3、策略的使用
+ */
 class Sorter {
 
-    private static final long GB = 1000 * 1000 * 1000;
+    private static final long GB = 1024 * 1024 * 1024;
     private static final List<AlgRange> algs = new ArrayList<>();
+
+
+    //  查表 -->  消除 if-else
 
     static {
         //  6GB
@@ -232,10 +242,13 @@ class Sorter {
     }
 }
 
-
+/**
+ * 2、工厂：策略的创建 与 缓存
+ */
 class SortAlgFactory {
     private static final Map<String, ISortAlg> algs = new HashMap<>();
 
+    //  查表 -->  消除 if-else
     static {
         algs.put("QuickSort", new QuickSort());
         algs.put("ExternalSort", new ExternalSort());
@@ -251,11 +264,16 @@ class SortAlgFactory {
     }
 }
 
-
+/**
+ * 1、抽象 策略的定义
+ */
 interface ISortAlg {
     void sort(String filePath);
 }
 
+/**
+ * 策略一：快排
+ */
 class QuickSort implements ISortAlg {
 
     @Override
@@ -264,6 +282,9 @@ class QuickSort implements ISortAlg {
     }
 }
 
+/**
+ * 策略二：外部排序
+ */
 class ExternalSort implements ISortAlg {
 
     @Override
@@ -272,6 +293,9 @@ class ExternalSort implements ISortAlg {
     }
 }
 
+/**
+ * 策略三：单机版 MapReduce    - 多核CPU
+ */
 class ConcurrentExternalSort implements ISortAlg {
 
     @Override
@@ -280,6 +304,9 @@ class ConcurrentExternalSort implements ISortAlg {
     }
 }
 
+/**
+ * 策略四：多机版 MapReduce
+ */
 class MapReduceSort implements ISortAlg {
 
     @Override

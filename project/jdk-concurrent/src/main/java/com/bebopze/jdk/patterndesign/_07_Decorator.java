@@ -51,8 +51,6 @@ public class _07_Decorator {
     public static void main(String[] args) throws IOException {
 
         test_1();
-
-        test_2();
     }
 
 
@@ -64,8 +62,11 @@ public class _07_Decorator {
     private static void test_1() throws IOException {
 
 
+        String note_path = getNoteAbsolutePath();
+
+
         // 原始类   -->  FileInputStream
-        InputStream in = new FileInputStream("/note/text/设计模式.txt");
+        InputStream in = new FileInputStream(note_path + "/text/设计模式.txt");
 
 
         // 第一个比较特殊的地方是：装饰器类 和 原始类 继承同样的父类，这样我们可以对原始类“嵌套”多个装饰器类。
@@ -87,8 +88,23 @@ public class _07_Decorator {
     }
 
 
-    private static void test_2() {
+    /**
+     * 项目根目录 /note 的绝对路径
+     *
+     * @return
+     */
+    public static String getNoteAbsolutePath() {
 
+        // 当前项目jdk-concurrent 的
+        // .class类文件 root目录 绝对路径  -->  /target/classes      ===>   .class文件的根目录
+        String path = Class.class.getClass().getResource("/").getPath();
 
+        //  --->  .../note/project/jdk-concurrent/target/classes
+        File file = new File(path);
+
+        //  note
+        File note = file.getParentFile().getParentFile().getParentFile().getParentFile();
+
+        return note.getAbsolutePath();
     }
 }

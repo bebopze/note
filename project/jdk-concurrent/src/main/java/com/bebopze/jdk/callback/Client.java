@@ -19,8 +19,11 @@ public class Client {
 
         CallbackTemplate callbackTemplate = new CallbackTemplate();
 
-        callbackTemplate.process(new ICallback() {
+        callbackTemplate.process(new ICallback() {  // 回调对象
 
+            /**
+             * 回调函数
+             */
             @Override
             public void callback() {
 
