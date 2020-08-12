@@ -11,6 +11,9 @@ import static com.bebopze.jdk.patterndesign.State.*;
 public class _16_State {
 
 
+    // 核心：   状态机
+
+
     // 状态模式：
     //      状态机 的一种  实现方式
 
