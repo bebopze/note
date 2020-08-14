@@ -10,7 +10,8 @@ import java.io.*;
  */
 public class _07_Decorator {
 
-    // 核心：增强 原功能      --->    跟原始类相关
+
+    // 核心：          增强 原功能      --->    跟原始类相关
 
 
     // Java IO 类 的 装饰器模式 应用

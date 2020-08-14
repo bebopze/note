@@ -12,7 +12,7 @@ import java.util.Map;
 public class _11_Flyweight {
 
 
-    // 核心：不变
+    // 核心：          不变
 
 
     // 意图：

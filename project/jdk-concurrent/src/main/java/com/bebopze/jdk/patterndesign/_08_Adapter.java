@@ -9,6 +9,9 @@ package com.bebopze.jdk.patterndesign;
 public class _08_Adapter {
 
 
+    // 核心：          兼容
+
+
     // 是一种 "补偿模式"，用来补救设计上的缺陷。       --->   无奈之举
 
 
