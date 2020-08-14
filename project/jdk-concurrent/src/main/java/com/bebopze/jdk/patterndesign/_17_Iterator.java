@@ -34,7 +34,7 @@ public class _17_Iterator {
 
     private static void test_1() {
 
-        List<String> names = new ArrayList<>();
+        IList<String> names = new IArrayList<>();
         names.add("xzg");
         names.add("wang");
         names.add("zheng");
@@ -58,7 +58,7 @@ public class _17_Iterator {
  *
  * @param <E>
  */
-interface List<E> {
+interface IList<E> {
 
     /**
      * 创建 容器迭代器
@@ -83,7 +83,7 @@ interface List<E> {
  *
  * @param <E>
  */
-class ArrayList<E> implements List<E> {
+class IArrayList<E> implements IList<E> {
 
     @Override
     public Iterator iterator() {
@@ -131,9 +131,9 @@ interface Iterator<E> {
  */
 class ArrayIterator<E> implements Iterator<E> {
     private int cursor;
-    private ArrayList<E> arrayList;
+    private IArrayList<E> arrayList;
 
-    public ArrayIterator(ArrayList<E> arrayList) {
+    public ArrayIterator(IArrayList<E> arrayList) {
         this.cursor = 0;
         this.arrayList = arrayList;
     }
