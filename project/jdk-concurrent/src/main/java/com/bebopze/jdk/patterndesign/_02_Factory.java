@@ -12,6 +12,12 @@ import java.util.Map;
 public class _02_Factory {
 
 
+    //      相关类型 对象
+
+
+    // 核心：       解耦  ->  对象的 创建 和 使用
+
+
     // 作用：        -->   这也是判断要不要使用工厂模式最本质的参考标准
     //
     //      1、封装变化：   创建逻辑有可能变化，封装成工厂类之后，创建逻辑的变更对调用者透明。
@@ -304,6 +310,12 @@ class AbstractFactory {
 }
 
 
+// ------------------------------- Rule Parser 对象 -------------------------------
+
+
+/**
+ * Rule Parser
+ */
 interface IRuleConfigParser {
 
     void parse(String content);
@@ -344,6 +356,12 @@ interface IRuleConfigParser {
 }
 
 
+// ------------------------------- System Parser 对象 --------------------------------
+
+
+/**
+ * System Parser
+ */
 interface ISystemConfigParser {
 
     void parse(String content);

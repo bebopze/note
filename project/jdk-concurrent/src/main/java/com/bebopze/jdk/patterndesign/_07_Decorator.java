@@ -17,15 +17,21 @@ public class _07_Decorator {
     // Java IO 类 的 装饰器模式 应用
 
 
-    // 原始类：
+    // 1、相同父类：
+    //      InputStream
+
+
+    // 2、原始类：
     //      FileInputStream extends InputStream
 
 
-    // 装饰器类 公共父类：
+    // 中间层：
+    //      Java IO 设计了多个 装饰器类，所有这里在 装饰器类和原始类之间 多了个中间层：
+    //
     //      FilterInputStream extends InputStream
 
 
-    // 多个 装饰器类：
+    // 3、多个 装饰器类：
     //      BufferedInputStream  extends  FilterInputStream
     //      DataInputStream      extends  FilterInputStream
 
@@ -36,7 +42,7 @@ public class _07_Decorator {
     //                                                --->   是装饰器模式应用场景的一个重要特点
 
 
-    //  对于为什么中间要多继承一个FilterInputStream类，我的理解是这样的：
+    //  对于为什么中间要多继承一个 FilterInputStream 类，我的理解是这样的：
     //
     //      假如说 BufferedInputStream 类直接继承自InputStream类且没有进行重写，只进行了装饰
     //      创建一个InputStream is = new BufferedInputStream(new FileInputStream(FilePath));

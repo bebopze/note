@@ -11,6 +11,9 @@ import org.springframework.util.StringUtils;
 public class _03_Builder {
 
 
+    //          复杂对象
+
+
     public static void main(String[] args) {
 
         test_builder();
@@ -18,8 +21,6 @@ public class _03_Builder {
 
 
     private static void test_builder() {
-
-        // 这段代码会抛出IllegalArgumentException，因为 minIdle > maxIdle
 
         ResourcePoolConfig config = ResourcePoolConfig.builder()
                 .setName("db-connection-pool")
@@ -29,6 +30,9 @@ public class _03_Builder {
                 .build();
     }
 }
+
+
+// ---------------------------------------------- 实现 -----------------------------------------------------------------
 
 
 class ResourcePoolConfig {

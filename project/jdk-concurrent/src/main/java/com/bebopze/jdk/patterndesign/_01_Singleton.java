@@ -11,6 +11,9 @@ import java.util.concurrent.atomic.AtomicLong;
 public class _01_Singleton {
 
 
+    //      全局唯一 对象
+
+
     // 定义
     //      一个类只允许创建一个对象（或者叫实例），那这个类就是一个单例类，这种设计模式就叫作单例设计模式，简称单例模式。
 
