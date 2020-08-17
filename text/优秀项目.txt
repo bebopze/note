@@ -1,0 +1,474 @@
+
+--------------------------------------------------
+一句话来总结框架作用的话，那就是 简化开发。
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+1、Google Guava
+--------------------------------------------------
+
+1、Google 内部的很多 Java 项目都在使用它。它提供了一些 JDK 没有提供的功能，以及对 JDK 已有功能的增强功能。
+    其中就包括：
+        集合（Collections）、缓存（Caching）、原生类型支持（Primitives Support）、并发库（Concurrency Libraries）、
+        通用注解（Common Annotation）、字符串处理（Strings Processing）、数学计算（Math）、I/O、事件总线（EventBus）等等。
+
+
+2、在业务开发中，跟业务无关的通用功能模块，常见的一般有三类：
+    类库（library）、框架（framework）、功能组件（component）
+
+3、  Builder 模式在 Guava 中的应用
+        CacheBuilder
+
+    Wrapper 模式在 Guava 中的应用
+        ForwardingCollection
+
+    Immutable 模式在 Guava 中的应用
+        Google Guava 针对集合类（Collection、List、Set、Map）提供了对应的不变集合类
+            ImmutableCollection、ImmutableList、ImmutableSet、ImmutableMap
+
+            - 普通不变模式
+                集合中的对象不会增删，但是对象的成员变量（或叫属性值）是可以改变的。
+
+        不变模式分为两种
+            普通不变模式和深度不变模式。
+
+
+        Java JDK 也提供了不变集合类
+            UnmodifiableCollection、UnmodifiableList、UnmodifiableSet、UnmodifiableMap
+
+4、函数式编程（Functional Programming）
+
+    函数式编程领域：
+        科学计算、数据处理、统计分析
+
+    面向过程编程最大的特点是：
+        以函数作为组织代码的单元，数据与方法相分离
+
+
+    Stream 类
+
+        中间操作 和 终止操作
+
+        (3-1)*2+5
+
+            add(multiply(subtract(3,1),2),5);   - ->    subtract(3,1).multiply(2).add(5);
+
+
+    Lambda 表达式在 Java 中只是一个语法糖而已，底层是基于函数接口来实现的
+
+
+    Lambda 表达式包括三部分：输入、函数体、输出。
+
+        表示出来的话就是下面这个样子：
+
+            // a、b是 输入参数
+            (a, b) -> {
+                语句1；
+                语句2；
+                ...;
+                return 输出;
+            }
+
+
+    具体到 Java 语言，它提供了三个语法机制来支持函数式编程。
+
+        分别是 ：Stream 类、Lambda 表达式、函数接口。
+
+        Google Guava 对函数式编程的一个重要应用场景，遍历集合，做了优化，但并没有太多的支持。
+        强调：不要为了节省代码行数，滥用函数式编程，导致代码可读性变差。
+
+
+
+--------------------------------------------------
+2、Spring 框架
+--------------------------------------------------
+
+1、Spring 框架 中蕴含的经典设计思想或原则
+
+    Spring 框架蕴含的设计思想
+        1. 约定优于配置
+            简化配置，一般来讲，有两种方法：基于注解、基于约定
+        2. 低侵入、松耦合
+            IOC 容器、AOP 功能
+        3. 模块化、轻量级
+            Spring 在分层、模块化方面做得非常好。
+            每个模块都只负责一个相对独立的功能。
+            模块之间关系，仅有上层对下层的依赖关系，而同层之间以及下层对上层，几乎没有依赖和耦合。
+        4. 再封装、再抽象
+            对市面上主流的中间件、系统的访问类库，做了进一步的封装和抽象，提供了更高层次、更统一的访问接口。
+                spring-data-redis
+                Spring Cache
+                JdbcTemplate
+
+
+2、Spring框架用到的 11 种设计模式
+
+    工厂模式
+        BeanFactory
+            根据配置(标识) -> 创建、缓存 -> 查表
+
+    解释器模式
+        Spring EL 表达式
+
+    模板模式
+        缀带有 Template 的类
+            JdbcTemplate、RedisTemplate
+                -> 用 Callback 回调来实现的
+
+    职责链模式
+        拦截器（Interceptor）
+
+    代理模式
+        AOP
+
+    适配器模式
+        HandlerAdapter
+
+    策略模式
+        AopProxy
+            JdkDynamicAopProxy
+            CglibAopProxy
+
+    组合模式
+        Spring Cache
+            CacheManager
+                EhCacheManager、SimpleCacheManager、NoOpCacheManager、RedisCacheManager
+            CompositeCacheManager
+
+    装饰器模式
+        TransactionAwareCacheDecorator
+            对Cache 增强了 事务支持
+
+    观察者模式
+        ApplicationEvent
+
+
+
+
+--------------------------------------------------
+3、MyBatis 框架          - 简化 数据库 方面的开发
+--------------------------------------------------
+
+1、易用性、性能、灵活性
+    封装度：JdbcTemplate < MyBatis < Hibernate
+
+2、MyBatis Plugin
+
+    职责链模式
+        它跟 Servlet Filter（过滤器）、Spring Interceptor（拦截器）类似，设计的初衷都是为了框架的扩展性。
+
+    自定义扩展
+        @Intercepts
+        MyInterceptor implements Interceptor
+
+            具体参考：
+                PageHelper plugin 实现
+                    PageInterceptor implements Interceptor
+
+
+    职责链模式 的实现 一般包含：      处理器（Handler）     和    处理器链（HandlerChain）
+
+        Servlet Filter      是     Filter               和    FilterChain
+
+        Spring Interceptor  是     HandlerInterceptor   和    HandlerExecutionChain
+
+        MyBatis Plugin      是     Interceptor          和    InterceptorChain
+
+
+        实现：
+            Servlet Filter     采用 递归 来实现拦截方法前后添加逻辑。
+            Spring Interceptor 的实现比较简单，把拦截方法前后要添加的逻辑放到两个方法中实现。
+            MyBatis Plugin     采用 嵌套动态代理 的方法来实现，实现思路很有技巧。
+
+
+    实现
+        动态代理
+            JDK 动态代理  - >  基于接口
+
+        核心类 Plugin ：
+            用来生成 被拦截对象 的 动态代理
+
+        Plugin 是借助 Java InvocationHandler 实现的动态代理类，用来代理给 target 对象添加 Interceptor 功能。
+
+            其中，要代理的 target 对象就是：
+                Executor、StatementHandler、ParameterHandler、ResultSetHandler 这四个类的对象。
+
+
+3、MyBatis框架中用到的10种设计模式
+
+    建造者模式
+        SqlSessionFactoryBuilder
+
+    模板模式
+        BaseExecutor
+            BatchExecutor、SimpleExecutor、ReuseExecutor
+
+    解释器模式
+        SqlNode
+
+    线程唯一的单例模式
+        ErrorContext
+            ThreadLocal
+
+    装饰器模式
+        Cache
+            FifoCache、LoggingCache、LruCache、ScheduledCache、
+            SerializedCache、SoftCache、SynchronizedCache、WeakCache、TransactionalCache
+
+    迭代器模式
+        PropertyTokenizer
+
+    适配器模式
+        Log
+            MyBatis 并没有直接使用 Slf4j 提供的统一日志规范，而是自己又重复造轮子，定义了一套自己的日志访问接口。
+
+
+    灵活应用，只借鉴不照搬
+        MyBatis 对很多设计模式的实现，都并非标准的代码实现，都做了比较多的自我改进。
+        实际上，这就是所谓的灵活应用，只借鉴不照搬，根据具体问题针对性地去解决。
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------
+1、设计实现一个 支持各种算法 的 限流框架
+--------------------------------------------------
+
+1、分析设计
+
+    限流规则
+        固定时间窗口限流算法、滑动时间窗口限流算法、令牌桶限流算法、漏桶限流算法
+
+    限流模式
+        限流算法
+            单机限流
+                单一实例(单个服务)
+            分布式限流
+                某个服务的多个实例(集群服务)
+
+    集成使用
+
+        RateLimiter-Spring 类库
+            借鉴 MyBatis-Spring，开发一个 RateLimiter-Spring 类库，
+            方便使用 Spring 的项目 集成限流框架，将易用性做到极致。
+
+
+2、
+    动手做：
+        先完全不考虑设计和代码质量，先把功能完成，先把基本的流程走通，
+        哪怕所有的代码都写在一个类中也无所谓。
+        然后，我们再针对这个 MVP 代码（最小原型代码）做优化重构.
+
+
+
+    RateLimiter
+        RuleConfig、ApiLimit
+            RateLimitRule
+                RateLimitAlg
+
+    
+    // 重构前：
+    
+        com.bebopze.ratelimiter
+          - RateLimiter
+
+        com.bebopze.ratelimiter.rule
+          - ApiLimit
+          - RuleConfig
+          - RateLimitRule
+
+        com.bebopze.ratelimiter.alg
+          - RateLimitAlg
+      
+      
+    // 重构后：         - 基于接口，非基于实现
+    
+        com.bebopze.ratelimiter
+          - RateLimiter(有所修改)
+
+        com.bebopze.ratelimiter.rule
+          - ApiLimit(不变)
+          - RuleConfig(不变)
+          - RateLimitRule(抽象接口)
+          - TrieRateLimitRule(实现类，就是重构前的RateLimitRule）
+
+        com.bebopze.ratelimiter.rule.parser
+          - RuleConfigParser(抽象接口)
+          - YamlRuleConfigParser(Yaml格式配置文件解析类)
+          - JsonRuleConfigParser(Json格式配置文件解析类)
+
+        com.bebopze.ratelimiter.rule.datasource
+          - RuleConfigSource(抽象接口)
+          - FileRuleConfigSource(基于本地文件的配置类)
+
+        com.bebopze.ratelimiter.alg
+          - RateLimitAlg(抽象接口)
+          - FixedTimeWinRateLimitAlg(实现类，就是重构前的RateLimitAlg)
+
+
+
+
+
+--------------------------------------------------
+2、设计实现一个通用的接口 幂等框架
+--------------------------------------------------
+
+1、ABA 问题
+    对于少数不能容忍的业务场景，我们可以针对性的 特殊处理。
+
+
+2、需求场景
+
+    接口超时重试
+
+        - 修改操作（insert / update x = x + delta）
+
+        1、返回清晰明确的提醒给用户，告知执行结果未知，让用户自己判断是否重试。
+
+            如果用户看到了超时提醒，但还是重新发起了操作，如 重新发起了转账、充值等操作，
+            实际上，对这种情况，技术是无能为力的。
+            因为两次操作都是用户主动发起的，我们无法判断第二次的转账、充值是新的操作，还是基于上一次超时的重试行为。
+
+            - 对响应时间敏感的调用方
+
+        2、调用方调用其他接口，来查询超时操作的结果，
+            明确超时操作对应的业务，是执行成功了还是失败了，然后再基于明确的结果做处理。
+
+            但是这种处理方法存在一个问题，那就是并不是所有的业务操作，都方便查询操作结果。
+
+            - Job 类的调用方
+
+        3、调用方在遇到接口超时之后，直接发起 重试 操作。
+            这就需要 接口支持 幂等
+
+            - 比较通用的解决方案
+
+
+3、幂等号
+
+    幂等：
+        针对同一个接口，多次发起同一个业务请求，必须保证业务只执行一次。
+
+        确定重试关系：
+            我们需要给 同一业务请求 一个 唯一标识，也就是“幂等号”！
+
+                如果两个接口请求，带有相同的幂等号，那我们就判断它们是重试关系，是同一个业务请求，不要重复执行。
+
+        算法随机生成
+
+4、高度的容错性：
+
+        存储幂等号的外部存储器挂掉了，幂等逻辑无法正常运行，这个时候 业务接口 也要能 正常服务。
+
+
+5、幂等处理正常流程
+
+    1、第一个阶段 是 调用方发送请求并被实现方接收
+
+    2、第二个阶段 是 执行接口对应的业务逻辑
+
+    3、第三个阶段 是 将执行结果返回给调用方
+
+
+6、二阶段异常 - 业务逻辑执行异常
+
+    业务代码异常
+
+        1.业务异常
+
+            数据查询不存在
+
+                - 不删除已经记录的幂等号
+                    不允许重新执行同样的业务逻辑
+                    因为再次重新执行也是徒劳的，还是会报告异常。
+
+        2.系统异常
+            Mysql挂掉
+                - 删除已经记录的幂等号删除
+                    允许重新执行这段业务逻辑
+                    因为在系统级问题修复之后（比如数据库恢复了），重新执行之前失败的业务逻辑，就有可能会成功。
+
+        最优：
+            交给开发这块业务的 工程师 来决定
+
+
+    业务系统宕机
+
+        分布式事务问题 -> 单库事务
+
+            在存储业务数据的业务数据库（ 比如 MySQL）中，建一张表来记录幂等号
+
+
+        日志 -> 幂等号：
+
+            业务系统记录 SQL 的执行日志，在日志中附加上 幂等号。
+
+            这样我们就能在 机器宕机时，根据日志来判断业务执行情况和幂等号的记录是否一致。
+
+
+    幂等框架异常
+
+        1、限流框架：
+
+            服务降级
+                限流框架本身的异常，不能导致接口响应异常。
+
+        2、幂等框架
+
+            接口直接失败
+
+                在幂等逻辑执行异常时，我们选择让接口请求也失败，相应的业务逻辑就不会被重复执行了。
+
+                毕竟接口请求失败（比如转钱没转成功），比业务执行出错（比如多转了钱），修复的成本要低很多。
+
+
+7、设计过程中的权衡取舍：
+
+    虽然幂等框架要处理的异常很多，但考虑到 开发成本 以及 简单易用性，
+
+    我们对某些异常的处理在工程上做了妥协，交由业务系统或者人工介入处理。
+
+    这样就大大简化了幂等框架开发的复杂度和难度。
+
+
+
+
+实现
+
+    1、生成幂等号 方式：
+
+        1、集中生成并且分派给调用方  ✅
+
+            由幂等框架来统一提供幂等号生成算法的代码实现，并封装成开发类库，提供给各个调用方复用。
+
+            除此之外，我们希望生成幂等号的算法尽可能的简单，不依赖其他外部系统。
+
+                - UUID
+
+        2、直接由调用方生成 ❌
+
+
+    2、幂等号的存储、查询和删除
+
+        Redis
+            -> SETNX
+
+
+
+
+    // 代码目录结构
+    com.xzg.cd.idempotence
+     - Idempotence
+     - IdempotenceIdGenerator（幂等号生成类）
+     - IdempotenceStorage（接口：用来读写幂等号）
+     - RedisClusterIdempotenceStorage（IdempotenceStorage的实现类）
+
+
