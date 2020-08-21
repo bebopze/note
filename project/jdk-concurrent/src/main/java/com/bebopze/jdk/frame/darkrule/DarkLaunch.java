@@ -12,6 +12,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 灰度发布
+ *
  * @author bebopze
  * @date 2020/8/17
  */

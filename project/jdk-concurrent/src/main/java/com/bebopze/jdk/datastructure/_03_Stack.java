@@ -9,6 +9,9 @@ package com.bebopze.jdk.datastructure;
 public class _03_Stack {
 
 
+    // 先进后出     后进先出
+
+
     // 时间复杂度：
     //      O(1)
 
@@ -92,16 +95,22 @@ class ArrayStack<T> implements IStack<T> {
 
     // 数组
     private Object[] items;
-    // 栈中元素个数
-    private int count;
-    //栈的大小
+
+    // 栈的大小
     private int n;
 
+    // 栈中元素个数
+    private int count;
 
-    // 初始化数组，申请一个大小为n的数组空间
-    public ArrayStack(int n) {
-        this.items = new Object[n];
-        this.n = n;
+
+    /**
+     * 初始化数组，申请一个大小为 capacity 的数组空间
+     *
+     * @param capacity
+     */
+    public ArrayStack(int capacity) {
+        this.items = new Object[capacity];
+        this.n = capacity;
         this.count = 0;
     }
 
