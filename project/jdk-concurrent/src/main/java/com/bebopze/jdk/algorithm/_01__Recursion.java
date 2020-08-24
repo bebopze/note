@@ -1,12 +1,12 @@
-package com.bebopze.jdk.datastructure;
+package com.bebopze.jdk.algorithm;
 
 /**
- * 5、递归
+ * 1、递归
  *
  * @author bebopze
  * @date 2020/8/21
  */
-public class _05__Recursion {
+public class _01__Recursion {
 
 
     public static void main(String[] args) {
