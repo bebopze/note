@@ -12,6 +12,6 @@
 
 **[script](https://gitee.com/bebopze/note/tree/master/script)**：Linux、vim、自动化脚本、Jenkins脚本、git命令
 
-**[text](https://gitee.com/bebopze/note/tree/master/text)**：文本笔记、市场、时政、随笔
+**[text](https://gitee.com/bebopze/note/tree/master/text)**：文本笔记、市场、时政、真实世界、随笔
 
 **[便签](https://gitee.com/bebopze/note/tree/master/便签)**：便签
