@@ -35,7 +35,31 @@
     本地 服务发现 机制          -> 基本 本地配置文件
 
 
-6、
+6、enum
+
+    语法糖                                 - https://blog.csdn.net/weixin_33834137/article/details/93866226
 
 
+    class IEnum {
+        PASS(1, "通过"),
+        BACK(1, "打回");
+
+        private int type;
+        private String desc;
+    }
+
+    class final IEnum extend Enum {
+        public static final IEnum PASS;
+        public static final IEnum BACK;
+
+        private final int type;
+        private final String desc;
+
+        IEnum[] values();
+
+        ...
+    }
+
+
+7、
 
