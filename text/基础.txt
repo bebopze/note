@@ -1,0 +1,161 @@
+1、Collection
+
+    List    //  有序（存取 顺序一致）
+
+            ArrayList              数组
+
+            LinkedList             链表
+
+            Vector                 数组                           synchronized
+
+
+    Set     // 无序 + 去重
+
+
+            HashSet                散列表（HashMap）
+
+            TreeSet                红黑树（TreeMap）
+
+
+    Map     // 无序 + 去重
+
+
+            HashMap                散列表 + 链表/红黑树
+
+            TreeMap                红黑树
+
+            Hashtable              散列表 + 链表                   synchronized
+
+
+    Queue   // 有序 -> 先进先出
+
+        ArrayBlockingQueue          数组（有界）
+
+        LinkedBlockingQueue         链表（无界）
+
+        PriorityBlockingQueue       数组（无界 优先队列）
+
+
+2、equals 和 hashcode
+
+    1、相等（相同）的对象 必须具有相等的哈希码（或者散列码）
+
+    2、如果两个对象的hashCode相同，它们并不一定相同
+
+
+    equals()
+
+        this == obj                地址值
+
+
+    hashcode()
+
+        作用于 散列表     确定在散列表中的索引位
+
+        一般作用于引用类型 的比较时
+            重写equals()      +       自定义重写hashcode()（成员变量值 相加）
+
+
+3、并发
+
+    分工
+        拆解任务 -> 并分配给线程          // 串行 -> 并行
+
+    同步
+        线程协作                        // 任务依赖 -> 线程通信
+
+    互斥
+        共享资源 竞争                   // 同一时刻 只允许 一个线程 访问
+
+
+
+4、分工                    // 任务拆分         串行 -> 并行
+
+    Fork/Join
+
+    线程池
+
+
+5、同步                    // 线程通信
+
+    CountDownLatch        ->    AQS
+
+    CyclicBarrier
+
+
+6、互斥                    // 锁（同步器）
+
+    synchronized                                阻塞 / 无超时 / 不可中断                      管程模型
+
+            wait()
+
+            notify()
+
+            notifyAll()
+
+
+    Lock                                                                                    管程模型
+
+        lock()                                  阻塞
+
+        tryLock()                               非阻塞
+
+        tryLock(long time, TimeUnit unit)       超时
+
+        lockInterruptibly()                     可中断
+
+
+
+        Condition newCondition();
+
+            await()
+
+            signal()
+
+            signalAll()
+
+
+
+        ReentrantLock                          ->    AQS
+
+        ReentrantReadWriteLock
+
+            ->    StampedLock（1.8 读写锁  乐观读[无锁]）
+
+
+
+    Semaphore                   信号量模型
+
+                                               ->    AQS
+
+
+        没对外暴露 Condition
+
+
+
+
+
+
+
+
+
+7、并发容器/原子类
+
+
+    有锁
+
+        Concurrent
+
+    无锁
+
+        Atomic
+
+
+
+8、
+
+
+
+
+
+
