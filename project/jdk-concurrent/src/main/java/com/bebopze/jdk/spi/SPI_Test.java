@@ -23,6 +23,7 @@ public class SPI_Test {
 
 
     //  实现：
+    //      基于本地配置文件
     //      它通过在ClassPath路径下的META-INF/services文件夹查找文件，自动加载文件里所定义的类
 
 
