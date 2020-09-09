@@ -4,12 +4,12 @@ import lombok.Builder;
 import lombok.ToString;
 
 /**
- * Java内存模型                 Happen-Before 规则     ====>   可见性❗️❗️❗️
+ * Java内存模型                 Happens-Before 规则     ====>   可见性❗️❗️❗️
  *
  * @author bebopze
  * @date 2020/9/9
  */
-public class HappenBefore {
+public class HappensBefore {
 
 
     // 本质：
