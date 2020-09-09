@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.ToString;
 
 /**
- * Java内存模型                 Happen-Before 规则
+ * Java内存模型                 Happen-Before 规则     ====>   可见性❗️❗️❗️
  *
  * @author bebopze
  * @date 2020/9/9
@@ -12,10 +12,17 @@ import lombok.ToString;
 public class HappenBefore {
 
 
+    // 本质：
+    //      Happens-Before 规则 关注的是 可见性❗️❗️❗️
+
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+
     public static void main(String[] args) throws InterruptedException {
 
 
-        // 顺序（同一线程）
+        // 顺序（同一线程）     结果一定  ==  顺序方式 推演的结果
         test__order();
 
 
