@@ -48,7 +48,7 @@
         private String desc;
     }
 
-    class final IEnum extend Enum {
+    final class IEnum extend Enum {
         public static final IEnum PASS;
         public static final IEnum BACK;
 
