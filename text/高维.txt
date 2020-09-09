@@ -17,12 +17,28 @@
 
             这句话 几乎概括了 计算机 系统软件 体系结构 的 设计要点
 
+
             整个 体系结构 从上到下都是按照 严格的层次结构 设计的
                 不仅是 计算机 系统软件，整个体系都是这样的，
                 体系里面的每个组件 比如OS本身，很多应用程序、软件系统、甚至很多硬件结构，都是按照这种层次的结构组织和设计的。
 
-                系统软件体系结构中，各种软件的位置
-                    ...
+
+                系统软件 体系结构 中，各种软件 的 位置
+
+                    Applications（应用） :              |       Development Tools（开发工具） :
+                        Web Browser                    |            C / C++ Compiler
+                        Video Player                   |            Assembler
+                        Word Processor                 |           Library Tools
+                        Email Client                   |            Debug Tools
+                        Image Viewer                   |         Development Libraries
+
+                                                Runtime Library（运行库）        -->  操作系统 API
+
+                                        Operating System Kernel（操作系统内核）   -->  系统调用 API
+
+                                                Hardware（硬件）                 -->  硬件规范 API
+
+
 
             每个层次之间都需要相互通信，既然需要通信就必须有一个通信的协议，我们一般将其称为接口（Interface）
                 接口的下面那层是接口的提供者，由它定义接口
