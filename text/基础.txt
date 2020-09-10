@@ -244,6 +244,14 @@ java 基础，jdk 中常用集合源码,线程池,aqs 等 concurrent 工具类
 
             6、线程 join() 规则      // 顺序、可见
 
+            7、中断法则
+
+                一个线程调用另一个线程的interrupt()  happens-before  于  被中断的线程 发现中断
+
+            8、终结法则
+
+                一个对象的 构造函数的结束  happens-before  于  这个对象 finalize()的开始
+
 
         final
 
@@ -261,6 +269,80 @@ java 基础，jdk 中常用集合源码,线程池,aqs 等 concurrent 工具类
         实现：
             JVM内部实现   - JVM编程人员实现
 
+                内存屏障                            // 隔离（无法 重排） 、 禁用缓存（可见）
+                    Load  Barrier  读 屏障
+                    Store Barrier  写 屏障
+
+
+                内存屏障的两个作用：
+
+                    1、阻止屏障两侧的指令重排序              // 隔离（禁止 重排）
+
+                    2、写的时候，强制把 缓冲区/高速缓存中的数据 写回 主内存，并让 缓冲中的数据 失效；读的时候 直接从 主内存 中读取        // 禁用缓存（可见）
+
+                        对于Load  Barrier来说
+                            在指令前插入Load  Barrier，可以让 高速缓存中的数据 失效，强制重新从 主内存 加载数据
+
+                        对于Store Barrier来说
+                            在指令后插入Store Barrier，可以让 写入缓存中的最新数据 更新写入 主内存，让 其他线程 可见
+
+
+                Java的内存屏障 通常所谓的四种：
+
+                    LoadLoad、StoreStore、LoadStore、StoreLoad     // 实际上也是 上述两种的 组合，完成一系列的 屏障 和 数据同步 功能
+
+
+                    LoadLoad 屏障：
+
+                        对于这样的语句
+                            Load1; LoadLoad; Load2;
+
+                            在 Load2 及 后续读取操作 要读取的数据被访问前，保证 Load1要读取的数据 被 读取完毕
+
+                    StoreStore 屏障：
+
+                        对于这样的语句
+                            Store1; StoreStore; Store2;
+
+                            在 Store2 及 后续写入操作 执行前，保证 Store1的写入操作 对 其它处理器 可见
+
+                    LoadStore 屏障：
+
+                        对于这样的语句
+                            Load1; LoadStore; Store2;
+
+                            在 Store2 及 后续写入操作 被刷出前，保证 Load1要读取的数据 被 读取完毕
+
+                    StoreLoad 屏障：                       // 万能屏障、开销也最大
+
+                        对于这样的语句
+                            Store1; StoreLoad; Load2;
+
+                            在 Load2 及 后续所有读取 操作执行前，保证 Store1的写入 对 所有处理器 可见
+
+                            它的 开销 是四种屏障中 最大的
+
+                            在大多数处理器的实现中，这个屏障是个 万能屏障，兼具 其它三种内存屏障 的功能
+
+
+                volatile 与 内存屏障
+
+                    在每个 volatile 写操作前 插入 StoreStore屏障，在 写操作后 插入 StoreLoad屏障
+
+                    在每个 volatile 读操作前 插入 LoadLoad屏障，  在 读操作后 插入 LoadStore屏障
+
+                    所以 volatile 防止了指令的重排序(保证有序性) 和 内存的一致性(保证可见性)
+
+
+                - 当然用 synchronized 或者 Lock 给代码加锁，也是可以保证 有序性 与 可见性 的
+
+                    synchronized 释放锁/获取锁 语义  同 volatile
+
+                    Lock 语义 同 synchronized
+
+                        - 实现 依赖 volatile
+
+
             ----------------------------
             Java内存模型底层怎么实现的？
 
@@ -271,18 +353,18 @@ java 基础，jdk 中常用集合源码,线程池,aqs 等 concurrent 工具类
                     将这些 内存屏障 替换成 具体的 CPU 指令
 
 
-                对于编译器而言：
+                对于 编译器 而言：
 
-                    内存屏障将限制它所能做的重排序优化
+                    内存屏障 将限制 它所能做的 重排序 优化
 
-                而对于处理器而言：
+                而对于 处理器 而言：
 
-                    内存屏障将会导致缓存的刷新操作
+                    内存屏障 将会导致 缓存的刷新 操作
 
 
                 比如，对于volatile：
 
-                    编译器将在volatile字段的读写操作前后各插入一些内存屏障
+                    编译器 将在volatile字段的 读写操作 前后 各插入一些 内存屏障
 
 
 
