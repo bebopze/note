@@ -25,6 +25,7 @@ public class PreventDeadlock {
 
 
         test_Semaphore();
+        test_Semaphore_();
 
         test_StampedLock();
 
@@ -124,10 +125,81 @@ public class PreventDeadlock {
 
     }
 
+
     static void test_Semaphore() throws InterruptedException {
+
+        Semaphore_Pool semaphore_pool = new Semaphore_Pool();
+
+
+        Object item = semaphore_pool.getItem();
+
+        semaphore_pool.putItem(1);
+    }
+
+
+    /**
+     * Semaphore   ->   N 个进入临界区                  Lock   ->   1 个进入临界区
+     * Semaphore   ->   唤醒 1 个，不 check             Lock   ->   唤醒 N 个，竞争，且 check 条件是否仍然满足
+     * -                 因无 Condition                              有 Condition
+     */
+    static class Semaphore_Pool {
+
+        private static final int MAX_AVAILABLE = 100;
+
+        // init
+        private final Semaphore available = new Semaphore(MAX_AVAILABLE, true);
+
+        public Object getItem() throws InterruptedException {
+            // down
+            available.acquire();
+            return getNextAvailableItem();
+        }
+
+        public void putItem(Object x) {
+            if (markAsUnused(x)) {
+                // up
+                available.release();
+            }
+        }
+
+        // Not a particularly efficient data structure; just for demo
+
+        protected Object[] items = null; //... whatever kinds of items being managed
+        protected boolean[] used = new boolean[MAX_AVAILABLE];
+
+        protected synchronized Object getNextAvailableItem() {
+            for (int i = 0; i < MAX_AVAILABLE; ++i) {
+                if (!used[i]) {
+                    used[i] = true;
+                    return items[i];
+                }
+            }
+            return null; // not reached
+        }
+
+        protected synchronized boolean markAsUnused(Object item) {
+            for (int i = 0; i < MAX_AVAILABLE; ++i) {
+                if (item == items[i]) {
+                    if (used[i]) {
+                        used[i] = false;
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            return false;
+        }
+    }
+
+
+    static void test_Semaphore_() throws InterruptedException {
 
         // Semaphore -> N        Lock -> 1
         Semaphore semaphore = new Semaphore(5, false);
+
+        semaphore.tryAcquire(1);
+        semaphore.release();
 
         ObjPool<Integer, Integer> objPool = new ObjPool<>(10, 12345);
 
