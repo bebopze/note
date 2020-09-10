@@ -85,10 +85,27 @@
     1、Dubbo 这样的 RPC 接口
     2、Spring Cloud 这样的 HTTP 接口
 
-9、
+
+9、BeanUtils.copyProperties
+
+    org.springframework.beans
+
+        BeanUtils.copyProperties(source, target);
+
+        // 浅拷贝                  - source 中包含 引用对象 的 慎用！！！
+
+            基本类型 -> 值拷贝
+
+            引用类型 -> 地址值拷贝
 
 
+    org.apache.commons.beanutils.BeanUtils
 
+        BeanUtils.copyProperties(target, source);
+
+        // 浅拷贝          同上
+
+            且 Date、BigDecimal 转换异常
 
 
 
