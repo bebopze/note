@@ -19,7 +19,7 @@ public class HappensBefore {
     // -----------------------------------------------------------------------------------------------------------------
 
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws Throwable {
 
 
         // 顺序（同一线程）     结果一定  ==  顺序方式 推演的结果
@@ -40,6 +40,13 @@ public class HappensBefore {
         test__start();
 
         test__join();
+
+
+        // 中断法则                 一个线程调用另一个线程的interrupt  happens-before  于  被中断的线程 发现中断
+        test__interrupt();
+
+        // 终结法则                 一个对象的 构造函数的结束  happens-before  于  这个对象 finalize的开始
+        test__finalize();
     }
 
 
@@ -174,6 +181,56 @@ public class HappensBefore {
         thread_B.join();
 
         System.out.println(Thread.currentThread().getName() + "-----------" + p);
+
+
+        System.out.println("-----------------------------------------------");
+    }
+
+
+    private static void test__interrupt() {
+
+
+        // 子线程
+        Thread thread_C = new Thread("Thread-CC-1") {
+
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName());
+
+                boolean isInterrupted = Thread.currentThread().isInterrupted();
+                System.out.println(Thread.currentThread().getName() + "  isInterrupted ----------- " + isInterrupted);
+
+                while (!isInterrupted) {
+                    isInterrupted = Thread.currentThread().isInterrupted();
+                }
+                System.out.println(Thread.currentThread().getName() + "  isInterrupted ----------- " + isInterrupted);
+            }
+        };
+
+
+        // 主线程
+        Thread.currentThread().setName("Thread-AA-1");
+
+
+        thread_C.start();
+
+        thread_C.interrupt();
+        System.out.println(Thread.currentThread().getName() + " interrupt ----------- " + thread_C.getName());
+
+
+        System.out.println("-----------------------------------------------");
+    }
+
+
+    private static void test__finalize() throws Throwable {
+
+
+        Person p = new Person(18, 180);
+
+        p.finalize();
+
+
+        System.out.println("-----------------------------------------------");
     }
 }
 
@@ -185,4 +242,10 @@ class Person {
     int age;
 
     volatile int height;
+
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+    }
 }
