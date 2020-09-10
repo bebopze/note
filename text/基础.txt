@@ -269,7 +269,7 @@ java 基础，jdk 中常用集合源码,线程池,aqs 等 concurrent 工具类
         实现：
             JVM内部实现   - JVM编程人员实现
 
-                内存屏障                            // 隔离（无法 重排） 、 禁用缓存（可见）
+                内存屏障                            // 隔离（无法 重排） 、 禁用缓存（可见）                 - https://baijiahao.baidu.com/s?id=1667840029586081215
                     Load  Barrier  读 屏障
                     Store Barrier  写 屏障
 
@@ -374,7 +374,7 @@ java 基础，jdk 中常用集合源码,线程池,aqs 等 concurrent 工具类
 
             按需 禁用 "线程切换"
 
-                非真正的 禁用 "线程切换"，CPU 在 单位时间片 后 依然会做 线程切换，
+                非真正的 禁用 "线程切换"，CPU 在 单位时间片 后 依然会做 线程切换
 
                 只是切换时，锁 不会释放，其他线程拿到了CPU使用权，然后获取不到锁，就进不来临界区，继续被挂起
 
@@ -386,15 +386,66 @@ java 基础，jdk 中常用集合源码,线程池,aqs 等 concurrent 工具类
             synchronized、Lock
 
 
+            1、synchronized                                        - https://www.jianshu.com/p/e2054351bd95
+
+                可以保证 方法或者代码块 在运行时，同一时刻 只有一个方法 可以进入到 临界区，同时它还可以保证 共享变量的内存可见性
+
+                偏向锁、轻量级锁、重量级锁 的 加锁、解锁、锁升级
+
+
+                加锁、解锁：
+                    monitorenter 和 monitorexit指令
+
+
+
+                重量级锁
+
+                    传统的锁机制（JDK 1.6 之前）
+
+                        传统的锁（重量级锁）依赖于系统的同步函数，在linux上使用mutex互斥锁，最底层实现依赖于futex
+                        这些同步函数都涉及到用户态和内核态的切换、进程的上下文切换，成本较高
+                        对于 加了synchronized关键字 但运行时 并没有 多线程竞争，或 两个线程 接近于 交替执行 的情况，使用 传统锁机制 无疑 效率是会比较低的
+
+
+                偏向锁 和 轻量级锁（JDK 1.6 引入）
+
+                    它们的引入是为了解决
+
+                        在没有多线程竞争 或 基本没有竞争  的场景下，因使用 传统锁机制 带来的 性能开销问题
+
+
+                对象头
+
+                    实现多种锁机制的基础
+
+
+                    对象 与 对应的锁信息 映射（当前哪个线程持有锁，哪些线程在等待）：
+
+                        1、全局map
+                            线程安全     ->  性能
+                            加锁对象多时  ->  内存
+
+                        2、对象头
+
+
+
+            2、Lock
+
+                功能：
+                    阻塞、非阻塞、可中断、可超时
+
+                实现：
+                    AQS
+                        volatile、传递性、happens-before、CAS
+
 
 
 
 
 
 ------------------------------------------------------------
-编程模型、并发工具
+并发模型
 ------------------------------------------------------------
-
 
 
 1、并发编程 核心
@@ -412,7 +463,9 @@ java 基础，jdk 中常用集合源码,线程池,aqs 等 concurrent 工具类
 
 
         分工工具：
-            线程池、Fork/Join
+
+            线程池、Fork/Join、Future、CompletableFuture、CompletionService
+
 
     同步
 
@@ -424,6 +477,7 @@ java 基础，jdk 中常用集合源码,线程池,aqs 等 concurrent 工具类
             synchronized                    ->  wait()、notify()、notifyAll()
             Lock - Condition                ->  await()、signal()、signalAll()
 
+
     互斥
 
         共享资源 竞争                   // 同一时刻 只允许 一个线程 访问
@@ -434,17 +488,284 @@ java 基础，jdk 中常用集合源码,线程池,aqs 等 concurrent 工具类
 
 
 
+------------------------------------------------------------
+分工 工具  -  线程池
+------------------------------------------------------------
 
-4、分工                    // 任务拆分         串行 -> 并行
+1、线程池                           // 分工 、 生产(submit 任务提交方) + 消费(线程池 自身)
+
+    ThreadPoolExecutor
+
+        int corePoolSize                        表示线程池保有的最小线程数
+
+        int maximumPoolSize                     表示线程池创建的最大线程数
+
+        long keepAliveTime                      如果一个线程空闲了 keepAliveTime & unit 这么久，
+        TimeUnit unit                           而且线程池的线程数大于 corePoolSize，那么这个空闲的线程就要被回收了
+
+        BlockingQueue<Runnable> workQueue       工作队列
+
+        ThreadFactory threadFactory             通过这个参数你可以自定义如何创建线程，可以给线程指定一个有意义的名字
+
+        RejectedExecutionHandler handler        自定义任务的拒绝策略  // 可自扩展策略
+
+             默认提供的4种策略：
+                 AbortPolicy：         默认策略，直接拒绝，并抛出异常
+                 CallerRunsPolicy：    提交任务的线程自己去执行该任务
+                 DiscardPolicy：       直接丢弃任务，没有任何异常抛出
+                 DiscardOldestPolicy： 丢弃最老的任务，把最早进入工作队列的任务丢弃，然后把新任务加入到工作队列
+
+
+
+2、Future                            // result、阻塞
+
+    功能：
+
+        获取 异步任务 结果
+
+    场景：
+
+        任务之间 有 依赖 关系，可以用 Future 来解决
+
+        ------------------------------------------------------------------------------
+        对于 简单的 并行任务，可以通过 “线程池 + Future” 的方案来解决
+
+            Future 可以很容易获得 异步任务的 执行结果
+
+            任务之间有依赖关系，可以用 Future 来解决
+
+            get 阻塞 获取结果  -->  （类似：Thread.join()、CountDownLatch、阻塞队列...）
+
+    API：
+
+        ThreadPoolExecutor    ->    AbstractExecutorService    ->    ExecutorService    ->    Executor
+
+            void        execute  ->  Runnable
+
+
+            Future      submit   ->  Runnable
+
+            Future      submit   ->  Runnable + Result
+
+            Future      submit   ->  Callable
+
+
+3、FutureTask                        // Future + Runnable
+
+    FutureTask      ->      Future , Runnable
+
+
+4、CompletableFuture                 // JDK 1.8    异步编程
+
+    功能：
+        异步编程、链式操作
+
+    场景：
+        并行、串行、      聚合关系   ->   AND 、OR
+
+    语义：
+        runAsync()      // 异步运行
+        supplyAsync()   // 提供异步
+        thenCombine()   // 然后合并
+
+    异步编程：
+        RxJava、Flow（Java 9）
+
+
+5、CompletionService                 // 线程池 + Future结果 队列
+
+    功能：
+
+        将 线程池 Executor  和  阻塞队列 BlockingQueue  的 功能融合在了一起
+
+            让 批量异步任务 的 管理 更简单
+
+            CompletionService 能够让 异步任务的执行 结果 有序化，先执行完的 先进入 阻塞队列
+
+    场景：
+
+        批量的 并行任务
+
+    实现：
+
+        ExecutorCompletionService
+
+            ExecutorCompletionService(Executor executor, BlockingQueue<Future<V>> completionQueue);
+
+                Executor                        任务执行 线程池
+
+                BlockingQueue<Future<V>>        任务执行 结果Future 存储队列
+
+
+                执行顺序：
+
+                    submit          ->  提交task
+
+                    Executor        ->  线程池 后台异步 自动执行任务
+
+                    BlockingQueue<Future<V>>    ->  任务结果Future对象 存储到 completionQueue 队列
+
+                    take/poll                   ->  从 结果队列 取 Future对象   ->  Future.get() 结果
+
+
+
+6、Fork/Join
+
+    功能：
+
+        单机版 的 MapReduce
+
+        Fork/Join 并行计算框架 主要解决的是 分治任务
+
+            分治 的核心思想是 “分而治之”：
+
+                将一个 大的任务 拆分成 小的子任务 去解决，然后再把 子任务的结果 聚合起来，从而得到 最终结果
+
+
+            核心组件 ForkJoinPool
+
+                支持 任务窃取 机制
+
+                能够让 所有线程的 工作量基本均衡，不会出现 有的线程很忙、而有的线程很闲 的状况
+
+                所以 性能很好
+
+    场景：
+
+        分治任务
+
+
+    分治任务模型：
+
+        1、任务分解
+            将 任务 迭代地分解为 子任务，直至 子任务 可以 直接计算出结果
+
+        2、结果合并
+            逐层合并 子任务的 执行结果，直至 获得 最终结果
+
+    使用：
+
+        Fork/Join 是一个 并行计算 的框架，主要就是用来支持 分治任务模型
+
+            Fork    ->   任务分解
+            Join    ->   结果合并
+
+            Fork/Join 计算框架主要包含两部分：
+
+                分治任务的线程池     ForkJoinPool
+                分治任务            ForkJoinTask
+
+                    类似于 ThreadPoolExecutor 和 Runnable 的关系
+
+                    都可以理解为 提交任务 到 线程池，只不过 分治任务 有自己独特类型 ForkJoinTask
+
+    API：
+
+        ForkJoinTask 是一个抽象类，它的方法有很多，最核心的是：fork() 和 join()
+
+        fork
+            异步地 执行 一个子任务
+
+        join
+            阻塞 当前线程 来 等待子任务的 执行结果
+
+
+        ForkJoinTask 有两个子类：
+
+            RecursiveAction 和 RecursiveTask        --> recursive：递归
+
+
+            通过名字你就应该能知道，它们都是用 递归 的方式 来处理分治任务
+
+            这两个子类都定义了抽象方法 compute()，不过区别是：
+
+                RecursiveAction 定义的 compute() 没有 返回值
+                RecursiveTask   定义的 compute() 有   返回值
+
+                这两个子类也是抽象类，在使用的时候，需要你定义子类去扩展。
+
+
+    ForkJoinPool 工作原理：
+
+        Fork/Join 并行计算 的核心组件是：ForkJoinPool
+
+
+
+        对比：
+
+            1、生产者 - 消费者
+
+                ThreadPoolExecutor
+
+                    本质上是一个 生产者 - 消费者模式 的实现
+
+                    内部有 一个任务队列，这个任务队列 是 生产者和消费者 通信的媒介
+
+                    ThreadPoolExecutor 可以有 多个工作线程，但是 这些工作线程 都共享 一个任务队列
+
+                ForkJoinPool
+
+                    本质上也是一个 生产者 - 消费者 的实现， 但是 更加智能
+
+
+            2、队列
+
+                ThreadPoolExecutor  内部  只有一个  任务队列
+                ForkJoinPool        内部  有多个    任务队列
+
+
+            3、extends AbstractExecutorService
+
+                ThreadPoolExecutor  extends AbstractExecutorService
+                ForkJoinPool        extends AbstractExecutorService
+
+
+
+        执行：
+
+            当我们通过 ForkJoinPool 的 invoke() 或 submit()  提交任务
+
+            ForkJoinPool 根据一定的 路由规则 把 任务 提交到 一个任务队列
+
+            如果 任务 在 执行过程中 会创建出 子任务，那么 子任务 会 提交到 工作线程 对应的 任务队列中
+
+
+        任务窃取 机制：
+
+           如果工作线程对应的任务队列空了，是不是就没活儿干了呢？
+
+           不是的，ForkJoinPool 支持一种叫做 “任务窃取” 的机制
+
+           如果工作线程空闲了，那它可以 “窃取” 其他工作任务队列里的任务
+
+           线程T2 对应的 任务队列空了，它可以 “窃取” 线程T1 对应的 任务队列 的任务
+
+           如此一来，所有的工作线程都不会闲下来了
+
+
+        双端 任务队列：
+
+           ForkJoinPool 中的 任务队列 采用的是 双端队列
+
+           工作线程正常 获取任务 和 “窃取任务” 分别是从 任务队列 不同的端 消费
+
+           这样能 避免 很多不必要的 数据竞争
+
+
+------------------------------------------------------------------------------------------------------------
+同步/互斥 工具  -  JUC 高级 并发工具         -> 经过高度封装       Lock/...  ->  AQS  ->  final + volatile + CAS
+------------------------------------------------------------------------------------------------------------
+
+1、分工                    // 任务拆分         串行 -> 并行
 
     Fork/Join
 
     线程池
 
 
-5、同步                    // 线程通信
+2、同步                    // 线程通信
 
-    CountDownLatch        ->    AQS
+    CountDownLatch        ->    AQS    ->  final + volatile + CAS
 
     CyclicBarrier         ->    ReentrantLock -> AQS
 
@@ -452,7 +773,7 @@ java 基础，jdk 中常用集合源码,线程池,aqs 等 concurrent 工具类
     Condition
 
 
-6、互斥                    // 锁
+3、互斥                    // 锁
 
     synchronized        - 互斥                 阻塞 / 无超时 / 不可中断                      管程模型
 
@@ -502,19 +823,170 @@ java 基础，jdk 中常用集合源码,线程池,aqs 等 concurrent 工具类
         没对外暴露 Condition
 
 
+        信号量模型：
+
+            红绿灯
+
+
+            信号量 可以实现的 独特功能
+
+                同时允许 多个线程 进入临界区
+
+            信号量 只能
+
+                唤醒一个 阻塞中的线程            // 无Condition，无法同时 唤醒多个 线程去争抢锁
+
+
+            信号量模型 没有 Condition 的概念
+
+                即 阻塞线程 被唤醒了 直接就运行了，而 不会去检查 此时 临界条件 是否已经不满足了
+
+                基于此考虑 信号量模型 才会设计出 只能让一个线程被唤醒，否则就会出现 因缺少Condition检查 而带来的 线程安全问题
+
+                正因为 缺失了Condition，所以 用信号量来实现阻塞队列 就很麻烦，因为 要自己实现类似Condition 的逻辑
 
 
 
-7、并发容器/原子类
+
+------------------------------------------------------------
+并发容器、原子类
+------------------------------------------------------------
+
+1、并发容器/原子类              // JUC工具 的 基石
 
 
+    上述 JUC 高级并发工具 的底层实现 依赖于：
+
+        -> 并发容器、原子类
+
+
+    1、并发容器：             // 有锁 工具    ->  依然有锁，只是依靠 空间换时间  --> 减小 锁粒度，并未 消除锁   -->  减小 竞争 程度
+
+                            // 也有部分是 无锁 工具   ->  未用到 Lock，直接基于 最底层 CAS 实现
+
+        1、同步容器：
+
+            JDK 1.5 之前 - 基于 synchronized 的 同步容器：
+
+                Collections.synchronizedList、Collections.synchronizedMap、Collections.synchronizedSet ...
+
+                Vector、Stack、Hashtable
+
+
+        2、并发容器：         // final + volatile + CAS
+
+            List
+                CopyOnWriteArrayList                        - Lock      ->  final + volatile + CAS
+
+            Map
+                ConcurrentHashMap                           - Lock / synchronized + CAS
+
+                ConcurrentSkipListMap                       - final + volatile + CAS
+
+            Set
+                CopyOnWriteArraySet                         - Lock                          -> CopyOnWriteArrayList
+
+
+                ConcurrentSkipListSet                       - final + volatile + CAS        -> ConcurrentSkipListMap
+
+            Queue/Deque
+
+                ArrayBlockingQueue、LinkedBlockingQueue      - Lock + Condition
+                ConcurrentLinkedQueue                        - final + volatile + CAS
+
+                LinkedBlockingDeque                          - Lock + Condition
+                ConcurrentLinkedDeque                        - final + volatile + CAS
+
+
+            Fail-Fast：
+
+                Java容器 的 快速失败机制（Fail-Fast）
+
+
+    2、原子类           // 无锁工具     ->  硬件支持  -->  CPU 提供了 CAS指令（语义：比较 并 交换） -->  单条CPU指令（完成 比较并交换） ->  原子性
+
+        无锁 VS 有锁：
+
+
+            互斥锁方案
+
+                为了保证互斥性，需要执行加锁、解锁操作，而加锁、解锁操作本身就消耗性能；
+
+                同时拿不到锁的线程还会进入阻塞状态，进而触发线程切换，线程切换对性能的消耗也很大。
+
+            无锁方案
+
+                相比之下，无锁方案 则完全没有 加锁、解锁的性能消耗，同时 还能保证 互斥性
+
+                既解决了问题，又没有带来新的问题，可谓绝佳方案（怎么可能有完美方案呢....  自旋等待[饥饿、活锁]、ABA问题）
+
+
+
+        无锁方案 的 实现原理：
+
+            硬件支持
+
+            基于 CAS 指令，实现 原子类 容器
+
+            ------------------------------------------------------------------------------------------------
+            CPU 为了解决并发问题，提供了 CAS 指令（CAS，全称是 Compare And Swap，即“比较并交换”）
+
+                CAS 指令 包含 3 个参数：
+
+                    共享变量的 内存地址A、用于 比较的值B 、共享变量的 新值C
+
+                  【CAS语义】  ====>  只有当 内存中地址A处 的值 等于 B 时，才能将 内存中地址A处的 值 更新为 新值C
+
+           【作为 一条CPU指令】，CAS指令 本身 是能够保证 原子性 的
+
+            ------------------------------------------------------
+            -> 利用 CAS，我们也可以自己实现一个 无锁原子类 数据结构.
+
+
+        用法：
+
+            CAS + 自旋（循环尝试）
+
+
+        新问题：
+
+            饥饿、活锁：
+
+                自旋 会 反复重试
+
+            ABA：
+                版本号
+
+
+        场景：
+
+            一个 共享变量      ->  原子类                - 简单 场景
+
+
+            多个 共享变量      ->  互斥锁                - 复杂 场景
+
+            --------------------------------------------------------------
+            Java 提供的 原子类 能够解决一些 简单的 原子性问题，
+
+            但你可能会发现，上面我们 所有原子类的方法 都是针对 一个共享变量 的，
+
+            如果你需要解决 多个变量 的 原子性问题，建议还是使用 互斥锁方案。
+
+            原子类虽好，但使用要慎之又慎。
+
+
+
+
+    ------------------------------------
     有锁
 
-        ConcurrentHashMap
+        Concurrent
 
     无锁
 
         Atomic
+
+
 
 
 
