@@ -637,20 +637,23 @@ java 基础，jdk 中常用集合源码,线程池,aqs 等 concurrent 工具类
 
     分治任务模型：
 
-        1、任务分解
-            将 任务 迭代地分解为 子任务，直至 子任务 可以 直接计算出结果
+        1、模型：
+            1、任务分解
+                将 任务 迭代地分解为 子任务，直至 子任务 可以 直接计算出结果
 
-        2、结果合并
-            逐层合并 子任务的 执行结果，直至 获得 最终结果
+            2、结果合并
+                逐层合并 子任务的 执行结果，直至 获得 最终结果
 
-    使用：
+        2、模型实现：
 
-        Fork/Join 是一个 并行计算 的框架，主要就是用来支持 分治任务模型
+            Fork/Join 是一个 并行计算 的框架，主要就是用来支持
 
-            Fork    ->   任务分解
-            Join    ->   结果合并
+                分治任务模型
 
-            Fork/Join 计算框架主要包含两部分：
+                    Fork    ->   任务分解       ->      将 任务 迭代地分解为 子任务，直至 子任务 可以 直接计算出结果
+                    Join    ->   结果合并       ->      逐层合并 子任务的 执行结果，直至 获得 最终结果
+
+            Fork/Join 计算框架 主要包含两部分：
 
                 分治任务的线程池     ForkJoinPool
                 分治任务            ForkJoinTask
@@ -659,39 +662,80 @@ java 基础，jdk 中常用集合源码,线程池,aqs 等 concurrent 工具类
 
                     都可以理解为 提交任务 到 线程池，只不过 分治任务 有自己独特类型 ForkJoinTask
 
-    API：
 
-        ForkJoinTask 是一个抽象类，它的方法有很多，最核心的是：fork() 和 join()
+    1、ForkJoinTask：                 // Runnable、Callable、Future
 
-        fork
-            异步地 执行 一个子任务
+        1、本质 —— Task
 
-        join
-            阻塞 当前线程 来 等待子任务的 执行结果
+            包装了 Runnable、Callable
 
-
-        ForkJoinTask 有两个子类：
-
-            RecursiveAction 和 RecursiveTask        --> recursive：递归
+                包装类
+                    AdaptedCallable
+                    AdaptedRunnable
 
 
-            通过名字你就应该能知道，它们都是用 递归 的方式 来处理分治任务
+        2、fork / join
 
-            这两个子类都定义了抽象方法 compute()，不过区别是：
+            fork                        // 异步执行
 
-                RecursiveAction 定义的 compute() 没有 返回值
-                RecursiveTask   定义的 compute() 有   返回值
+                过程：
+                    将 任务(自身) 放到 线程池 的 工作队列
 
-                这两个子类也是抽象类，在使用的时候，需要你定义子类去扩展。
+                    ForkJoinPool.workQueue -> push(this)        // this -> ForkJoinTask
+
+                现象结果：
+                    异步地 执行 一个子任务
+
+                角色：
+                    生产者
 
 
-    ForkJoinPool 工作原理：
+            join                        // 阻塞获取
 
-        Fork/Join 并行计算 的核心组件是：ForkJoinPool
+                阻塞 当前线程    -->    等待 子任务的 执行结果
 
 
+        3、Future                    // 吸收了 Future     -->  获取异步任务结果
 
-        对比：
+            ForkJoinTask implements Future
+
+                目的：
+                    吸收 Future 获取异步任务结果 的能力
+
+
+        4、分治实现                   // 递归
+
+            底层实现：
+
+                递归
+
+            ForkJoinTask 有两个 抽象子类：
+
+                RecursiveAction 和 RecursiveTask        --> recursive：递归
+
+                通过名字你就应该能知道，它们都是用 递归 的方式来处理 分治任务
+
+
+                这两个子类都定义了 抽象方法 compute()，不过区别是：
+
+                    RecursiveAction     void compute()          ->  无 返回值
+                    RecursiveTask       V    compute()          ->  有 返回值
+
+                        这两个子类也是 抽象类，在使用的时候，需要你定义子类去扩展
+
+
+    2、ForkJoinPool
+
+        本质：             // 线程池 -> 消费者
+            消费者
+
+
+        核心组件：
+
+            Fork/Join 并行计算 的核心组件是：ForkJoinPool
+
+
+        ForkJoinPool  VS  ThreadPoolExecutor：
 
             1、生产者 - 消费者
 
@@ -699,19 +743,16 @@ java 基础，jdk 中常用集合源码,线程池,aqs 等 concurrent 工具类
 
                     本质上是一个 生产者 - 消费者模式 的实现
 
-                    内部有 一个任务队列，这个任务队列 是 生产者和消费者 通信的媒介
-
-                    ThreadPoolExecutor 可以有 多个工作线程，但是 这些工作线程 都共享 一个任务队列
-
                 ForkJoinPool
 
-                    本质上也是一个 生产者 - 消费者 的实现， 但是 更加智能
+                    本质上也是一个 生产者 - 消费者 的实现
 
 
-            2、队列
 
-                ThreadPoolExecutor  内部  只有一个  任务队列
-                ForkJoinPool        内部  有多个    任务队列
+            2、任务队列            // 生产者-消费者 通信的媒介
+
+                ThreadPoolExecutor      一个 任务队列          多个工作线程
+                ForkJoinPool            多个 任务队列          多个工作线程
 
 
             3、extends AbstractExecutorService
@@ -720,27 +761,43 @@ java 基础，jdk 中常用集合源码,线程池,aqs 等 concurrent 工具类
                 ForkJoinPool        extends AbstractExecutorService
 
 
+        API：
+
+            1、直接处理 ForkJoinTask         // externalPush(task)
+
+                T invoke(ForkJoinTask<T> task);                     阻塞       -> task.join()
+
+                ForkJoinTask<T> submit(ForkJoinTask<T> task);       异步
+
+
+            2、间接处理 ForkJoinTask         // r/c -> adapt -> task  ===>  externalPush(task)
+
+                Runnable、Callable   -->  AdaptedRunnable、AdaptedCallable   -->  ForkJoinTask   -->  externalPush(task)
+
+
 
         执行：
 
-            当我们通过 ForkJoinPool 的 invoke() 或 submit()  提交任务
+            invoke(task) / submit(task)
 
-            ForkJoinPool 根据一定的 路由规则 把 任务 提交到 一个任务队列
+            -->  externalPush(task)     ->  路由  -> workQueues[i]  -> workQueue
 
-            如果 任务 在 执行过程中 会创建出 子任务，那么 子任务 会 提交到 工作线程 对应的 任务队列中
+                ForkJoinPool 根据一定的 路由规则 把 任务 提交到 一个任务队列
+
+                如果任务 在执行过程中 会创建出 子任务
+
+                那么 子任务 会提交到 工作线程对应的 任务队列中       // 子父 同一队列     --> 工作线程 — workQueue  存在绑定 映射关系
 
 
         任务窃取 机制：
 
-           如果工作线程对应的任务队列空了，是不是就没活儿干了呢？
-
-           不是的，ForkJoinPool 支持一种叫做 “任务窃取” 的机制
+           ForkJoinPool 支持一种叫做 “任务窃取” 的机制
 
            如果工作线程空闲了，那它可以 “窃取” 其他工作任务队列里的任务
 
            线程T2 对应的 任务队列空了，它可以 “窃取” 线程T1 对应的 任务队列 的任务
 
-           如此一来，所有的工作线程都不会闲下来了
+           如此一来，所有的工作线程 都不会闲下来了
 
 
         双端 任务队列：
@@ -750,6 +807,25 @@ java 基础，jdk 中常用集合源码,线程池,aqs 等 concurrent 工具类
            工作线程正常 获取任务 和 “窃取任务” 分别是从 任务队列 不同的端 消费
 
            这样能 避免 很多不必要的 数据竞争
+
+
+    应用：
+
+        Java1.8 提供的 Stream 的 并行流 是以 ForkJoinPool 为基础
+
+
+    注意：     // 默认 共享一个ForkJoinPool          -->  各任务 自定义自己的 ForkJoinPool
+
+        默认情况下 所有的并行流计算 都共享一个 ForkJoinPool，这个共享的 ForkJoinPool 默认的线程数是 CPU的核数
+
+        如果所有的并行流计算都是 CPU 密集型计算的话，完全没有问题
+
+        但是如果存在 I/O 密集型 的 并行流计算，那么很可能会因为 一个很慢的 I/O 计算 而 拖慢整个系统的性能
+
+        所以建议用 不同的 ForkJoinPool 执行 不同类型 的 计算任务
+
+
+
 
 
 ------------------------------------------------------------------------------------------------------------
