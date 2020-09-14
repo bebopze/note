@@ -1,0 +1,320 @@
+------------------------------------------------------------
+网络编程 模型       BIO   ->   NIO   ===>   Netty
+------------------------------------------------------------
+
+
+IO源：                                                 - https://zhuanlan.zhihu.com/p/100014103
+
+    所有 IO设备 都是 IO源，包括：
+
+        磁盘、网卡、内存
+
+        由于 内存 的读写很快，所以一般不会成为瓶颈所在
+
+    我们经常说的瓶颈在于：
+
+        磁盘IO        // 对 磁盘 的读写
+
+        网络IO        // 对 网卡 的读写
+
+
+
+BIO 和 NIO 的区别：      // 流 -> buffer  、   阻塞 -> 非阻塞
+
+    1、BIO 是面向   流(字节流/字符流)       NIO  是面向  buffer
+
+    2、BIO 是       阻塞IO                NIO  是      非阻塞IO     // 本质上NIO 还是同步的
+
+
+    正是因为NIO拥有BIO没有的特性，所以它能够提升 性能
+
+
+    上述两点 如何提升了性能
+
+        1、流 VS buffer               // 面向流 比 面向buffer 的 效率更低
+
+            编程语言 对外部设备的 读写操作 实际调用的是：
+
+                操作系统内核的 read/Write接口
+
+            操作系统又有：
+
+                用户空间 和 内核空间
+
+                用户空间 无法直接访问 内核空间，内核空间 也无法直接访问 用户空间
+
+            当我们想把 数据 写入到 文件 中时，实际至少经过两次拷贝：
+
+                1、用户空间内存 到 内核空间内存
+
+                2、内核空间内存 到 文件磁盘（实际不止这两次拷贝）
+
+
+            面向 流 的操作：                // BIO
+
+                每次 只能向文件 写入 一个字节 或 n个字节
+
+                假设每次写 一个字节，那么 100个字节大小的数据 要经历：
+
+                    100次 用户空间到内核空间 的复制，再从 内核空间到文件磁盘 的复制操作
+
+            面向 buffer 的操作：            // NIO
+
+                每次可以 向文件 写入 一个buffer大小 的数据（而不只是 1个或n个 字节）
+
+                这样子，100个字节大小的数据：
+
+                    可以 一次性
+
+                    从用户空间复制到内核空间，再从内核空间复制到文件磁盘
+
+                    显然 节省了 空间复制的 次数，从而 节省时间（空间换时间）
+
+
+                // 有人说，传统的BIO 也有 buffer 的，比如bufferxxx类，但是 传统的 BIO buffer 操作 还是没法和 NIO的buffer 相比
+
+
+
+        2、阻塞 VS 非阻塞
+
+            传统的BIO是阻塞的，经典的体现在socket上
+
+            因为传统socket的阻塞，为了提高server的并发能力，我们会将每个socket放到一个thread中，这样子避免阻塞。
+
+            这样子并发量大的话，会需要同时存在大量的线程。
+
+            然而，服务器的硬件资源显然是有限的，
+
+            如果并发有1w，那么我们需要1w的线程数量，线程占用的内存空间资源，cpu资源，线程切换带来的时间成本，显然是不行的
+
+            基于此，linux对线程数存在着最大数量的限制
+
+
+            这时候，nio出现了：
+
+                它解决了高并发情况下，需要大量创建线程的情况
+
+                由于 操作系统内核 的 多路复用机制（select、poll、epoll 等）
+
+            java 有了 selector、channel
+
+                这样子，一个线程中的 selector，可以 注册多个 channel
+
+                selector 通过轮询 找到 可用的channel，而 不必创建多个线程 来处理 channel
+
+    注意：
+
+        与 Selector 一起使用时，Channel 必须处于 非阻塞模式下
+
+        这意味着不能将 FileChannel 与 Selector 一起使用，因为 FileChannel 不能切换到 非阻塞模式
+
+        而 套接字通道 都可以
+
+
+
+NIO 本质上还是 同步的IO
+
+    // nio本质上还是同步的
+    Selector selector = Selector.open();
+    channel.configureBlocking(false);
+    SelectionKey key = channel.register(selector, SelectionKey.OP_READ);
+
+    // 不断获取就绪的事件，所以是死循环
+    while(true) {
+
+      // 判断是否有就绪的事件
+      int readyChannels = selector.select();
+      if(readyChannels == 0) continue;
+
+      // 获取就绪的事件
+      Set selectedKeys = selector.selectedKeys();
+      Iterator keyIterator = selectedKeys.iterator();
+
+      while(keyIterator.hasNext()) {
+        SelectionKey key = keyIterator.next();
+
+        // 处理对应的事件
+        if(key.isAcceptable()) {
+            // a connection was accepted by a ServerSocketChannel.
+        } else if (key.isConnectable()) {
+            // a connection was established with a remote server.
+        } else if (key.isReadable()) {
+            // a channel is ready for reading
+        } else if (key.isWritable()) {
+            // a channel is ready for writing
+        }
+        keyIterator.remove();
+      }
+    }
+
+
+
+    分析上面的代码，可以看到
+
+        现在 一个线程 可以处理 多个IO
+
+        而不是 传统IO 的那种 一个socket IO 很无奈的只能放在 一个新线程中
+
+        但是某个任一时刻，该线程 只能处理 某个就绪的io事件，所以 并没有利用 cpu多核的能力（多线程）
+
+
+    NIO 本质上还是 同步IO（只不过解耦了）
+
+
+        只不过是用 轮询 替代了 1对1的阻塞等待，
+
+
+        所谓非阻塞：
+
+            未就绪时 -> 不用等待（非阻塞）
+
+
+        真-同步：
+
+            就绪后  ->  read/write  仍旧由  当前Thread  自己执行      // read/write -> 同步方法  ===>  当前线程 同步执行 read/write
+
+            ------------------------------------------------------------------
+            因为只有等到 IO事件 就绪 后，才能执行 相应的 read/write 操作
+
+                read和write操作 还是要等操作系统内核 就绪后 由 当前线程 去执行
+
+            非阻塞 体现在 不阻塞当前线程
+
+                传统io 在等待就绪时 只能阻塞 当前线程，无法干其它事情
+
+            当前线程在 等待 io就绪 的过程中 可以先做其它事情
+
+                通过 selector轮询 来判断是否就绪，什么时候轮询，轮询的间隔多大 就看业务需要了
+
+
+
+        真-异步：       // AIO - 子线程 异步 read/write  -->  Future.get  偷取 劳动果实
+
+                    就绪后  ->  read/write  由  子Thread  执行               // read/write -> 同步方法  ===>  子线程 异步执行 read/write  ->  Future.get
+
+
+
+AIO：
+
+
+
+
+
+
+核心类：
+
+    NioSocketChannel
+
+        doBind、doConnect、doFinishConnect、doDisconnect、doClose...
+
+        read、write
+
+
+
+
+
+模型：
+
+    通信通道 组成：
+
+        I/O（socket）     +       线程
+
+
+    模型 演进：
+
+        BIO + 线程（1-1）    --->    BIO + 线程池（1-1 + 线程复用）       --->    NIO + 线程池（N-1 + IO复用 + 线程复用）
+
+
+    BIO 瓶颈：
+
+        阻塞      ->      等待 I/O就绪
+
+        工作线程 一旦调用了 阻塞API
+
+            在 I/O就绪 前   -->  线程 会 一直阻塞  -->  也就 无法处理 其他socket连接
+
+
+    优化 方向：
+
+        1、I/O（socket）
+
+            阻塞      -->     非阻塞         ====>   单通道  ->  I/O（socket）复用
+
+        2、线程
+
+            单线程    -->     线程池         ====>   单线程  ->  线程 复用
+
+
+
+    优化目的：
+
+        一个线程 处理 多个连接
+
+        BIO 相关的 API 是无法实现的：
+
+            因为 BIO 相关的 socket 读写操作 都是 阻塞式
+
+            一旦调用了 阻塞式API
+
+            在 I/O就绪 前，调用线程 会 一直阻塞，也就 无法处理 其他的	socket 连接了
+
+
+        --> 非阻塞 API   ====>  NIO（Java 原生）   --->  封装框架 Netty（基于 原生NIO）
+
+
+1、BIO 线程模型：
+
+    每一个socket 都对应 一个独立的线程
+
+        优化 ————> 线程复用：
+
+            独立线程  ->  引入 线程池：
+
+                为了避免 频繁创建、销毁线程，可以采用 线程池
+
+                但是  socket 和 线程  之间的 对应关系 并不会变化
+
+
+    BIO：                    // 1-1          --->    I/O阻塞   +   Thread复用
+
+        阻塞 API
+
+            由于阻塞
+
+            一个I/O 未 就绪 前，会永远阻塞        =====>   只能   1（socket）   对   1（Thread）
+
+
+        模型优化：
+
+            I/O上阻塞，无优化空间
+
+            线程上，引入 线程池 优化
+
+            I/O模型 最多优化到 线程池（线程复用），就没得优化了
+
+            I/O上无法优化
+
+
+
+
+    NIO：                    // N-1          --->    I/O复用   +   Thread复用
+
+        非阻塞 API
+
+            I/O 未 读写完成 前，不阻塞               =====>   为    N（socket）   对    1（Thread）  提供了可能
+
+
+2、NIO 线程模型：
+
+    NIO 模型：
+
+        Reactor 模式
+
+
+    Java实现：
+
+        Netty
+
+
+2、AIO 线程模型：
+
