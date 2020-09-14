@@ -13,10 +13,26 @@ public class ThreadLocalModel {
 
     public static void main(String[] args) {
 
-        test__1();
+        test__ThreadLocal();
 
         // 在线程池中，正确使用 ThreadLocal  ===> try{}finally{}方案，手动释放资源
         test__2();
+
+        test__InheritableThreadLocal();
+    }
+
+    private static void test__InheritableThreadLocal() {
+
+        InheritableThreadLocal<String> threadLocal = new InheritableThreadLocal();
+
+        String val = "value";
+
+
+        threadLocal.set(val);
+
+        String v = threadLocal.get();
+
+        threadLocal.remove();
     }
 
     /**
@@ -74,7 +90,7 @@ public class ThreadLocalModel {
 //    }
 
 
-    private static void test__1() {
+    private static void test__ThreadLocal() {
 
         // 不同线程执行下面代码
         // 返回的 df 是不同的
