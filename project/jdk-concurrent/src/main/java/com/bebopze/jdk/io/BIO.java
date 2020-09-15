@@ -10,6 +10,9 @@ import java.util.Date;
 
 /**
  * BIO  -->  https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/BIO-NIO-AIO.md
+ * -
+ * -
+ * -    BIO     -->     等待IO就绪（阻塞）      +       同步调用 read/write
  *
  * @author bebopze
  * @date 2020/6/16
