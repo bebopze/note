@@ -10,7 +10,7 @@ import java.nio.channels.SocketChannel;
 /**
  * 零拷贝  - Server
  *
- * @author liuzhe
+ * @author bebopze
  * @date 2020/09/15
  */
 public class TransferToServer {

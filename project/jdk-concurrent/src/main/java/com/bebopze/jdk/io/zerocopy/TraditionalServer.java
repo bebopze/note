@@ -6,7 +6,7 @@ import java.io.*;
 /**
  * 传统拷贝  - Server
  *
- * @author liuzhe
+ * @author bebopze
  * @date 2020/09/15
  */
 public class TraditionalServer {

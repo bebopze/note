@@ -1,6 +1,5 @@
 package com.bebopze.jdk.io.zerocopy;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -13,7 +12,7 @@ import static com.bebopze.jdk.patterndesign._07_Decorator.getNoteAbsolutePath;
 /**
  * 零拷贝  - Client                    // FileChannel  ->  transferTo()
  *
- * @author liuzhe
+ * @author bebopze
  * @date 2020/09/15
  */
 public class TransferToClient {
@@ -37,8 +36,6 @@ public class TransferToClient {
         SocketChannel sc = SocketChannel.open();
         sc.connect(sad);
         sc.configureBlocking(true);
-
-//        String fname = "sendfile/NetworkInterfaces.c";
 
 
         String fname = getNoteAbsolutePath() + "/text/设计模式.txt";
