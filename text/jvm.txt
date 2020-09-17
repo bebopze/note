@@ -613,3 +613,18 @@ JDK 中用于 监控及诊断 的 命令行工具：
     JFR 的启用方式有三种，分别为在命令行中使用-XX:StartFlightRecording=参数，使用jcmd的JFR.*子命令，以及 JMC 的 JFR 插件。JMC 能够加载 JFR 的输出结果，并且生成各种信息丰富的图表。
 
 
+
+
+
+----------------------------------------------------
+CPU 100%
+
+    1、top -c         +    P(大写)        // 打印 进程 cpu排行榜
+
+    2、top -Hp pid    +    P(大写)        // 打印 进程内 线程 cpu排行榜
+
+    3、printf "%x\n" pid                 //  将 线程PID 转化为 16进制              2a34  ->  0x2a34
+
+    4、jstack 0x2a34                     //  打印 线程堆栈
+
+        jstack pid（进程ID） | grep tid（线程ID 16进制） -A 30
