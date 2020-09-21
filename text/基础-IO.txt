@@ -354,6 +354,15 @@ AIO：
 
         Java NIO、Netty、Kafka、RocketMQ
 
+        --------------------------------
+        RocketMQ的消息采用顺序写到commitlog文件，然后利用consume queue文件作为索引；
+        RocketMQ采用零拷贝mmap+write的方式来回应Consumer的请求；
+
+        同样kafka中存在大量的网络数据持久化到磁盘和磁盘文件通过网络发送的过程，
+        kafka使用了sendfile零拷贝方式；
+
+
+
 
 
 CPU 与 DMA引擎（direct memory access）：              // DMA - direct memory access - 直接内存存取
@@ -367,16 +376,21 @@ CPU 与 DMA引擎（direct memory access）：              // DMA - direct memo
 
 核心类：
 
-    JDK nio：
+    JDK NIO：
 
         SocketChannel
 
         ServerSocketChannel
 
 
+        MappedByteBuffer
+
+        DirectByteBuffer
 
 
         FileChannel
+
+            map()
 
             transferTo    // 零拷贝
 
@@ -392,6 +406,11 @@ CPU 与 DMA引擎（direct memory access）：              // DMA - direct memo
             doBind、doConnect、doFinishConnect、doDisconnect、doClose...
 
             read、write
+
+
+        CompositeChannelBuffer
+
+
 
 模型：
 
