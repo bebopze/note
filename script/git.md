@@ -32,4 +32,10 @@
    参考链接：https://segmentfault.com/q/1010000002898735
    
 ```
-[参考链接](!https://segmentfault.com/q/1010000002898735)
+
+[参考链接](https://segmentfault.com/q/1010000002898735)
+
+
+[Git 大全](https://gitee.com/all-about-git)
+
+[Git 命令学习](https://oschina.gitee.io/learn-git-branching/)
