@@ -36,6 +36,6 @@
 [参考链接](https://segmentfault.com/q/1010000002898735)
 
 
-[Git 大全](https://gitee.com/all-about-git)
+[Git 命令大全](https://gitee.com/all-about-git#%E4%B8%83git-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4)
 
 [Git 命令学习](https://oschina.gitee.io/learn-git-branching/)
