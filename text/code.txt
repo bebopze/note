@@ -1,0 +1,26 @@
+1、AOP注解 拦截
+
+    1、拦截 Spring IOC Bean
+
+
+    2、拦截 static                                     - https://blog.csdn.net/yangshangwei/article/details/77393421
+
+        StaticMethodMatcherPointcutAdvisor
+
+
+2、Spring 循环依赖
+
+
+    @Lazy                           // A、B类  只需二选一  加上@Lazy 即可
+    @Autowired
+    private ClassA classA;
+
+    @Lazy
+    @Autowired
+    private ClassB classB;
+
+
+    在你注入bean时，在互相依赖的两个Bean上 任意一个加上 @Lazy 注解
+
+    以上方法 能延迟 互相依赖的其中一个 Bean的加载，从而解决 循环依赖 的问题。
+
