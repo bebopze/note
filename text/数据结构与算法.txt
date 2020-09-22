@@ -956,7 +956,8 @@
 
         2. 查看了Java的 Arrays.sort
 
-            -> DualPivotQuicksort.sory();
+
+            -> DualPivotQuicksort.sort();
 
                 1. 若数组元素个数总数小于47，使用插入排序
                 2. 若数据元素个数总数在47~286之间，使用快速排序。应该是使用的优化版本的三值取中的优化版本
