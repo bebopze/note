@@ -1,0 +1,11 @@
+----------------------------------------------------
+Arrays.binarySearch(Object[] a, Object key);
+
+
+
+
+
+
+
+----------------------------------------------------
+Collections.binarySearch(List list, T key);
