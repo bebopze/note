@@ -1,4 +1,4 @@
-package com.bebopze.jdk.algorithm;
+package com.bebopze.jdk.algorithm.sort;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.primitives.Ints;
@@ -8,12 +8,12 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 2、排序
+ * sort
  *
  * @author bebopze
  * @date 2020/8/21
  */
-public class _02___Sort {
+public class _01___Sort {
 
 
     public static void main(String[] args) {
