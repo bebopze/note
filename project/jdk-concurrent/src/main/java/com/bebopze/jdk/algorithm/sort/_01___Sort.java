@@ -337,11 +337,11 @@ public class _01___Sort {
 
     // --------------------------------------------------
 
-    private static void print(int[] arr) {
+    public static void print(int[] arr) {
         System.out.println(JSON.toJSONString(arr));
     }
 
-    private static void print(List list) {
+    public static void print(List list) {
         System.out.println(JSON.toJSONString(list));
     }
 
