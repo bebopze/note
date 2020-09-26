@@ -11,6 +11,9 @@ import static com.bebopze.jdk.algorithm.sort._01___Sort.print;
 
 /**
  * 十大经典 排序算法                    - https://www.cnblogs.com/guoyaohua/p/8600214.html
+ * -
+ * -                                  - https://zh.wikipedia.org/wiki/排序算法
+ * -
  *
  * @author bebopze
  * @date 2020/9/25
@@ -35,7 +38,6 @@ public class Sort {
 
 
         // ------------------------------------------------------------------------------------------------
-
 
         bubbleSort(arr1);
         print(arr1);
@@ -101,6 +103,11 @@ public class Sort {
 
     /**
      * 1、冒泡排序
+     * -
+     * - 从左往右  两两相比   -->   左 < 右 --> 左右换位  左>=右，则跳过，继续往下比较
+     * -
+     * - 每一轮 都把最大的 移到最右边
+     * -
      *
      * @param array
      * @return
@@ -124,6 +131,18 @@ public class Sort {
 
     /**
      * 2、插入排序
+     * -
+     * - 从左往右   选取当前已知最大(Max)  与  已知最大的右边(v)   两两相比
+     * -
+     * -    v < Max   ->   依次向Max的左边 遍历比较      直到找到  x <= v < y    插入
+     * -
+     * -    Max <= v   跳过往下      v 变为 Max
+     * -
+     * -
+     * -  每一轮  把当前已知Max右边的v  插入到   Max左边 x <= v < y  的位置
+     * -
+     * - 因为 Max左边的区间 均为从小到大有序的
+     * - 每轮比较其实就是把 Max右边的v  插入到 Max左边有序区间中的  x <= v < y  的位置
      *
      * @param array
      * @return
@@ -148,6 +167,9 @@ public class Sort {
 
     /**
      * 3、选择排序
+     * -
+     * -
+     * - 从左往右    每一轮 两两相比 找出最小的数    放到上一轮min的右边    （即：上一轮min右边的v 和 当前轮min  互换位置）
      *
      * @param array
      * @return
@@ -177,7 +199,10 @@ public class Sort {
 
 
     /**
-     * 4、希尔排序
+     * 4、希尔排序           // 插入排序 的一种更高效的改进版本
+     * -
+     * -
+     * - 每轮次  以 length/2   对半划线      两个区间 都从0索引开始  一一对应  比较交换
      *
      * @param array
      * @return
@@ -201,9 +226,43 @@ public class Sort {
         }
     }
 
+    public static void shellSort2(int[] arr) {
+        int length = arr.length;
+        int temp;
+        for (int step = length / 2; step >= 1; step /= 2) {
+
+            for (int i = step; i < length; i++) {
+                temp = arr[i];
+                int j = i - step;
+                while (j >= 0 && arr[j] > temp) {
+                    arr[j + step] = arr[j];
+                    j -= step;
+                }
+                arr[j + step] = temp;
+            }
+
+        }
+    }
+
 
     /**
      * 5、归并排序
+     * -
+     * - 分治思想：分解(递归) + 合并
+     * -
+     * -    分解：1 -> 2 -> 4 -> ... -> 单个（拆无可拆）
+     * -
+     * -    合并：单个 两两比较 交换位置  -> ... -> 4 -> 2 -> 1
+     * -
+     * -
+     * - 处理过程：
+     * -
+     * -    将大数据 等分到 不可拆分后
+     * -
+     * -    从下往上
+     * -
+     * -    也就是 从 最小拆分 往 最大拆分   进行  排序合并
+     * -
      *
      * @param array
      * @return
@@ -214,15 +273,19 @@ public class Sort {
             return array;
         }
 
+        // 分解
         int mid = array.length / 2;
         int[] left = Arrays.copyOfRange(array, 0, mid);
         int[] right = Arrays.copyOfRange(array, mid, array.length);
 
-
+        // 递归分解
         int[] l = mergeSort(left);
         int[] r = mergeSort(right);
 
-        return merge(l, r);
+
+        // 递归合并（排序）
+        int[] merge = merge(l, r);
+        return merge;
     }
 
     /**
@@ -254,24 +317,41 @@ public class Sort {
 
     /**
      * 6、快速排序
+     * -
+     * - 分治思想：分解(递归) + 分区
+     * -
+     * -
+     * - 处理过程：
+     * -
+     * -    每次将选择好的 分区点 与 数组中数据   进行  比较和交换
+     * -
+     * -    交换完后，再如此往复
+     * -
+     * -    选择 下一次分区点，继续如上操作，直到数组有序
+     * -
      *
      * @param array
      * @param start
      * @param end
      * @return
      */
-    public static int[] quickSort(int[] array, int start, int end) {
-        if (array.length < 1 || start < 0 || end >= array.length || start > end) {
-            return null;
+    public static void quickSort(int[] array, int start, int end) {
+
+        if (array.length <= 1 || start < 0 || end >= array.length || start > end) {
+            return;
         }
+
+        // 分区
         int smallIndex = partition(array, start, end);
+
+        // 分解
         if (smallIndex > start) {
             quickSort(array, start, smallIndex - 1);
         }
+
         if (smallIndex < end) {
             quickSort(array, smallIndex + 1, end);
         }
-        return array;
     }
 
     /**
@@ -282,11 +362,18 @@ public class Sort {
      * @param end
      * @return
      */
-    public static int partition(int[] array, int start, int end) {
+    private static int partition(int[] array, int start, int end) {
+
+        // 随机法
         int pivot = (int) (start + Math.random() * (end - start + 1));
-        int smallIndex = start - 1;
+
+        // 分区点 移到最后     -> 此时 array[end]  已变为 分区点元素
         swap(array, pivot, end);
+
+        int smallIndex = start - 1;
         for (int i = start; i <= end; i++) {
+
+            // array[end]  ->  分区点
             if (array[i] <= array[end]) {
                 smallIndex++;
                 if (i > smallIndex) {
@@ -304,7 +391,7 @@ public class Sort {
      * @param i
      * @param j
      */
-    public static void swap(int[] array, int i, int j) {
+    private static void swap(int[] array, int i, int j) {
         int temp = array[i];
         array[i] = array[j];
         array[j] = temp;
@@ -323,20 +410,22 @@ public class Sort {
      * @param array
      * @return
      */
-    public static int[] heapSort(int[] array) {
+    public static void heapSort(int[] array) {
+
         len = array.length;
-        if (len < 1) {
-            return array;
+        if (len <= 1) {
+            return;
         }
-        //1.构建一个最大堆
+
+        // 1、构建一个最大堆
         buildMaxHeap(array);
-        //2.循环将堆首位（最大值）与末位交换，然后在重新调整最大堆
+
+        // 2、循环将堆首位（最大值）与末位交换，然后再重新调整最大堆
         while (len > 0) {
             swap(array, 0, len - 1);
             len--;
             adjustHeap(array, 0);
         }
-        return array;
     }
 
     /**
@@ -344,8 +433,8 @@ public class Sort {
      *
      * @param array
      */
-    public static void buildMaxHeap(int[] array) {
-        // 从最后一个非叶子节点开始向上构造最大堆
+    private static void buildMaxHeap(int[] array) {
+        // 从最后一个非叶子节点开始 向上构造最大堆
         for (int i = (len / 2 - 1); i >= 0; i--) {
             adjustHeap(array, i);
         }
@@ -357,16 +446,19 @@ public class Sort {
      * @param array
      * @param i
      */
-    public static void adjustHeap(int[] array, int i) {
+    private static void adjustHeap(int[] array, int i) {
+
         int maxIndex = i;
         // 如果有左子树，且左子树大于父节点，则将最大指针指向左子树
         if (i * 2 < len && array[i * 2] > array[maxIndex]) {
             maxIndex = i * 2;
         }
+
         // 如果有右子树，且右子树大于父节点，则将最大指针指向右子树
         if (i * 2 + 1 < len && array[i * 2 + 1] > array[maxIndex]) {
             maxIndex = i * 2 + 1;
         }
+
         // 如果父节点不是最大值，则将父节点与最大值交换，并且递归调整与父节点交换的位置
         if (maxIndex != i) {
             swap(array, maxIndex, i);
@@ -401,7 +493,9 @@ public class Sort {
 
         bias = 0 - min;
         int[] bucket = new int[max - min + 1];
+
         Arrays.fill(bucket, 0);
+
         for (int i = 0; i < array.length; i++) {
             bucket[array[i] + bias]++;
         }
