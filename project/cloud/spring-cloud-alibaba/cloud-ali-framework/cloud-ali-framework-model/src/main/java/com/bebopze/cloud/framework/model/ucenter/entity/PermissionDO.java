@@ -1,15 +1,11 @@
-package com.bebopze.framework.model.ucenter.entity;
+package com.bebopze.cloud.framework.model.ucenter.entity;
 
 import java.util.Date;
 
-public class ApiDO {
+public class PermissionDO {
     private Long id;
 
     private String name;
-
-    private String url;
-
-    private Byte method;
 
     private Date gmtCreate;
 
@@ -29,22 +25,6 @@ public class ApiDO {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
-    }
-
-    public Byte getMethod() {
-        return method;
-    }
-
-    public void setMethod(Byte method) {
-        this.method = method;
     }
 
     public Date getGmtCreate() {

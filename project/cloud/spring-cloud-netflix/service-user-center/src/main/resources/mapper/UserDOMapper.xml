@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bebopze.ucenter.mapper.UserDOMapper">
-  <resultMap id="BaseResultMap" type="com.bebopze.framework.model.ucenter.entity.UserDO">
+  <resultMap id="BaseResultMap" type="com.bebopze.cloud.framework.model.ucenter.entity.UserDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -34,7 +34,7 @@
     delete from user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.bebopze.framework.model.ucenter.entity.UserDO">
+  <insert id="insert" parameterType="com.bebopze.cloud.framework.model.ucenter.entity.UserDO">
     insert into user (id, name, password, 
       id_card, mobile, email, 
       ding_ding, department_id, parent_id, 
@@ -48,7 +48,7 @@
       #{type,jdbcType=TINYINT}, #{machineId,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.bebopze.framework.model.ucenter.entity.UserDO">
+  <insert id="insertSelective" parameterType="com.bebopze.cloud.framework.model.ucenter.entity.UserDO">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -157,7 +157,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bebopze.framework.model.ucenter.entity.UserDO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.bebopze.cloud.framework.model.ucenter.entity.UserDO">
     update user
     <set>
       <if test="name != null">
@@ -211,7 +211,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bebopze.framework.model.ucenter.entity.UserDO">
+  <update id="updateByPrimaryKey" parameterType="com.bebopze.cloud.framework.model.ucenter.entity.UserDO">
     update user
     set name = #{name,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bebopze.ucenter.mapper.UserRoleDOMapper">
-  <resultMap id="BaseResultMap" type="com.bebopze.framework.model.ucenter.entity.UserRoleDO">
+  <resultMap id="BaseResultMap" type="com.bebopze.cloud.framework.model.ucenter.entity.UserRoleDO">
     <id column="user_id" jdbcType="BIGINT" property="userId" />
     <id column="role_id" jdbcType="BIGINT" property="roleId" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
@@ -10,25 +10,25 @@
   <sql id="Base_Column_List">
     user_id, role_id, gmt_create, gmt_modified
   </sql>
-  <select id="selectByPrimaryKey" parameterType="com.bebopze.framework.model.ucenter.entity.UserRoleDOKey" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="com.bebopze.cloud.framework.model.ucenter.entity.UserRoleDOKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from user_role
     where user_id = #{userId,jdbcType=BIGINT}
       and role_id = #{roleId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.bebopze.framework.model.ucenter.entity.UserRoleDOKey">
+  <delete id="deleteByPrimaryKey" parameterType="com.bebopze.cloud.framework.model.ucenter.entity.UserRoleDOKey">
     delete from user_role
     where user_id = #{userId,jdbcType=BIGINT}
       and role_id = #{roleId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.bebopze.framework.model.ucenter.entity.UserRoleDO">
+  <insert id="insert" parameterType="com.bebopze.cloud.framework.model.ucenter.entity.UserRoleDO">
     insert into user_role (user_id, role_id, gmt_create, 
       gmt_modified)
     values (#{userId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
       #{gmtModified,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.bebopze.framework.model.ucenter.entity.UserRoleDO">
+  <insert id="insertSelective" parameterType="com.bebopze.cloud.framework.model.ucenter.entity.UserRoleDO">
     insert into user_role
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -59,7 +59,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bebopze.framework.model.ucenter.entity.UserRoleDO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.bebopze.cloud.framework.model.ucenter.entity.UserRoleDO">
     update user_role
     <set>
       <if test="gmtCreate != null">
@@ -72,7 +72,7 @@
     where user_id = #{userId,jdbcType=BIGINT}
       and role_id = #{roleId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bebopze.framework.model.ucenter.entity.UserRoleDO">
+  <update id="updateByPrimaryKey" parameterType="com.bebopze.cloud.framework.model.ucenter.entity.UserRoleDO">
     update user_role
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}

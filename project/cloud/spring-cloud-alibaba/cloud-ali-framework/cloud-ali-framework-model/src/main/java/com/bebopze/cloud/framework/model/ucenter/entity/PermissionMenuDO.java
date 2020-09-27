@@ -1,8 +1,8 @@
-package com.bebopze.framework.model.ucenter.entity;
+package com.bebopze.cloud.framework.model.ucenter.entity;
 
 import java.util.Date;
 
-public class UserRoleDO extends UserRoleDOKey {
+public class PermissionMenuDO extends PermissionMenuDOKey {
     private Date gmtCreate;
 
     private Date gmtModified;

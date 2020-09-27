@@ -1,4 +1,4 @@
-package com.bebopze.framework.model.ucenter.entity;
+package com.bebopze.cloud.framework.model.ucenter.entity;
 
 public class UserRoleDOKey {
     private Long userId;
