@@ -1,11 +1,13 @@
 查询MySQL数据库版本
-    select @@version
+    select @@version;
+    select version();
 
 --------------------------------------
 查询MySQL事务隔离级别
 
     1、查看当前会话隔离级别
         select @@tx_isolation;
+        select @@transaction_isolation;     // MySQL 8
 
     2、查看系统当前隔离级别
         select @@global.tx_isolation;
