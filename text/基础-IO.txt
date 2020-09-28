@@ -649,6 +649,6 @@ CPU 与 DMA引擎（direct memory access）：              // DMA - direct memo
 
 转换流：
 
-    InputStreamReader   将  字节流  转换成  字符流 输入
+    InputStreamReader       ->   将  字节流  转换成  字符流输入
 
-    OutputStreamWriter  将  字节流  转换成  字符流 输出
+    OutputStreamWriter      ->   将  字节流  转换成  字符流输出
