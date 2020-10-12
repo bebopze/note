@@ -11,6 +11,8 @@ public class MapDemo {
 
     public static void main(String[] args) {
 
+        resize();
+
 //        test0();
 
 //        test1();
@@ -18,6 +20,31 @@ public class MapDemo {
         test_HashMap();
 
 //        test2_ConcurrentHashMap();
+    }
+
+
+    private static void resize() {
+
+        // 默认 16  ->  12
+        //
+        // 16 x 0.75f = 12
+        //
+        // 超过12 就 resize
+        //
+        //
+        // 自己强行设置 initialCapacity时，数一下自己到底有几个元素
+
+
+        HashMap map = new HashMap(16);
+
+        // 16 x 0.75f = 12
+
+        for (int i = 1; i <= 16; i++) {
+            map.put("k" + i, "v" + i);
+        }
+
+        System.out.println();
+
     }
 
 
