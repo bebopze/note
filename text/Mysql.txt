@@ -218,9 +218,9 @@ write ahead log优势在哪里？
     2.组提交机制（延迟刷盘fsync），可以大幅度降低磁盘iops的消耗（通常配置双1）
 
 
-bin log的格式有哪几种？
-    1.statement 原生sql形式（省空间，存在主备执行不一致的问题）
-    2.row 存储的是数据的变更（占用空间大，数据能够保证一致性）
+binlog的格式有哪几种？
+    1.statement 原生sql形式（省空间，存在主备执行不一致的问题）          // 原生SQL                 ->  逻辑
+    2.row 存储的是数据的变更（占用空间大，数据能够保证一致性）            // 状态与状态之间的变更      ->  结果
     3.mixed 混合机制
 
 
@@ -231,7 +231,7 @@ bin log的格式有哪几种？
     4.备库的并行复制能力
 
 kill语句后仍在执行？
-    1.线程没有执行到判断线程状态的逻辑
+    1.线程没有执行到 判断线程状态 的逻辑
     2.终止逻辑耗时较长
         a.超大事务执行被kill，需要回滚数据
         b.大查询回滚，可能生成了大临时文件，删除临时文件io过程较长
@@ -270,20 +270,20 @@ B+数索引的特点
 
 
 redo log :
-        1.物理日志,记录物理页的数据修改
-        2.事物prepare写日志,事物提交再写日志 2阶段提交,保证事物的持久性
-        3.通过redo log数据恢复到最后一次事物提交的状态
-        4.write ahead log方式redo log的磁盘顺序写入,后面再异步刷新fsync磁盘数据(随机io)
+    1.物理日志,记录物理页的数据修改
+    2.事物prepare写日志,事物提交再写日志 2阶段提交,保证事物的持久性
+    3.通过redo log数据恢复到最后一次事物提交的状态
+    4. WAL（write ahead log）方式redo log的磁盘顺序写入,后面再异步刷新fsync磁盘数据(随机io)
 
 undo log :
-        1.记录数据被修改前的值，可以用来在事务失败时进行rollback；
-        2.保证事物的原子性,和隔离性(mvcc)
+    1.记录数据被修改前的值，可以用来在事务失败时进行rollback；
+    2.保证事物的原子性,和隔离性(mvcc)
 
-bin log
-        1.mysql的逻辑日志,用来进行主从复制或数据恢复
-        2.redo log和bin log的一致性用两阶段保证
-         某事物xid中redo log prepare成功,但bin log不包含此事物的xid,则执行回滚操作
-         某事物xid中redo log prepare成功,且bin log包含此事物的xid,则认为该事物成功
+binlog :
+    1.mysql的逻辑日志,用来进行主从复制或数据恢复
+    2.redo log和bin log的一致性用两阶段保证
+        某事物xid中redo log prepare成功,但bin log不包含此事物的xid,则执行回滚操作
+        某事物xid中redo log prepare成功,且bin log包含此事物的xid,则认为该事物成功
 
 如果只有redo log没有undo log
     redo log不够时,数据先刷入到磁盘但是事物失败时无法回滚
@@ -334,7 +334,13 @@ redo log 的写入机制
         select id from t where c in(5,20,10) order by c desc for update;            // 20 10 5
 
     2.在发生死锁的时刻，for update 这条语句占有的资源更多，回滚成本更大，
-      所以 InnoDB 选择了回滚成本更小的 lock in share mode 语句，来回滚。
+        所以 InnoDB 选择了回滚成本更小的 lock in share mode 语句，来回滚。
+
+
+        --------------------------------------------------------------------
+        覆盖索引 优化：
+            lock in share mode     ->      不回表      ->    主键索引 不加锁
+            for update             ->      强制回表    ->    主键索引 加锁      ==> 等效为 update/delete -> 需要更新，所以必须上锁
 
 
 
@@ -377,7 +383,7 @@ order by的原理？如何进行排序的？
         a.如果内存够，将找到的记录行，全部放到内存中排序
         b.如果内存不够，会创建临时文件进行排序
             内存够：    全字段 排序              // sort_buffer
-            内存不够：  rowid 排序              // sort_buffer + 临时文件
+            内存不够：  rowid 排序               // sort_buffer + 临时文件（归并排序）
 
 
 
@@ -439,7 +445,8 @@ Mysql扩展：
 
 能不能使用 join 语句？
     1.如果可以使用 Index Nested-Loop Join 算法，也就是说可以用上被驱动表上的索引，其实是没问题的；
-    2.如果使用 Block Nested-Loop Join 算法，扫描行数就会过多。尤其是在大表上的 join 操作，这样可能要扫描被驱动表很多次，会占用大量的系统资源。所以这种 join 尽量不要用。
+    2.如果使用 Block Nested-Loop Join 算法，扫描行数就会过多。
+        尤其是在大表上的 join 操作，这样可能要扫描被驱动表很多次，会占用大量的系统资源。所以这种 join 尽量不要用。
 
 如果要使用 join，应该选择大表做驱动表还是选择小表做驱动表？
     1.如果是 Index Nested-Loop Join 算法，应该选择小表做驱动表；
@@ -453,11 +460,11 @@ Mysql扩展：
 
 内存表 和 临时表
     内存表
-        指的是使用 Memory 引擎的表，建表语法是 create table … engine=memory。
+        指的是使用 Memory 引擎的表，建表语法是 create table ... engine=memory
         这种表的数据都保存在内存里，系统重启的时候会被清空，但是表结构还在。
         除了这两个特性看上去比较“奇怪”外，从其他的特征上看，它就是一个正常的表。
 
-        内存表不支持行锁，只支持表锁。
+        内存表不支持行锁，只支持表锁。     // 内存操作，很快，没必要在 锁范围 上纠结！！！
 
     临时表
         可以使用各种引擎类型。
