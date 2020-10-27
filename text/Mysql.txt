@@ -305,12 +305,27 @@ binlog 的写入机制
 redo log 的写入机制
     日志 -> redo log buffer(内存) --write--> page cache(文件系统) --fsync--> hard disk(磁盘)
 
-    InnoDB 有一个后台线程，每隔 1 秒，就会把 redo log buffer 中的日志，调用 write 写到文件系统的 page cache，然后调用 fsync 持久化到磁盘。
+    InnoDB 有一个后台线程
+        每隔 1 秒，就会把 redo log buffer 中的日志，
+        调用 write 写到文件系统的 page cache，然后调用 fsync 持久化到磁盘。
 
     日志丢失：
         由于事务并没有提交，所以这时日志丢了也不会有损失。
 
-    事务还没提交的时候，redo log buffer 中的部分日志 有可能被持久化到磁盘
+    事务还没提交的时候，redo log buffer 中的部分日志 有可能被持久化到磁盘      // 组提交 / 后台线程  ->  被别的线程触发提交，顺带着提交了
+
+
+
+两阶段 提交           // 重点还是 “提交”!!!        ->   事务提交时，分 “两阶段” 提交
+
+    事务提交流程，分为“两阶段”提交：
+
+        redo log prepare    ->  binlog  ->  redo log commit
+        -----------------------------------------------------------------------------------
+
+        所谓的 prepare、binlog、commit
+
+        都只是 “当前事务-提交” 的一个阶段！！！
 
 
 
