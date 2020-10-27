@@ -1,0 +1,54 @@
+MySQL启示录
+
+    1、并发
+
+        MVCC(版本镜像)、锁
+
+
+        并发策略    ->  隔离级别
+
+            RU              无安全性、绝对高效
+
+            RC              安全、高效               // 无间隙锁
+
+            RR              十分安全、高效-          // 间隙锁        -> 锁范围扩大、并发度降低
+
+            Serializable    绝对安全、绝对低效
+
+
+
+    2、读写
+
+        1、多级缓存
+
+            buffer、log（log-file page cache）、log disk（顺序写）、disk（异步落盘）
+
+        2、高效写
+
+            1、顺序写 log
+
+            2、异步刷 磁盘
+
+            3、写内存、批量刷、异步刷
+
+                1、写入 内存buffer
+
+                2、写入 log
+
+                    写入log-file page cache
+
+                    写入log-file 磁盘
+
+                        1、同步fsync     ->  安全
+
+                        2、组提交        ->  高效 + 安全
+
+
+                        3、后台线程 异步定时 刷盘
+
+
+        3、高效读
+
+            从 内存、buffer、page cache 读
+
+
