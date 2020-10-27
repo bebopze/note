@@ -52,3 +52,16 @@ MySQL启示录
             从 内存、buffer、page cache 读
 
 
+    3、高可用
+
+        主备  <-  binlog
+
+
+
+
+
+
+
+
+
+
