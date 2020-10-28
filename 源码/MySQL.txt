@@ -49,7 +49,15 @@ MySQL启示录
 
         3、高效读
 
-            从 内存、buffer、page cache 读
+            1、从 内存、buffer、page cache 读
+
+            2、顺序读       // 范围查询
+
+                回表：
+
+                    1、id 放入 read_rnd_buffer 排序
+
+                    2、再有序挨个回表
 
 
     3、高可用
