@@ -137,7 +137,7 @@ public class Main{
 
 #### 2.4.1、JVM中年轻代内存空间
 
-![young_gc](../../../../jvm%E4%BC%98%E5%8C%96/jvm%E4%BC%98%E5%8C%96-3%E5%A4%A9%E8%AF%BE%E7%A8%8B/day02/%E8%AE%B2%E4%B9%89/assets/young_gc.png)
+![young_gc](img/young_gc.png)
 
 1. 在GC开始的时候，对象只会存在于Eden区和名为“From”的Survivor区，Survivor区“To”是空的。
 2. 紧接着进行GC，Eden区中所有存活的对象都会被复制到“To”，而在“From”区中，仍存活的对象会根据他们的年龄值来决定去向。年龄达到一定值(年龄阈值，可以通过-XX:MaxTenuringThreshold来设置)的对象会被移动到年老代中，没有达到阈值的对象会被复制到“To”区域。
