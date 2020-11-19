@@ -994,14 +994,6 @@ Full GC                                             // 整个 堆（代）   -> 
 
 
 
-------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
 ========================================================================================================================
 分代
 ========================================================================================================================
@@ -1164,6 +1156,59 @@ Full GC                                             // 整个 堆（代）   -> 
 
 
 
+
+
+========================================================================================================================
+默认GC                                                                        // 参数可配
+========================================================================================================================
+
+Java 5          串行          Serial GC                       ->    Serial（新生代）             +   Serial Old（老年代）
+
+Java 8          并行          Parallel GC                     ->    Parallel Scavenge（新生代）  +   Parallel Old（老年代）
+
+Java 11         并发          G1
+
+
+--------------------------------------------------
+命令
+    java -XX:+PrintCommandLineFlags -version
+
+    java -XX:+PrintGCDetails -version
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+[root@F001 ~]# java -XX:+PrintCommandLineFlags -version
+
+-XX:InitialHeapSize=260250240 -XX:MaxHeapSize=4164003840 -XX:+PrintCommandLineFlags -XX:+UseCompressedClassPointers -XX:+UseCompressedOops
+
+-XX:+UseParallelGC                                                      // UseParallelGC
+
+java version "1.8.0_151"
+Java(TM) SE Runtime Environment (build 1.8.0_151-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.151-b12, mixed mode)
+
+
+------------------------------------------------------------------------------------------------------------------------
+[root@F001 ~]# java -XX:+PrintGCDetails -version
+
+java version "1.8.0_151"
+Java(TM) SE Runtime Environment (build 1.8.0_151-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.151-b12, mixed mode)
+
+
+Heap
+
+ PSYoungGen      total 74752K, used 2580K [0x000000076d400000, 0x0000000772700000, 0x00000007c0000000)
+  eden space 64512K, 4% used [0x000000076d400000,0x000000076d685368,0x0000000771300000)
+  from space 10240K, 0% used [0x0000000771d00000,0x0000000771d00000,0x0000000772700000)
+  to   space 10240K, 0% used [0x0000000771300000,0x0000000771300000,0x0000000771d00000)
+
+ ParOldGen       total 171008K, used 0K [0x00000006c7c00000, 0x00000006d2300000, 0x000000076d400000)
+  object space 171008K, 0% used [0x00000006c7c00000,0x00000006c7c00000,0x00000006d2300000)
+
+ Metaspace       used 2226K, capacity 4480K, committed 4480K, reserved 1056768K
+  class space    used 243K, capacity 384K, committed 384K, reserved 1048576K
 
 
 
