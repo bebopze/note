@@ -1,4 +1,4 @@
-package com.bebopze.jdk.jvm;
+package com.bebopze.jdk.jvm.jni;
 
 /**
  * JNI native method
@@ -30,8 +30,25 @@ public class NativeC {
 
     private static native void registerNatives();
 
+
+    /**
+     * 我们需要 在其他native方法 被调用之前 完成链接工作
+     *
+     *   因此，我们往往会在 类的初始化方法里 调用该registerNatives方法
+     */
     static {
         registerNatives();
+    }
+
+
+    public static void main(String[] args) {
+        try {
+            System.loadLibrary("hello");
+        } catch (UnsatisfiedLinkError e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        new NativeC().hello("jni native hello");
     }
 
 }
