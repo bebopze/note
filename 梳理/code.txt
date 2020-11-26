@@ -16,7 +16,7 @@
 
         不支持：
 
-            1、final  的拦截
+            1、final  的拦截            // JDK动态代理  支持final    ->   基于接口的 匿名实现代理类 （与 target类 其实无关）
 
             2、static 的拦截
 

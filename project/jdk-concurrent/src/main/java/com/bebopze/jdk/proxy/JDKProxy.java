@@ -17,6 +17,9 @@ import java.lang.reflect.Proxy;
 public class JDKProxy {
 
 
+    //  --------------------- JDK 接口匿名代理类   可以代理   ==>  final（类/方法）
+
+
     // JDK动态代理
     //    利用拦截器加上反射机制生成一个实现代理接口的匿名类，在调用具体方法时，调用InvocationHandler来处理。
 
@@ -66,6 +69,9 @@ public class JDKProxy {
         proxy.eat();
         proxy.wc();
 
+        proxy.final_method();
+//        proxy.static_method();
+
 
         System.out.println();
     }
@@ -81,6 +87,9 @@ public class JDKProxy {
 
         proxy.eat();
         proxy.wc();
+
+        proxy.final_method();
+//        proxy.static_method();
     }
 }
 
@@ -96,12 +105,17 @@ interface UserService {
     void eat();
 
     void wc();
+
+
+    void final_method();
+
+//    static void static_method() { }
 }
 
 /**
  * 被代理类             // 3、被代理的对象必须实现接口
  */
-class UserServiceImpl implements UserService {
+final class UserServiceImpl implements UserService {
 
     @Override
     public void eat() {
@@ -112,6 +126,17 @@ class UserServiceImpl implements UserService {
     public void wc() {
         System.out.print("上茅房------>");
     }
+
+
+    @Override
+    public final void final_method() {
+        System.out.print("final method...  ");
+    }
+
+//    @Override
+//    public static void static_method() {
+//        System.out.print("static method...  ");
+//    }
 }
 
 
@@ -125,8 +150,9 @@ class MyAspect {
     }
 
     public void after() {
-        System.out.print("后要洗手");
+        System.out.println("后要洗手");
     }
+
 }
 
 
@@ -166,6 +192,13 @@ class MyFactoryBean {
                         // 接口方法增强
                         if (method.getName().equals("wc")) {
                             aspect.after();
+                        }
+
+
+                        // ------------- final 方法增强
+
+                        if (method.getName().equals("final_method")) {
+                            System.out.println("final方法  增强  ==>   JDK 接口匿名代理类 可以'重写' final方法  ->  因为是 接口匿名代理类");
                         }
 
                         return result;
@@ -231,6 +264,14 @@ class MyInvocationHandler implements InvocationHandler {
         if (method.getName().equals("wc")) {
             aspect.after();
         }
+
+
+        // -------------final 方法增强
+
+        if (method.getName().equals("final_method")) {
+            System.out.println("final方法  增强   ==>   JDK 接口匿名代理类 可以'重写' final方法  ->  因为是 接口匿名代理类");
+        }
+
 
         return result;
     }

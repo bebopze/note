@@ -18,6 +18,11 @@ import java.lang.reflect.Method;
  */
 public class CglibProxy {
 
+    //  --------------------- Cglib子类  无法代理 final、static
+
+
+    // 无法代理 final 方法
+    // 子类无法 重写 final 方法
 
     // CGLIB动态代理
     //     1、通过加载对象类的class文件，修改其字节码 生成子类 的方式完成，不需要实现接口.
@@ -57,6 +62,11 @@ public class CglibProxy {
 
         proxy.eat();
         proxy.wc();
+
+
+        // 子类 无法重写 final方法
+        proxy.final_method();
+        proxy.static_method();
     }
 }
 
@@ -125,8 +135,20 @@ class MyMethodInterceptor implements MethodInterceptor {
         Object result = method.invoke(target, objects);
 
         if ("wc".equals(method.getName())) {
-            System.out.print("---->之后要洗手");
+            System.out.println("---->之后要洗手");
         }
+
+
+        // --------------- Cglib子类  无法代理 final、static
+
+        if ("final_method".equals(method.getName())) {
+            System.out.print("Cglib子类  无法代理 final");
+        }
+
+        if ("static_method".equals(method.getName())) {
+            System.out.print("Cglib子类  无法代理 static");
+        }
+
 
         return result;
     }
@@ -143,6 +165,18 @@ class PeopleService {
 
     public void wc() {
         System.out.print("上厕所");
+    }
+
+
+    // ---------------- Cglib子类  无法代理 final、static
+
+
+    public final void final_method() {
+        System.out.println("final method...   Cglib子类 无法重写父类 final方法");
+    }
+
+    public static final void static_method() {
+        System.out.println("static method...  Cglib子类 无法重写父类 static方法");
     }
 }
 
