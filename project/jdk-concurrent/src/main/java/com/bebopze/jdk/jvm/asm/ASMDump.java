@@ -1,4 +1,4 @@
-package com.bebopze.jdk.jvm;
+package com.bebopze.jdk.jvm.asm;
 
 import java.util.*;
 
@@ -13,7 +13,7 @@ public class ASMDump implements Opcodes {
         MethodVisitor mv;
         AnnotationVisitor av0;
 
-        cw.visit(52, ACC_PUBLIC + ACC_SUPER, "com/bebopze/jdk/jvm/ASM", null, "java/lang/Object", null);
+        cw.visit(52, ACC_PUBLIC + ACC_SUPER, "com/bebopze/jdk/jvm/asm/ASM", null, "java/lang/Object", null);
 
         {
             mv = cw.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
@@ -27,7 +27,7 @@ public class ASMDump implements Opcodes {
         {
             mv = cw.visitMethod(ACC_PUBLIC + ACC_STATIC, "main", "([Ljava/lang/String;)V", null, null);
             mv.visitCode();
-            mv.visitMethodInsn(INVOKESTATIC, "com/bebopze/jdk/jvm/ASM", "test_ASMifier", "()V", false);
+            mv.visitMethodInsn(INVOKESTATIC, "com/bebopze/jdk/jvm/asm/ASM", "test_ASMifier", "()V", false);
             mv.visitInsn(RETURN);
             mv.visitMaxs(0, 1);
             mv.visitEnd();

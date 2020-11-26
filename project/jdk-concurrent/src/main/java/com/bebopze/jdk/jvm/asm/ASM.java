@@ -1,4 +1,4 @@
-package com.bebopze.jdk.jvm;
+package com.bebopze.jdk.jvm.asm;
 
 /**
  * @author bebopze
@@ -7,7 +7,7 @@ package com.bebopze.jdk.jvm;
 public class ASM {
 
     /**
-     * native method        // javac -h . com/bebopze/jdk/jvm/ASM.java
+     * native method        // javac -h . com/bebopze/jdk/jvm/asm/ASM.java
      *
      * @return
      */
@@ -25,7 +25,7 @@ public class ASM {
 
         // javac ASM.java       --->   ASM.class
 
-        // javac -h . com/bebopze/jdk/jvm/ASM.java
+        // javac -h . com/bebopze/jdk/jvm/asm/ASM.java
 
 
         System.out.println("ASMifier-------------");

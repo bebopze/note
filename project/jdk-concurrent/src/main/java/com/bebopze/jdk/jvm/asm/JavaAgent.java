@@ -1,4 +1,4 @@
-package com.bebopze.jdk.jvm;
+package com.bebopze.jdk.jvm.asm;
 
 import jdk.internal.org.objectweb.asm.ClassReader;
 import jdk.internal.org.objectweb.asm.ClassWriter;
@@ -22,6 +22,9 @@ public class JavaAgent {
 
 
     public static void premain(String args, Instrumentation instrumentation) {
+
+        System.out.println("premain");
+
 
         // 注册类加载事件的拦截器
 //        instrumentation.addTransformer(new MyTransformer());
