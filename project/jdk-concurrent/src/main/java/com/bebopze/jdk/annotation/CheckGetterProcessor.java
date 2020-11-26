@@ -15,7 +15,7 @@ import java.util.Set;
 
 
 /**
- * custom annotation Processor                  - 自定义 注解处理器
+ * custom annotation Processor             - 自定义 注解处理器         ==>  关键字  -->  .java 源代码   ->  非 字节码
  * -
  * -
  * - 1、定义编译规则，并检查被编译的源文件

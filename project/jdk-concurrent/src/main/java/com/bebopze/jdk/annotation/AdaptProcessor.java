@@ -14,7 +14,7 @@ import javax.tools.Diagnostic.Kind;
 
 
 /**
- * custom annotation Processor                  - 自定义 注解处理器
+ * custom annotation Processor             - 自定义 注解处理器         ==>  关键字  -->  .java 源代码   ->  非 字节码
  * -
  * -
  * - 3、生成 新的源代码
