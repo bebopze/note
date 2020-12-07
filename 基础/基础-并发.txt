@@ -741,10 +741,10 @@ JDK 1.6 中默认是开启偏向锁和轻量级锁，可以通过-XX:-UseBiasedL
         RejectedExecutionHandler handler        自定义任务的拒绝策略  // 可自扩展策略
 
              默认提供的4种策略：
-                 AbortPolicy：         默认策略，直接拒绝，并抛出异常
-                 CallerRunsPolicy：    提交任务的线程自己去执行该任务
-                 DiscardPolicy：       直接丢弃任务，没有任何异常抛出
-                 DiscardOldestPolicy： 丢弃最老的任务，把最早进入工作队列的任务丢弃，然后把新任务加入到工作队列
+                 AbortPolicy：         默认策略，直接拒绝，并抛出异常                                           // 拒绝 + 抛Ex
+                 DiscardPolicy：       直接丢弃任务，没有任何异常抛出                                           // 丢弃
+                 CallerRunsPolicy：    提交任务的线程自己去执行该任务                                           // 自执行
+                 DiscardOldestPolicy： 丢弃最老的任务，把最早进入工作队列的任务丢弃，然后把新任务加入到工作队列      // LRU淘汰
 
 
 ------------------------------------------------------------------------------------------------------------------------
