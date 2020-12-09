@@ -1,0 +1,246 @@
+核心
+
+    基础支持层 -> ORM实现
+
+        ORM -> 对象关系映射
+
+            将关系数据库中表中的记录映射成为对象  ->  以对象的形式展现  ->  程序员可以 把对数据库的操作 转化为 对对象的操作
+
+            ORM的目的  ->  以面向对象的思想 来实现对数据库的操作
+
+
+        ORM实现
+
+            反射
+
+            类型转换
+
+    核心处理层
+
+        配置文件解析  ->  初始化
+
+        xml 和 Mapper接口 的绑定
+
+
+    组件模块
+        Mybatis-Cache
+        Mybatis-log
+        Mybatis-Reflector
+        Mybatis-Alias
+        Mybatis-Cursor
+        Mybatis-DataSource
+        Mybatis-DyanmicSqlSourcce
+        Mybatis-MapperMethod
+        Mybatis-MetaObject
+        Mybatis-MethodSignature
+        Mybatis-ObjectWrapper
+        Mybatis-ParamNameResolver
+        Mybatis-SqlCommand
+        Mybats-GenericTokenParser
+
+
+------------------------------------------------------------------------------------------------------------------------
+1、基础支持层
+
+    主要看一下支撑 ORM实现 的底层代码
+
+        1、反射
+
+        2、类型转换
+
+
+
+    1、反射工具包
+
+        Reflector
+
+            主要实现了
+
+                1、对 JavaBean 的元数据属性 的封装
+
+                    如：可读属性列表、可写属性列表
+
+                2、反射操作的封装
+
+                    如：属性对应的 setter 方法，getter 方法 的反射调用
+
+
+            源码实现如下：
+
+                public class Reflector {
+
+                  /** JavaBean 的 Class类型，在调用 Reflector 的构造方法时初始化该值 */
+                  private final Class<?> type;
+
+                  /** 可读的属性列表 */
+                  private final String[] readablePropertyNames;
+                  private final String[] writablePropertyNames;
+
+                  /** key 属性名，value 该属性名对应的 setter方法调用器 */
+                  private final Map<String, Invoker> setMethods = new HashMap<>();
+                  private final Map<String, Invoker> getMethods = new HashMap<>();
+
+                  /** key 属性名称，value 该属性 setter方法的返回值类型 */
+                  private final Map<String, Class<?>> setTypes = new HashMap<>();
+                  private final Map<String, Class<?>> getTypes = new HashMap<>();
+
+                  /** type 的默认构造方法 */
+                  private Constructor<?> defaultConstructor;
+
+                  /** 所有属性名称的集合 */
+                  private Map<String, String> caseInsensitivePropertyMap = new HashMap<>();
+
+                  /**
+                   * 里面的大部分方法都是通过简单的 JDK反射操作 实现的
+                   * @param clazz
+                   */
+                  public Reflector(Class<?> clazz) {
+                    type = clazz;
+                    addDefaultConstructor(clazz);
+
+                    // 处理 clazz 中的 所有getter方法，填充 getMethods集合 和 getTypes集合
+                    addGetMethods(clazz);
+                    addSetMethods(clazz);
+
+                    // 处理没有 getter、setter方法 的字段
+                    addFields(clazz);
+
+                    // 根据 getMethods、setMethods集合 初始化可读、可写的属性
+                    readablePropertyNames = getMethods.keySet().toArray(new String[0]);
+                    writablePropertyNames = setMethods.keySet().toArray(new String[0]);
+
+                    // 初始化 caseInsensitivePropertyMap集合，key 属性名的大写，value 属性名
+                    for (String propName : readablePropertyNames) {
+                      caseInsensitivePropertyMap.put(propName.toUpperCase(Locale.ENGLISH), propName);
+                    }
+                    for (String propName : writablePropertyNames) {
+                      caseInsensitivePropertyMap.put(propName.toUpperCase(Locale.ENGLISH), propName);
+                    }
+                  }
+                }
+
+
+
+        ReflectorFactory
+
+            Reflector 的工厂模式
+
+                跟大部分工厂类一样，里面肯定有通过标识获取对象的方法。
+
+                类的设计也遵照了 接口-实现类  的模式，虽然本接口只有一个默认实现。
+
+
+        ObjectFactory
+
+            该类也是接口加一个默认实现类，并且支持自定义扩展，Mybatis 中有很多这样的设计方式
+
+
+
+
+    2、类型转换
+
+        类型转换是实现 ORM 的重要一环
+
+            由于数据库中的数据类型与 Java 语言 的数据类型并不对等
+
+            所以在 PrepareStatement 为 sql语句 绑定参数时，需要从 Java类型 转换成 JDBC类型
+
+            而从结果集获取数据时，又要将 JDBC类型 转换成 Java类型
+
+            Mybatis 使用 TypeHandler   ->   完成了上述的双向转换
+
+
+
+        JdbcType
+
+            该枚举类描述了 JDBC 中的数据类型
+
+
+        TypeHandler
+
+            TypeHandler 是 Mybatis 中所有类型转换器的顶层接口
+
+                主要用于
+                    实现数据从 Java类型 到 JdbcType类型 的相互转换
+
+
+            BaseTypeHandler 主要用于
+
+                单个参数的类型转换
+
+                如果要将多个列的值转换成一个 Java 对象，可以在映射文件中定义合适的映射规则 <resultMap> 完成映射
+
+
+
+            也可以扩展  ->  自定义转换器    // 扩展 BaseTypeHandler
+
+
+
+
+
+        TypeHandlerRegistry
+
+            TypeHandlerRegistry 主要负责  ->  管理所有已知的 TypeHandler
+
+                Mybatis 在初始化过程中  ->  会为所有已知的 TypeHandler 创建对象，并注册到 TypeHandlerRegistry
+
+                ==>  其实就是  新建对象 -> 并放入缓存map
+
+
+
+
+2、核心处理层                     // 解析xml、注解式配置  ->   初始化
+
+    同 Spring框架的IoC容器 初始化一样
+
+        Mybatis 也会通过  ->  定位、解析 相应的配置文件   ->   完成自己的初始化
+
+    Mybatis 的配置文件主要有：
+
+        mybatis-config.xml 核心配置文件
+
+        及一系列映射配置文件
+
+
+    另外，Mybatis 也支持  ->  根据注解进行配置
+
+
+
+
+    BaseBuilder
+
+        XMLConfigBuilder        ->      负责解析  mybatis-config.xml  配置文件
+
+        XMLMapperBuilder        ->      负责解析  映射                 配置文件
+
+
+    XMLStatementBuilder
+
+
+    绑定 Mapper 接口
+
+        每个映射配置文件的命名空间  ->  可以绑定一个 Mapper 接口  ->  并注册到 MapperRegistry 中
+
+            XMLMapperBuilder 的 bindMapperForNamespace()   ->   完成了 映射配置文件 与 对应Mapper接口 的绑定
+
+
+3、类解析
+
+    Mybatis-Cache
+    Mybatis-log
+    Mybatis-Reflector
+    Mybatis-Alias
+    Mybatis-Cursor
+    Mybatis-DataSource
+    Mybatis-DyanmicSqlSourcce
+    Mybatis-MapperMethod
+    Mybatis-MetaObject
+    Mybatis-MethodSignature
+    Mybatis-ObjectWrapper
+    Mybatis-ParamNameResolver
+    Mybatis-SqlCommand
+    Mybats-GenericTokenParser
+
+
+
+
