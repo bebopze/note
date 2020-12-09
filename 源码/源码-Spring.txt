@@ -1,0 +1,88 @@
+ioc的循环依赖是如何解决？
+    Spring主要用了三层缓存来完成对循环依赖的实现
+    其中第一层是singletonObjects，首先会去看singletonObjects是否已经创建了一个对象。
+    如果没有，那么从第二层缓存earlySingletonObjects提前曝光对象的缓存中获取；
+    如果没有，那么最后从第三层缓存singletonFactories单实例工厂缓存中获取。
+    当获取成功后，会把第三层缓存singletonFactories的bean去掉，加入到第二层缓存中。
+
+    这时完成A的构造后，需要填充B属性，继续第二步，发现B还没有构造，
+    于是开始B流程的构造过程，构造的时候发现需要填充A，
+    从第三层缓存singletonFactories中找到A(此时的A还没有完全构造完成，但是可以拿到A的一个引用)，
+    B拿到A的引用后，完成B自己的填充属性工作，完成初始化工作，
+    把自己放到第一层缓存singletonObjects中。
+    这时回到A的这边，在拿到B对象后，完成自己的填充属性工作。
+
+
+ioc的优点？什么是spring的依赖注入？
+
+
+    DI    依赖注入
+
+        创建对象时，需要什么资源(对象)，不需要自动创建(new) -> set进去，由Spring自动创建并注入
+
+            由容器 动态的将某个依赖关系 注入到组件之中  ==>  DI 是为了 -> 提升组件重用的频率
+
+
+    IOC   控制反转      // 一种设计思想
+
+        资源管理权限，交给 第三方-Spring 来统一管理    // 由容器来帮忙创建及注入依赖对象
+
+        这可以带来很多好处：
+
+            1、资源集中管理  ->  解约资源利用率  - 实现资源的可配置和易管理
+
+            2、松耦合  ->  降低了使用资源双方的依赖程度
+
+
+    有了IOC、DI之后
+
+        我们编程 -> 相当于只是 写配置了   ==>   代码中 申明配置  ->  告诉Spring我需要什么资源  ->  交由Spring统一管理、统一创建
+
+
+
+
+
+spring支持的bean的作用域
+    a.singlelon:spring ioc容器中只有一个实例
+    b.prototype:一个bean有多个实例
+    c.request:
+    d.session:
+    e.global-session:
+
+spring中的单例bean是线程安全的吗？
+
+    对于单例Bean,所有线程都共享一个单例实例Bean,因此是存在资源的竞争。
+
+        如果单例Bean,是一个无状态Bean
+            也就是线程中的操作不会对Bean的成员执行查询以外的操作，那么这个单例Bean是线程安全的。
+            比如Spring mvc 的 Controller、Service、Dao等，这些Bean大多是无状态的，只关注于方法本身。
+
+        对于有状态的bean
+            Spring官方提供的bean，一般提供了通过ThreadLocal去解决线程安全的方法
+            比如RequestContextHolder、TransactionSynchronizationManager、LocaleContextHolder等
+
+
+解释spring的bean生命周期
+    一些周期接口在类初始化的流程中，如果bean实现了这些接口会调用这些接口
+
+
+
+
+
+
+1、IOC
+
+
+2、AOP
+
+    动态代理
+
+        JDK动态代理             ->      接口     - 实现接口（调用 被代理对象方法）
+
+            JdkDynamicAopProxy implements AopProxy
+
+        CGLIB动态代理           ->      类       - 继承（子类重写）
+
+
+            CglibAopProxy implements AopProxy
+
