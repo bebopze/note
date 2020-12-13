@@ -1,0 +1,155 @@
+结构
+
+    ThreadLocal                        // just utils   +  Key
+
+        static class ThreadLocalMap
+
+
+    Thread                              // 持有  ->   ThreadLocalMap
+
+        ThreadLocal.ThreadLocalMap      // Map   ->   <ThreadLocal, Value>
+
+
+------------------------------------------------------------------------------------------------
+Thread  ->  持有map     ==>     每个Thread  ->  操作自己的map
+
+    K - ThreadLocal<V>     ->   弱引用        // ThreadLocal<User> user_tl = new ThreadLocal();
+
+    V - value              ->   强引用        // user_1
+
+
+
+------------------------------------------------------------------------------------------------
+GC
+
+    1、普通Thread
+
+        执行完  ->  整个Thread直接回收  ==>   属性map 也被回收    // K-V  ->  tl - value
+
+    2、线程池
+
+        执行完成  ->  Thread不回收  ==>  属性map引用 依旧存在  ->  K-V引用 依旧存在
+
+            tl     ->  弱引用
+
+            value  ->  强引用   ==>  无法回收
+
+
+        手动remove
+
+            tl    = null        // k
+            value = null        // v
+
+            entry = null        // entry
+
+
+------------------------------------------------------------------------------------------------
+set
+
+    thread -> map -> SET user_tl - user_1
+
+get
+
+    thread -> map -> get user_tl   ->   user_1
+
+remove
+
+    thread -> map -> remove user_tl
+
+----------------------------------------------------------------
+Map
+
+    static class Entry extends WeakReference<ThreadLocal<?>> {
+
+        // private ThreadLocal<?> key;     ==>    Reference -> private T referent;
+
+        Object value;
+
+        Entry(ThreadLocal<?> k, Object v) {
+
+            super(k);                               // key  ->   Entry extends Reference.referent
+
+            value = v;                              // val  ->   Entry.value
+        }
+    }
+
+
+        K  ->  ThreadLocal          // this    ->  e.get()  ->  Reference.referent
+
+        V  ->  value
+
+
+
+
+set
+
+    1、拿到Thread                              // Thread.currentThread();
+
+    2、从Thread中  ->  获取ThreadLocalMap      // t.threadLocals;
+
+    3、map为null   ->  初始化map + set K-V
+
+    4、set K-V
+
+        1、计算idx -> 拿到桶 - 链表e
+
+        2、桶是否为空
+
+            1、桶为null
+
+                1、为K-V  ->  构建Entry
+
+                2、放入桶 ->  tab[i] = e
+
+                3、++size
+
+                4、是否扩容
+
+
+            2、桶不为空
+
+                遍历链表，比较key地址值       // key -> ThreadLocal
+
+                key想同 -> 覆盖value
+
+
+
+get
+
+    1、拿到当前Thread                        // Thread.currentThread();
+
+    2、从Thread中  ->  取map属性字段         // t.threadLocals;
+
+    3、计算index   ->  获取桶e -> 链表第一个元素e
+
+    4、链表第一个元素e 与 key 比较
+
+        1、相等
+
+            1、返回e
+
+            2、返回e.value
+
+
+        2、不等
+
+
+remove
+
+    1、thread -> map
+
+    2、map -> 桶
+
+    3、遍历链表
+
+    4、删除k-v
+
+        e.clear();                        // 清除key     ==>     Reference.clear()   ->   this.referent = null
+
+
+        tab[staleSlot].value = null;      // 清除value    ==>  tab[i].
+
+
+        tab[staleSlot].value = null;
+
+内存泄漏

@@ -13,6 +13,8 @@ public class ThreadLocalModel {
 
     public static void main(String[] args) {
 
+        test_1();
+
         test__ThreadLocal();
 
         // 在线程池中，正确使用 ThreadLocal  ===> try{}finally{}方案，手动释放资源
@@ -20,6 +22,23 @@ public class ThreadLocalModel {
 
         test__InheritableThreadLocal();
     }
+
+
+    // ------------------------------------------------------------------------------------
+
+    private static final ThreadLocal<String> token = new ThreadLocal();
+    private static final ThreadLocal<String> user = new ThreadLocal();
+
+    private static void test_1() {
+
+        token.set("111");
+        user.set("ed");
+
+        System.out.println(token.get());
+
+        token.remove();
+    }
+
 
     private static void test__InheritableThreadLocal() {
 
