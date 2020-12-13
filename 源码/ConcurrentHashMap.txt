@@ -75,8 +75,8 @@ table[]也加volatile                                                          /
 
 
 锁粒度：
-    1.7  Segment.HashEntry[]            锁粒度：HashEntry[]   多个hash表
-    1.8  Node                           锁粒度：Node          单个hash表           锁粒度更低
+    1.7  Segment[i]                 多个 数组 + 链表
+    1.8  table[i]                   单个 数组 + 链表               锁粒度更低
 
 
 
