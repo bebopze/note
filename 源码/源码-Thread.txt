@@ -36,3 +36,33 @@ LockSupport
 
         await / signal、signalAll        ->      LockSupport.park(this)  /  LockSupport.unpark(node.thread);
 
+
+
+========================================================================================================================
+LockSupport.park()、Thread.sleep()、Thread.stop()                  // “中国特色” - 傻逼问题
+
+    这些方法 统一和锁  毫无关系   ->   根本就不管你 什么锁不锁的          // 谈什么狗屁 会不会释放锁啊
+
+
+
+    所谓 释放锁/不释放锁   ->   都是 管程模型 里面才有的东西
+
+
+        管程模型 解决两大核心问题  ->  同步（条件变量） + 互斥（锁）
+
+            1、互斥锁                    // 互斥
+
+            2、条件变量 - Condition      // 同步   -   线程依赖 -> 线程通信
+
+                阻塞/唤醒   =>   才涉及到   阻塞时 ->  释放锁
+
+                    wait、 notify / notifyAll       => synchronized    ->  JVM实现   锁 + 阻塞/唤醒
+
+                    await、signal / signalAll       =>  AQS  ->  state（锁资源）、 LockSupport.park/unpark（阻塞/唤醒）
+
+
+
+
+
+
+
