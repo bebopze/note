@@ -9,7 +9,7 @@ import java.util.concurrent.locks.*;
 // *
 // * ----------------------------------------------
 // *
-// *      AQS是一个用来构建锁和同步器的框架，使用AQS能简单且高效地，构造出应用广泛的大量的同步器。
+// *      AQS是一个用来构建 锁/同步器  的框架，使用AQS能简单且高效地，构造出应用广泛的大量的同步器。
 // *
 // *      比如我们提到的 ReentrantLock，Semaphore，
 // *      其他的诸如 ReentrantReadWriteLock，SynchronousQueue，FutureTask 等等皆是基于AQS的。
@@ -37,14 +37,14 @@ import java.util.concurrent.locks.*;
 // *
 // *          1.使用者继承AbstractQueuedSynchronizer并重写指定的方法。（ 这些重写方法很简单，无非是 对于共享资源state 的 获取和释放 ）
 // *
-// *          2.将AQS组合在自定义同步组件的实现中，并调用其模板方法，而这些 模板方法 会调用 使用者 重写的方法。
+// *          2.将AQS组合在自定义同步组件的实现中，并调用其模板方法，而这些模板方法 会调用 使用者重写的方法。
 // *
 // *
 // * ----------------------------------------------
 // *
 // *      如何使用：
 // *
-// *          首先，我们需要去继承AbstractQueuedSynchronizer这个类，然后我们 根据我们的需求 去 重写 相应的方法
+// *          首先，我们需要去继承AbstractQueuedSynchronizer这个类，然后我们 根据我们的需求 去重写相应的方法
 // *
 // *          比如
 // *
@@ -68,7 +68,7 @@ import java.util.concurrent.locks.*;
 // *
 // *          对于使用者来讲，
 // *
-// *          我们无需关心获取资源失败，线程排队，线程阻塞/唤醒等一系列复杂的实现，
+// *          我们无需关心 获取资源失败、线程排队、线程阻塞/唤醒等一系列复杂的实现，
 // *
 // *          这些都在AQS中为我们处理好了。
 // *
@@ -77,7 +77,7 @@ import java.util.concurrent.locks.*;
 // *
 // *          很经典的模板方法设计模式的应用，
 // *
-// *          AQS为我们定义好顶级逻辑的骨架，并提取出 公用的线程 入队列/出队列，阻塞/唤醒 等一系列复杂逻辑的实现，
+// *          AQS为我们定义好顶级逻辑的骨架，并提取出 公用的线程、入队/出队、阻塞/唤醒 等一系列复杂逻辑的实现，
 // *
 // *          将 部分简单的 可由使用者 决定的操作逻辑，延迟到 子类中 去实现 即可。
 // *
@@ -154,7 +154,7 @@ public class AQSLock implements Lock {
         }
 
 
-//        // ----------------共享模式方法,则无需重写-------------------
+//        // ----------------共享模式方法，则无需重写-------------------
 //        //  这里之所以没有定义成abstract，
 //        //  是因为独占模式下只用实现tryAcquire-tryRelease，而共享模式下只用实现tryAcquireShared-tryReleaseShared。
 //        //  如果都定义成abstract，那么每个模式也要去实现另一模式下的接口。
@@ -209,6 +209,7 @@ public class AQSLock implements Lock {
         // 获取到资源后，线程就可以去执行其临界区代码了。
 
         sync.acquire(1);
+//        sync.acquireShared(1);
     }
 
     /**
@@ -219,6 +220,7 @@ public class AQSLock implements Lock {
     @Override
     public void lockInterruptibly() throws InterruptedException {
         sync.acquireInterruptibly(1);
+//        sync.acquireSharedInterruptibly(1);
     }
 
     /**
@@ -234,6 +236,7 @@ public class AQSLock implements Lock {
     @Override
     public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
         return sync.tryAcquireNanos(1, unit.toNanos(time));
+//        return sync.tryAcquireSharedNanos(1, unit.toNanos(time));
     }
 
 
@@ -249,6 +252,7 @@ public class AQSLock implements Lock {
         // 它会释放指定量的资源，如果彻底释放了（即state=0）,它会唤醒等待队列里的其他线程来获取资源。
 
         sync.release(1);
+//        sync.releaseShared(1);
     }
 
 
@@ -269,11 +273,28 @@ public class AQSLock implements Lock {
 
     public static void main(String[] args) throws InterruptedException {
 
+        test_00();
+
         test_0();
 
         test_1();
 
         test_2();
+    }
+
+    private static boolean test_00() {
+
+        return m1() || m2();
+    }
+
+    private static boolean m1() {
+        System.out.println("----m1-----");
+        return true;
+    }
+
+    private static boolean m2() {
+        System.out.println("----m2-----");
+        return true;
     }
 
 
@@ -287,6 +308,8 @@ public class AQSLock implements Lock {
         aqsLock.tryLock();
         aqsLock.tryLock(30, TimeUnit.SECONDS);
         aqsLock.lockInterruptibly();
+
+        aqsLock.unlock();
     }
 
 
@@ -327,5 +350,18 @@ public class AQSLock implements Lock {
         //
         boolean rTryLock = readLock.tryLock();
         boolean wTryLock = writeLock.tryLock();
+
+
+//        LockSupport.park();
+//        LockSupport.unpark();
+        Condition condition1 = readLock.newCondition();
+        condition1.await();
+        condition1.signal();
+        condition1.signalAll();
+
+
+//        wait();
+//        notify();
+//        notifyAll();
     }
 }
