@@ -9,3 +9,30 @@
         Thread.currentThread().isInterrupted(true);     // true/false -> 是否 清理中断标识         默认：true -> 清理
 
 
+
+========================================================================================================================
+LockSupport
+
+    park()      ->   Thread 挂起            // 阻塞   -  wait
+
+    unpark()    ->   Thread 唤醒            // 唤醒   -  notify / notifyAll
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+阻塞/唤醒
+
+    synchronized
+
+        wait / notify 、notifyAll
+
+
+    LockSupport
+
+        park / unpark
+
+
+    Lock - Condition
+
+        await / signal、signalAll        ->      LockSupport.park(this)  /  LockSupport.unpark(node.thread);
+
