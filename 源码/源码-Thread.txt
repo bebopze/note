@@ -1,0 +1,11 @@
+1、设置线程中断标识
+
+    Thread.currentThread().interrupt();
+
+2、中断检测
+
+    Thread.interrupted();
+
+        Thread.currentThread().isInterrupted(true);     // true/false -> 是否 清理中断标识         默认：true -> 清理
+
+
