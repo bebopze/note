@@ -150,6 +150,6 @@ remove
         tab[staleSlot].value = null;      // 清除value    ==>  tab[i].
 
 
-        tab[staleSlot].value = null;
+        tab[staleSlot] = null;
 
 内存泄漏
