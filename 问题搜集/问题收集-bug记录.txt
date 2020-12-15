@@ -1,0 +1,50 @@
+1、阻塞操作      ->      务必使用 支持超时的API
+
+    await(long timeout, TimeUnit unit);
+
+
+2、阻塞任务  务必配置  独立线程池              // CountDownLatch、CyclicBarrier
+
+
+    场景：
+        CountDownLatch、CyclicBarrier   的 await()   会阻塞当前线程
+
+    如果使用线程池
+
+        1、务必配置独立线程池              ->  仅供当前操作专用
+
+        2、创建大于任务数量的线程          ->   5个task  ->  pool ≥ 5
+
+        3、使用超时API                   ->   await(long timeout, TimeUnit unit);
+
+
+    bug：
+
+        启用1个线程
+
+            private static final ExecutorService executor = Executors.newFixedThreadPool(1);
+
+
+        4个线程任务 相互等待：
+
+            CyclicBarrier barrier = new CyclicBarrier(4);
+
+                barrier.await();        ->      占用1个线程   ->  然后线程 立即被阻塞
+
+                barrier.await();        ->      申请线程      ->  无可用  线程资源
+                barrier.await();        ->      申请线程      ->  无可用  线程资源
+                barrier.await();        ->      申请线程      ->  无可用  线程资源
+
+
+            CountDownLatch latch  = new CountDownLatch(4);
+
+                latch.await();        ->      占用1个线程   ->  然后线程 立即被阻塞
+
+                latch.await();        ->      申请线程      ->  无可用  线程资源
+                latch.await();        ->      申请线程      ->  无可用  线程资源
+
+        -----------------------------------------------------------------------------------------
+        使用阻塞操作   ->   必须用独立线程池   ===>   否则阻塞  ->  导致线程池不可用！！！
+
+            任务数量 > 线程数量  ==>  1个任务  ->  占用1个线程  ->  立马被阻塞  ===>  线程池 无可用线程
+
