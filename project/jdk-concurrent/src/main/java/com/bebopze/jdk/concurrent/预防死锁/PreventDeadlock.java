@@ -248,7 +248,7 @@ public class PreventDeadlock {
 
     }
 
-    private static final ExecutorService executor = Executors.newFixedThreadPool(2);
+    private static final ExecutorService executor = Executors.newFixedThreadPool(4);
 
     static void test_CountDownLatch() throws InterruptedException {
 
@@ -324,21 +324,112 @@ public class PreventDeadlock {
     static void test_CyclicBarrier() {
 
 
-//        // 订单队列
-//        Vector<P> pos;
-//        // 派送单队列
-//        Vector<D> dos;
+        /**
+         *
+         *
+         * @param parties            相互等待的 总线程数
+         *
+         * @param barrierAction      回调函数       // 开启下一局之前  ->  最后一个到达栅栏的线程执行  ->  回调函数
+         *
+         *                                         // 先执行回调函数   ->  再执行唤醒
+         *
+         */
+        CyclicBarrier barrier = new CyclicBarrier(4, () -> {
+
+            // 用线程池执行回调函数  ->  同步转异步  提升效率
+            executor.execute(() -> System.out.println("======人到齐了，开饭吧======"));
+        });
+
+
+        // ---------------------------------------------------------------
+
+        Runnable r1 = () -> {
+            System.out.println("-----公瑾到了");
+            try {
+                barrier.await();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+
+        Runnable r2 = () -> {
+            System.out.println("-----子敬到了");
+            try {
+                barrier.await();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+
+
+        Runnable r3 = () -> {
+            System.out.println("-----吕蒙到了");
+            try {
+                barrier.await();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+
+        Runnable r4 = () -> {
+            System.out.println("-----陆逊到了");
+            try {
+                barrier.await();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+
+        // 使用阻塞操作   ->   必须用独立线程池   ===>   否则阻塞  ->  导致线程池不可用！！！
+        //
+        //      任务数量 > 线程数量  ==>  1个任务  ->  占用1个线程  ->  立马被阻塞  ===>  线程池无可用线程
+
+        executor.execute(r1);
+        executor.execute(r2);
+        executor.execute(r3);
+        executor.execute(r4);
+
+    }
+
+    /**
+     * Cyclic Barrier       循环栅栏/屏障   -->  可循环利用的屏障
+     * [ˈsaɪklɪk]  [ˈbæriər]
+     */
+    static void test_CyclicBarrier_2() {
+
+
+        System.out.println();
+
+
+//        Order order = new Order();
+//
+//        order.checkAll();
+    }
+
+
+//    static class Order {
 //
 //        // 执行回调的线程池
 //        Executor executor = Executors.newFixedThreadPool(1);
 //
 //        final CyclicBarrier barrier = new CyclicBarrier(2, () -> {
-
-        // CyclicBarrier的回调函数 执行在 一个回合里 最后执行await() 的线程上
-
-        // 回调函数执行完之后才会唤醒等待的线程     这里用了线程池执行回调函数  同步转异步 提升效率
+//
+//            // CyclicBarrier的回调函数 执行在 一个回合里 最后执行await() 的线程上
+//
+//            // 回调函数执行完之后才会唤醒等待的线程     这里用了线程池执行回调函数  同步转异步 提升效率
 //            executor.execute(() -> check());
 //        });
+//
+//
+//
+//        // ---------------------------------------------------------------------------
+//
+//        // 订单队列
+//        Vector<P> pos;
+//        // 派送单队列
+//        Vector<D> dos;
+//
+//
 //
 //        void check() {
 //            P p = pos.remove(0);
@@ -348,6 +439,7 @@ public class PreventDeadlock {
 //            // 差异写入差异库
 //            save(diff);
 //        }
+//
 //
 //        void checkAll() {
 //
@@ -373,8 +465,8 @@ public class PreventDeadlock {
 //            });
 //            T2.start();
 //        }
-
-    }
+//
+//    }
 
 
     static void test_Collections_Synchronized() {
