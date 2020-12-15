@@ -21,31 +21,31 @@ public class PreventDeadlock {
 
     public static void main(String[] args) throws InterruptedException, TimeoutException, ExecutionException {
 
-        test();
-
-
-        test_Semaphore();
-        test_Semaphore_();
-
-        test_StampedLock();
+//        test();
+//
+//
+//        test_Semaphore();
+//        test_Semaphore_();
+//
+//        test_StampedLock();
 
         test_CountDownLatch();
 
-        test_CyclicBarrier();
-
-
-        test_Collections_Synchronized();
-
-        test_Collections_Concurrent();
-
-        test_Atomic();
-
-
-        test_ThreadPool();
-
-        test_CompletableFuture();
-
-        test_CompletionService();
+//        test_CyclicBarrier();
+//
+//
+//        test_Collections_Synchronized();
+//
+//        test_Collections_Concurrent();
+//
+//        test_Atomic();
+//
+//
+//        test_ThreadPool();
+//
+//        test_CompletableFuture();
+//
+//        test_CompletionService();
 
 
         System.out.println();
@@ -248,16 +248,41 @@ public class PreventDeadlock {
 
     }
 
+    private static final ExecutorService executor = Executors.newFixedThreadPool(2);
+
     static void test_CountDownLatch() throws InterruptedException {
 
         //
         CountDownLatch countDownLatch = new CountDownLatch(10);
 
-        countDownLatch.countDown();
 
-        countDownLatch.getCount();
+        List<Callable<Void>> callableList = Lists.newArrayList();
+        for (int i = 0; i < 3; i++) {
 
+            Callable callable = (Callable<Void>) () -> {
+
+                // releaseShared  ->  state - 1
+                countDownLatch.countDown();
+
+                System.out.println("state = " + countDownLatch.getCount());
+                return null;
+            };
+
+            callableList.add(callable);
+        }
+
+        executor.invokeAll(callableList);
+
+        // getState  ->  state
+        long state = countDownLatch.getCount();
+
+
+        System.out.println("CountDownLatch ----- state1 = " + countDownLatch.getCount());
+
+        // 等待被唤醒  ->  默认唤醒条件：state = 0
         countDownLatch.await();
+
+        System.out.println("CountDownLatch ----- state2 = " + countDownLatch.getCount());
 
 
 //        // 创建2个线程的线程池
