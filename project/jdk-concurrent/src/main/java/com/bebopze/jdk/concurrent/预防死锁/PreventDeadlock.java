@@ -28,12 +28,12 @@ public class PreventDeadlock {
 //        test_Semaphore_();
 //
 //        test_StampedLock();
-
-        test_CountDownLatch();
-
-//        test_CyclicBarrier();
 //
-//
+//        test_CountDownLatch();
+
+        test_CyclicBarrier();
+
+
 //        test_Collections_Synchronized();
 //
 //        test_Collections_Concurrent();
