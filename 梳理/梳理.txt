@@ -675,7 +675,7 @@ jvm
 8、熟练掌握Dubbo、SpringCloud微服务体系
 7、熟练掌握分布式、高可用、高并发架构
 9、熟悉微服务、容器化、DevOps、云原生体系
-10、熟悉Linux常用命令
+10、熟悉Linux常用命令，熟悉Nginx等常用应用的安装搭建与运维
 
 
 
@@ -685,7 +685,7 @@ jvm
 
 3、熟练掌握并发：JMM、JUC并发包、并发容器、原子类                      - 可见性/有序性/原子性   分工/同步/互斥   线程池/ForkJoinPool（生产-消费）   CAS
 
-4、熟练掌握MySQL：DB引擎、WAL机制、innoDB事务隔离、数据库锁、索引结构、查询优化     - buffer_pool、LRU、回表、索引逻辑删除、数据逻辑删除、数据空洞
+4、熟练掌握MySQL：DB引擎、WAL机制、innoDB事务隔离（MVCC）、数据库锁、索引结构、查询优化     - buffer_pool、LRU、回表、索引逻辑删除、数据逻辑删除、数据空洞
 
 5、熟练掌握Redis、MQ、zk                                            - 数据结构、TTL、单/多线程、内存、缓存、Lua   生成-消费、解耦/异步/削峰、幂等、消息丢失
                                                                     分布式监听器（观察者模式）、分布式锁、文件系统、元数据存储、配置中心
@@ -693,6 +693,7 @@ jvm
 6、熟练掌握jvm                           - 堆、方法区(元空间)、栈、PC寄存器（线程切换）   引用计数/可达性分析   标记-清除/标记-复制/标记-整理     young/old、minor GC、full GC
 
 8、熟练掌握Dubbo、SpringCloud微服务体系                              - 提供者/注册中心/消费者、协议、序列化、幂等、分布式事务    网关/认证鉴权/容灾/限流降级/分布式追踪
+
 7、熟练掌握分布式、高可用、高并发架构                                  - 去中心化、分区存储   CAP/ACID/BASE    主从（高可用）   集群（分流）   分库分表（分布式DB）、读写分离(分流)
 
 9、熟悉微服务、容器化、DevOps、云原生体系                             - 单体 -> SOA(系统) -> 微服务(服务 + 治理) -> ServiceMesh（服务 + 代理通信/治理） ->  同一标准（服务治理抽象化 + 应用调用抽象化）
@@ -700,7 +701,7 @@ jvm
                                                                     自动化运维/发布、   Docker(环境隔离)   、  Docker管理平台（扩缩容） + 监控 +  服务治理
 
 
-10、熟悉Linux常用命令                                              - cd、 ll/ls、tar -zxvf、rm、 rm -rf、top、 vim/less/more、   history、   ps -ef|grep xx 、 ps aux|grep xx 、kill -9 pid
+10、熟悉Linux常用命令、熟悉Nginx等搭建与运维                          - cd、 ll/ls、tar -zxvf、rm、 rm -rf、top、 vim/less/more、   history、   ps -ef|grep xx 、 ps aux|grep xx 、kill -9 pid
 
                                                                     docker pull、docker build、docker images、  docker run、  docker start、docker exec、  docker stop、docker rm、docker rmi
 
