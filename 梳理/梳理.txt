@@ -729,11 +729,21 @@ jvm
 ------------------------------------------------------------------------------------------------------------------------
 对比起来讲
 
-    Java并发 VS MySQL并发
+    1、并发                     Java并发                       MySQL并发
 
-        互斥锁 + 条件变量（等待/唤醒）
+        乐观锁               CAS+自旋 / version                   MVCC
 
-        锁 + MVCC
+        悲观锁               synchronized / Lock                行锁/gap锁
+
+
+
+    2、LRU          Mysql  buffer_pool LRU           Redis 内存LRU               线程池 队列LRU
+
+                        young + old(1s+)            不淘汰，新写入报错               拒绝 + ex
+                                                    最近最少使用的 key/TTL key       拒绝
+                                                    使用频率最低的 key/TTL key       当前线程自己执行
+                                                    随机移除某个  key /TTL key       淘汰最早的task
+                                                    TTL将要过期的 key
 
 
 
