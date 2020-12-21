@@ -1,0 +1,94 @@
+1、Redis 排队
+
+    如何为Redis中list中的项设置过期时间
+
+
+    --------------------------------------------
+    1、String + TTL
+
+        1、add queue
+            set  queue:v_1  timestamp_1  ttl
+            set  queue:v_2  timestamp_2  ttl
+            set  queue:v_3  timestamp_3  ttl
+
+        2、remove queue
+
+            del  queue:v_1
+
+        3、list queue
+
+              keys
+
+
+    2、zSet
+
+        1、add queue
+
+            ZADD queue  v_1 timestamp_1
+            ZADD queue  v_2 timestamp_2
+            ZADD queue  v_1 timestamp_3
+
+        2、remove queue
+
+            ZREM queue v
+
+        3、list queue
+
+            ZRANGE queue 0 Integer.MAX WITHSCORES
+
+
+        4、ttl queue
+
+            scheduleTask  ->  scan queue
+
+            now >= timestamp  ->  del
+
+        --------------------------------------------------
+        1、add queue
+        2、remove queue
+
+        3、list queue
+
+            ZRANGE queue 0 Integer.MAX WITHSCORES
+
+            迭代  ==>   value-score
+
+            now >= timestamp（score）  ->  del + 返回里面剔除
+
+
+    -------------------------------------------------------------
+    ttl思路
+
+        主动（后台定时线程 随机检测）   +   被动（访问）   +   监听（断开连接）
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+两种解决方法：                                                         - https://www.cnblogs.com/chengege/p/11075023.html
+
+    1、有序集合（Sorted Set）
+
+        查询有序集合是非常快的，因为redis将一个列表转换成了集合，所以当我们访问它的时候，它已经是排好序的了。
+
+        根据Redis文档的描述:
+
+            “排序集是通过一个双端口数据结构实现的，其中包含一个跳跃列表和一个哈希表，所以每次我们添加一个元素Redis都会执行一个O(log(N))操作。
+            这很好，但当我们要求排序后的元素时Redis根本不需要做任何工作，它已经排好序了“
+
+        当然，你不可以对有序集合中每个项设置过期时间。
+
+        你可以通过score对有序集合进行查询，我们可以利用这个地方来形成一个解决方案： （其中score指的就是该有序集合成员的次序，默认从小到大。）
+
+            对于加入到有序集合的每个项，我们都将它的score设置为 Unix Timestamp，这个timestamp代表它的过期时间。
+            然后，我们加入一个定时任务，定时移除那些过期的数据。
+
+
+
+    2、多个集合以及过期时间
+
+        这个方案使用普通的集合
+
+        因为不能对集合中每项都设置TTL，但是可以对整个集合设置TTL。
+        所以，我们可以将每个时间段的数据放在一个集合中。然后对这个集合设置过期时间。
