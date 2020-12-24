@@ -1,0 +1,9 @@
+1、RPC调用
+
+    基于接口 动态代理   ->   JDK / javassist
+
+        ProxyFactory
+
+            JdkProxyFactory
+
+            JavaassistRpcProxyFactory       // 默认  ->  @SPI("javassist")

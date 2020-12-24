@@ -68,6 +68,8 @@
         <zkclient.version>0.11</zkclient.version>
         <zxing.version>3.4.0</zxing.version>
         <poi.version>4.1.0</poi.version>
+        <javassist.version>3.27.0-GA</javassist.version>
+        <redisson.version>3.13.2</redisson.version>
     </properties>
 
 
@@ -364,17 +366,28 @@
             <!-- zxing -->
 
 
+            <!-- javassist -->
+            <dependency>
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>${javassist.version}</version>
+            </dependency>
+            <!-- javassist -->
+
+
+            <!-- redisson -->
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson</artifactId>
-                <version>3.13.2</version>
+                <version>${redisson.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>
-                <version>3.13.2</version>
+                <version>${redisson.version}</version>
             </dependency>
+            <!-- redisson -->
+
 
         </dependencies>
     </dependencyManagement>
