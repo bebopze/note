@@ -6,4 +6,4 @@
 
             JdkProxyFactory
 
-            JavaassistRpcProxyFactory       // 默认  ->  @SPI("javassist")
+            JavassistProxyFactory       // 默认  ->  @SPI("javassist")
