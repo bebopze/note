@@ -87,11 +87,11 @@ table[]也加volatile                                                          /
 jdk1.8                                                  //  https://www.jianshu.com/p/e694f1e868ec
 
 数据结构:
-    Node[] + CAS + Synchronized                         // 数组 + 链表/红黑树 + CAS + Synchronized
+    Node[] + CAS + synchronized                         // 数组 + 链表/红黑树 + CAS + synchronized
 
 
     数据结构同JDK1.8的HashMap：     数组 + 链表/红黑树
-    安全+效率：                     CAS + Synchronized
+    安全+效率：                     CAS + synchronized
 
 
     transient volatile Node<K,V>[] table;               // Node数组
