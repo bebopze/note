@@ -325,7 +325,7 @@
 
 
 ------------------------------------------------------------------------------------------------------------------------
-PTP（点对点）、pub/sub（一对多）                                   - http://www.tianshouzhi.com/api/tutorials/rocketmq/407
+PTP（点对点）、pub/sub（一对多）                                    - http://www.tianshouzhi.com/api/tutorials/rocketmq/407
 
 
 
