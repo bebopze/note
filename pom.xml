@@ -51,7 +51,7 @@
         <mybatis-spring-boot-starter.version>2.1.1</mybatis-spring-boot-starter.version>
         <pagehelper-spring-boot-starter.version>1.2.13</pagehelper-spring-boot-starter.version>
         <activiti-spring-boot-starter-basic.version>6.0.0</activiti-spring-boot-starter-basic.version>
-        <guava.version>28.1-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <disruptor.version>3.4.2</disruptor.version>
         <fastjson.version>1.2.62</fastjson.version>
         <aliyun-sdk-oss.version>3.6.0</aliyun-sdk-oss.version>
