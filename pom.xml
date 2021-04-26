@@ -61,7 +61,7 @@
         <commons-lang3.version>3.9</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-math3.version>3.6.1</commons-math3.version>
-        <commons-io.version>2.6</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <hibernate-validator.version>7.0.0.Alpha6</hibernate-validator.version>
         <feign-okhttp.version>8.18.0</feign-okhttp.version>
         <zookeeper.version>3.5.5</zookeeper.version>
