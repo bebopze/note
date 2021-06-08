@@ -1,0 +1,9 @@
+1、Fiddler 显示/隐藏 隐藏文件
+
+    Command + Shift + .
+
+        可以显示隐藏文件、文件夹，再按一次，恢复隐藏；
+
+        Finder下使用 Command+Shift+G 可以前往任何文件夹，包括隐藏文件夹
+
+
