@@ -584,9 +584,9 @@ CPU 与 DMA引擎（direct memory access）：              // DMA - direct memo
 
                     2、workerGroup   ->  用来处理  读写请求
 
-                        socket -1    复杂均衡   ->          EventLoop -1
-                        socket -2    复杂均衡   ->          EventLoop -2
-                        socket -3    复杂均衡   ->          EventLoop -3
+                        socket -1    负载均衡   ->          EventLoop -1
+                        socket -2    负载均衡   ->          EventLoop -2
+                        socket -3    负载均衡   ->          EventLoop -3
                                         ...
 
 
@@ -599,7 +599,7 @@ CPU 与 DMA引擎（direct memory access）：              // DMA - direct memo
 
             ⼀个称为 bossGroup          ->  处理 连接请求
 
-            ⼀个称为 workerGroup        ->  处理 连接请求
+            ⼀个称为 workerGroup        ->  处理 读写请求
 
 
         为什么会有 两个EventLoopGroup：
