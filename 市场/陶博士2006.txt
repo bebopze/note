@@ -858,11 +858,11 @@ A股的欧奈尔RPS曲线   ->   必须剔除 新股的影响
 
         EXTRS：          // 技术指标公式
 
-            EXTRS:(C-REF(C,N))/REF(C,N);                // N缺省值为250
+            EXTRS:(C-REF(C,N))/REF(C,N);                // N 缺省值为250
 
 
 
-    3、建立扩展数据，对股票涨幅进行排序
+    3、扩展数据      ->   对股票涨幅进行排序
 
         1、快捷键  ==>  .902  ->  进入扩展数据管理器
 
@@ -909,11 +909,11 @@ A股的欧奈尔RPS曲线   ->   必须剔除 新股的影响
         2、股价相对强度RPS 公式代码
 
             A:=EXTDATA_USER(1,0);{250天的}
-            RPS250:A/10,LINETHICK2,COLORWHITE;
+            RPS250:A/10,LINETHICK2,COLORBLUE;
             IF(RPS250>=M,RPS250,DRAWNULL),LINETHICK2,COLORRED;
             ;
             B:=EXTDATA_USER(2,0);{120天的}
-            RPS120:B/10,LINETHICK2,COLORGREEN;
+            RPS120:B/10,LINETHICK2,COLORYELLOW;
             IF(RPS120>=M,RPS120,DRAWNULL),LINETHICK2,COLORRED;
             ;
             C1:=EXTDATA_USER(3,0);{50天的}
@@ -921,11 +921,11 @@ A股的欧奈尔RPS曲线   ->   必须剔除 新股的影响
             IF(RPS50>=M,RPS50,DRAWNULL),LINETHICK2,COLORRED;
             ;
             D:=EXTDATA_USER(4,0);{20天的}
-            RPS20:D/10,LINETHICK2,COLORGREEN;
+            RPS20:D/10,LINETHICK2,CIRCLEDOT;
             IF(RPS20>=M,RPS20,DRAWNULL),LINETHICK2,COLORRED;
             ;
             E:=EXTDATA_USER(5,0);{10天的}
-            RPS10:E/10,LINETHICK2,COLORGREEN;
+            RPS10:E/10,LINETHICK2,COLORWHITE;
             IF(RPS10>=M,RPS10,DRAWNULL),LINETHICK2,COLORRED;
 
 
