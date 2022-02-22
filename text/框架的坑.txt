@@ -1,0 +1,29 @@
+1、Mybatis-Plus
+
+    @MapperScan("com.bebop.dal.mapper")
+
+        对应的 resources目录下
+
+            是层级文件夹
+                com
+                 - bebop
+                    - dal
+                       - mapper
+
+
+        出现 Invalid bound statement (not found): org.bebop.dal.UserMapper.findAll
+
+
+            基本都是 手动创建文件夹 导致的  ->  实际只创建了 一级文件夹
+
+                一级 文件夹名 直接被命名为了 -> com.bebop.dal.mapper
+
+
+                没有创建 多级package
+
+                    这个是IDEA 文件夹层级 展示bug
+
+                    外观上无法区分...
+
+                    坑了我好久...
+
