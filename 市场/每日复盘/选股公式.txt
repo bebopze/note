@@ -1,0 +1,27 @@
+涨停启动趋势选股程序
+
+    程序语言：
+
+        ZT:=C/REF(C,1)>1.095 AND C=H;
+        FZT:=BARSSINCEN(ZT,R);
+        AA:=MA(CLOSE,5);
+        BB:=MA(CLOSE,10);
+        CC:=MA(CLOSE,30);
+        DD:=MA(CLOSE,60);
+        {EE:=MA(CLOSE,120);}
+        T1:=AA>BB AND BB>CC AND CC>DD {AND DD>EE};
+        COUNT(T1,(FZT-5))/(FZT-5)>=0.7 AND BETWEEN(FZT,F,R) AND BARSCOUNT(CLOSE)>=R+1 AND
+         { COUNT(ZT,FZT)>=2 AND }COUNT(CLOSE<ZT,FZT)/FZT<=0.2  AND C>ZT;
+
+
+
+    选股程序我一般都是把条件放得比较宽
+
+        这样不会错过机会，但是选出来的要人工审核，比如昨晚选出来的接近100个
+
+
+    我的选股条件是：
+
+        在20-40天的周期内 首次涨停之后，走趋势的个股；
+
+        走在趋势上的时间占80%以上，也就是说有可能有20%的时间走势不太好，这种就可以筛掉。
