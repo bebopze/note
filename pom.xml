@@ -53,7 +53,7 @@
         <activiti-spring-boot-starter-basic.version>6.0.0</activiti-spring-boot-starter-basic.version>
         <guava.version>28.1-jre</guava.version>
         <disruptor.version>3.4.2</disruptor.version>
-        <fastjson.version>1.2.62</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <aliyun-sdk-oss.version>3.6.0</aliyun-sdk-oss.version>
         <alipay-sdk-java.version>4.8.10.ALL</alipay-sdk-java.version>
         <springfox-swagger.version>2.9.2</springfox-swagger.version>
