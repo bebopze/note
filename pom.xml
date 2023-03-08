@@ -42,7 +42,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
-        <dubbo.version>2.7.4.1</dubbo.version>
+        <dubbo.version>2.7.21</dubbo.version>
         <seata.version>0.9.0.1</seata.version>
         <spring-boot-admin.version>2.2.0</spring-boot-admin.version>
         <zipkin-server.version>2.12.9</zipkin-server.version>
