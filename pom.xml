@@ -67,7 +67,7 @@
         <zookeeper.version>3.5.5</zookeeper.version>
         <zkclient.version>0.11</zkclient.version>
         <zxing.version>3.4.0</zxing.version>
-        <poi.version>4.1.0</poi.version>
+        <poi.version>4.1.1</poi.version>
         <javassist.version>3.27.0-GA</javassist.version>
         <redisson.version>3.13.2</redisson.version>
     </properties>
